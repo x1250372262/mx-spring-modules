@@ -1,4 +1,4 @@
-package com.mx.spring.dev.support.satoken;
+package com.mx.spring.security.config;
 
 import cn.dev33.satoken.interceptor.SaAnnotationInterceptor;
 import org.springframework.context.annotation.Configuration;

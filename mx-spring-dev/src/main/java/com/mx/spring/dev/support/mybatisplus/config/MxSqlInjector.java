@@ -16,8 +16,8 @@ import java.util.List;
 public class MxSqlInjector extends DefaultSqlInjector {
 
     @Override
-    public List<AbstractMethod> getMethodList(Class<?> mapperClass, TableInfo tableInfo) {
-        List<AbstractMethod> methodList = super.getMethodList(mapperClass, tableInfo);
+    public List<AbstractMethod> getMethodList(Class<?> mapperClass) {
+        List<AbstractMethod> methodList = super.getMethodList(mapperClass);
 //        //增加自定义方法
         methodList.add(new InsertBatchMethod());
         methodList.add(new UpdateBatchMethod());

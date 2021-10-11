@@ -1,4 +1,4 @@
-package com.mx.spring.dev.support.satoken.bean;
+package com.mx.spring.security.bean;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
