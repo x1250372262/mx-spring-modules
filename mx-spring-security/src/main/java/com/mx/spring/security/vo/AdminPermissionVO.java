@@ -1,7 +1,7 @@
 package com.mx.spring.security.vo;
 
 /**
- * @Author: 徐建鹏.
+ * @Author: mengxiang.
  * @create: 2021-09-04 15:45
  * @Description:
  */

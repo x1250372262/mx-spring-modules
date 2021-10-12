@@ -3,7 +3,7 @@ package com.mx.spring.security.bean;
 import java.io.Serializable;
 
 /**
- * @Author: 徐建鹏.
+ * @Author: mengxiang.
  * @create: 2021-09-03 15:08
  * @Description:
  */
