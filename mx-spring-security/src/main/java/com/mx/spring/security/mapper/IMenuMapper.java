@@ -18,5 +18,7 @@ import java.util.List;
 @Mapper
 public interface IMenuMapper extends MxBaseMapper<Menu> {
 
+    List<MenuNavVO> findAllByType(@Param("type") Integer type);
+
     List<MenuNavVO> findAll(@Param("adminId") String adminId);
 }

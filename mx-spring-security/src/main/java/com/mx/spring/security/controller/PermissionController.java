@@ -23,7 +23,7 @@ import java.util.List;
  * @Description:
  */
 @RestController
-@RequestMapping("/permission")
+@RequestMapping("/mx/security/permission")
 @Validated
 @Api(value = "权限模块", tags = "权限模块")
 public class PermissionController {

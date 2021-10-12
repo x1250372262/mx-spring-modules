@@ -33,7 +33,7 @@ import javax.validation.constraints.NotBlank;
  * @Description:
  */
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/mx/security/admin")
 @Validated
 @Api(value = "管理员模块", tags = "管理员模块")
 public class AdminController {

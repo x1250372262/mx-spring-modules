@@ -17,6 +17,18 @@
         id, type, parent_id, name, icon, path, url, sort
     </sql>
 
+    <select id="findAllByType" resultType="com.mx.spring.security.vo.MenuNavVO">
+        select
+        id, parent_id pid, name,name value, icon, path, url,sort
+        from mx_menu
+        <where>
+            <if test="type!=null">
+                and type = #{type}
+            </if>
+        </where>
+        order by sort
+    </select>
+
     <select id="findAll" resultType="com.mx.spring.security.vo.MenuNavVO">
         SELECT m.id, m.parent_id pid, m.name, m.name value, m.icon, m.path, m.url,m.sort
         FROM mx_menu m

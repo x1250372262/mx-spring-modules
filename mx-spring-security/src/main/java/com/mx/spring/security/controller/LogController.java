@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
  * @Description:
  */
 @RestController
-@RequestMapping("/log")
+@RequestMapping("/mx/security/log")
 @Validated
 @Api(value = "日志模块", tags = "日志模块")
 public class LogController {

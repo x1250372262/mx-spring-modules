@@ -43,7 +43,6 @@ import static com.mx.spring.security.code.SecurityCode.SECURITY_MENU_ROLE_EXISTS
 @Service
 public class MenuServiceImpl implements IMenuService {
 
-    private final Menu bean = Menu.init();
     @Autowired
     private IMenuMapper iMenuMapper;
     @Autowired
@@ -52,12 +51,12 @@ public class MenuServiceImpl implements IMenuService {
     @Override
     public M<List<MenuNavVO>> nav() throws MxException {
         if (SaUtils.isFounder()) {
-            return M.ok(BeanUtils.copyList(iMenuMapper.selectList(MMP.lqw(bean).orderByAsc(Menu::getSort)), MenuNavVO::new));
+            return M.ok(iMenuMapper.findAllByType(null));
         }
         //查询带权限的还有公开的 合并到一起
         List<MenuNavVO> list = iMenuMapper.findAll(SaUtils.loginId());
 
-        List<MenuNavVO> publicList = BeanUtils.copyList(iMenuMapper.selectList(MMP.lqw(bean).eq(Menu::getType, MenuType.PUBLIC.value()).orderByAsc(Menu::getSort)), MenuNavVO::new);
+        List<MenuNavVO> publicList = iMenuMapper.findAllByType(MenuType.PUBLIC.value());
         list.addAll(publicList);
         if (ListUtils.isNotEmpty(list)) {
             list = list.stream().sorted(Comparator.comparing(MenuNavVO::getSort)).collect(Collectors.toList());
@@ -93,7 +92,7 @@ public class MenuServiceImpl implements IMenuService {
 
     @Override
     public M<List<MenuListVO>> list() throws MxException {
-        List<MenuNavVO> menuNavVOList = BeanUtils.copyList(iMenuMapper.selectList(MMP.lqw(bean).orderByAsc(Menu::getSort)), MenuNavVO::new);
+        List<MenuNavVO> menuNavVOList = iMenuMapper.findAllByType(null);
         List<MenuListVO> menuListVOList = new ArrayList<>();
         if (ListUtils.isEmpty(menuNavVOList)) {
             return M.ok(menuListVOList);

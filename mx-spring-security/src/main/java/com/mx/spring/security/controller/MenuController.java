@@ -31,7 +31,7 @@ import java.util.List;
  * @Description:
  */
 @RestController
-@RequestMapping("/menu")
+@RequestMapping("/mx/security/menu")
 @Validated
 @Api(value = "菜单模块", tags = "菜单模块")
 public class MenuController {

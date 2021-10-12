@@ -29,7 +29,7 @@ import javax.validation.constraints.NotNull;
  * @Description:
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/mx/security/user")
 @Validated
 @Api(value = "人员管理模块", tags = "人员管理模块")
 public class UserController {
