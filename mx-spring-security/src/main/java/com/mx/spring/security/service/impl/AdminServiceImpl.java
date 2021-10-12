@@ -91,19 +91,19 @@ public class AdminServiceImpl implements IAdminService {
         StpUtil.login(admin.getId());
         SaTokenInfo saTokenInfo = StpUtil.getTokenInfo();
 
-        //设置权限角色到redis
-        setLoginAdminRoleToRedis(admin.getId());
-        //设置权限到redis
-        setLoginAdminPermissionToRedis(admin.getId());
         Token token = BeanUtils.copy(saTokenInfo, Token::new);
         token.setAdminId(admin.getId());
         //设置用户信息到redis
         SaUser saUser = BeanUtils.copy(admin, SaUser::new);
         StpUtil.getTokenSessionByToken(token.getTokenValue()).set(SESSION_ADMIN_INFO_KEY + admin.getId(), saUser);
+        //设置权限角色到redis
+        setLoginAdminRoleToRedis(admin.getId(),token.getTokenValue());
+        //设置权限到redis
+        setLoginAdminPermissionToRedis(admin.getId(),token.getTokenValue());
         return M.ok(token);
     }
 
-    public void setLoginAdminRoleToRedis(String adminId) throws MxException {
+    public void setLoginAdminRoleToRedis(String adminId,String token) throws MxException {
         //设置权限角色到redis
         //先删除redis的数据
         String redisRolekey = ADMIN_ROLE_LIST + "-" + adminId;
@@ -111,11 +111,11 @@ public class AdminServiceImpl implements IAdminService {
         if (ListUtils.isNotEmpty(redisRoleList)) {
             iRedisService.delete(redisRolekey);
         }
-        List<String> roleList = iAdminRoleService.adminRoleList(adminId);
+        List<String> roleList = iAdminRoleService.adminRoleList(adminId,token);
         iRedisService.strSet(redisRolekey, JSONObject.toJSONString(roleList));
     }
 
-    public void setLoginAdminPermissionToRedis(String adminId) throws MxException {
+    public void setLoginAdminPermissionToRedis(String adminId,String token) throws MxException {
         //设置权限角色到redis
         //先删除redis的数据
         String redisPermissionkey = ADMIN_PERMISSION_LIST + "-" + adminId;
@@ -123,7 +123,7 @@ public class AdminServiceImpl implements IAdminService {
         if (ListUtils.isNotEmpty(redisPermissionList)) {
             iRedisService.delete(redisPermissionkey);
         }
-        List<String> permissionList = iAdminRoleService.adminPermissionList(adminId);
+        List<String> permissionList = iAdminRoleService.adminPermissionList(adminId,token);
         iRedisService.strSet(redisPermissionkey, JSONObject.toJSONString(permissionList));
     }
 

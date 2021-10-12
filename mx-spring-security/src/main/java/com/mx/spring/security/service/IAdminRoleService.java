@@ -17,7 +17,7 @@ public interface IAdminRoleService {
      * @return
      * @throws MxException
      */
-    List<String> adminRoleList(String adminId) throws MxException;
+    List<String> adminRoleList(String adminId,String token) throws MxException;
 
     /**
      * 获取管理员所有权限
@@ -25,7 +25,7 @@ public interface IAdminRoleService {
      * @return
      * @throws MxException
      */
-    List<String> adminPermissionList(String adminId) throws MxException;
+    List<String> adminPermissionList(String adminId,String token) throws MxException;
 
 
 }

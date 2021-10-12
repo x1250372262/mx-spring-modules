@@ -5,6 +5,7 @@ import com.mx.spring.dev.core.Constants;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.dev.util.WebUtils;
 import com.mx.spring.security.bean.SaUser;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -19,28 +20,37 @@ import java.util.Objects;
 @Component
 public class SaUtils {
 
-    @Value("${sa-token.token-name}")
-    private static String tokenName;
-
-    @Value("${sa-token.token-name}")
-    private String token;
-
-
-    @PostConstruct
-    public void init() {
-        tokenName = token;
-    }
-
     public final static String SESSION_ADMIN_INFO_KEY = "session-user-info-";
     public final static String ADMIN_ROLE_LIST = "admin_role_list";
     public final static String ADMIN_PERMISSION_LIST = "admin_permission_list";
+    @Value("${sa-token.token-name}")
+    private static String tokenName;
+    @Value("${sa-token.token-name}")
+    private String token;
+
+    public static boolean isFounder(String loginId, String token) throws MxException {
+        if (StringUtils.isBlank(token)) {
+            token = token();
+        }
+        return Objects.equals(user(loginId, token).getFounder(), Constants.BOOL_TRUE);
+    }
+
+    public static boolean isFounder(String loginId) throws MxException {
+        if (StringUtils.isBlank(loginId)) {
+            loginId = loginId();
+        }
+        return Objects.equals(user(loginId).getFounder(), Constants.BOOL_TRUE);
+    }
 
     public static boolean isFounder() throws MxException {
-        return Objects.equals(user().getFounder(), Constants.BOOL_TRUE);
+        return isFounder(loginId());
     }
 
     public static String loginId() throws MxException {
-        String token = token();
+        return loginId(token());
+    }
+
+    public static String loginId(String token) throws MxException {
         return (String) StpUtil.getLoginIdByToken(token);
     }
 
@@ -48,7 +58,20 @@ public class SaUtils {
         return WebUtils.request().getHeader(tokenName);
     }
 
+    public static SaUser user(String loginId, String token) throws MxException {
+        return (SaUser) StpUtil.getTokenSessionByToken(token).get(SESSION_ADMIN_INFO_KEY + loginId);
+    }
+
+    public static SaUser user(String loginId) throws MxException {
+        return user(loginId, SaUtils.token());
+    }
+
     public static SaUser user() throws MxException {
-        return (SaUser) StpUtil.getTokenSessionByToken(SaUtils.token()).get(SESSION_ADMIN_INFO_KEY + loginId());
+        return user(loginId());
+    }
+
+    @PostConstruct
+    public void init() {
+        tokenName = token;
     }
 }

@@ -1,12 +1,15 @@
 package com.mx.spring.security.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
+import cn.dev33.satoken.annotation.SaCheckPermission;
+import cn.dev33.satoken.annotation.SaCheckRole;
 import com.mx.spring.dev.annotation.FormatRequest;
 import com.mx.spring.dev.core.M;
 import com.mx.spring.dev.core.Pages;
 import com.mx.spring.dev.core.R;
 import com.mx.spring.dev.dto.PageDTO;
 import com.mx.spring.dev.exception.MxException;
+import com.mx.spring.security.config.SPConfig;
 import com.mx.spring.security.dto.UserDTO;
 import com.mx.spring.security.service.IUserService;
 import com.mx.spring.security.vo.AdminRoleVO;
@@ -52,6 +55,8 @@ public class UserController {
     @FormatRequest
     @SaCheckLogin
     @ApiOperation(value = "人员列表")
+    @SaCheckRole(value = {SPConfig.SECURITY_ROLE_NAME})
+    @SaCheckPermission(value = SPConfig.SECURITY_USER_LIST)
     public M<Pages<UserListVO>> list(@ApiParam(name = "userName", value = "用户名") String userName,
                                      @ApiParam(name = "realName", value = "真实姓名") String realName,
                                      @ApiParam(name = "disableStatus", value = "状态") Integer disableStatus,
@@ -71,6 +76,8 @@ public class UserController {
     @FormatRequest
     @SaCheckLogin
     @ApiOperation(value = "添加人员")
+    @SaCheckRole(value = {SPConfig.SECURITY_ROLE_NAME})
+    @SaCheckPermission(value = SPConfig.SECURITY_USER_CREATE)
     public R create(@ApiParam(name = "password", value = "密码(前端需自行md5加密一次)", required = true)
                     @NotBlank(message = "密码不能为空") String password,
                     @Validated UserDTO userDTO) throws MxException {
@@ -90,6 +97,8 @@ public class UserController {
     @FormatRequest
     @SaCheckLogin
     @ApiOperation(value = "修改状态")
+    @SaCheckRole(value = {SPConfig.SECURITY_ROLE_NAME})
+    @SaCheckPermission(value = SPConfig.SECURITY_USER_UPDATE_STATUS)
     public R status(@ApiParam(name = "id", value = "ID", required = true)
                     @PathVariable String id,
                     @ApiParam(name = "lastModifyTime", value = "最后修改时间(乐观锁)", required = true)
@@ -111,6 +120,8 @@ public class UserController {
     @FormatRequest
     @SaCheckLogin
     @ApiOperation(value = "解锁")
+    @SaCheckRole(value = {SPConfig.SECURITY_ROLE_NAME})
+    @SaCheckPermission(value = SPConfig.SECURITY_USER_UNLOCK)
     public R unlock(@ApiParam(name = "id", value = "ID", required = true)
                     @PathVariable String id,
                     @ApiParam(name = "lastModifyTime", value = "最后修改时间(乐观锁)", required = true)
@@ -130,6 +141,8 @@ public class UserController {
     @FormatRequest
     @SaCheckLogin
     @ApiOperation(value = "重置密码")
+    @SaCheckRole(value = {SPConfig.SECURITY_ROLE_NAME})
+    @SaCheckPermission(value = SPConfig.SECURITY_USER_RESET_PASSWORD)
     public R resetPassword(@ApiParam(name = "id", value = "ID", required = true)
                            @PathVariable String id,
                            @ApiParam(name = "lastModifyTime", value = "最后修改时间(乐观锁)", required = true)
@@ -148,6 +161,8 @@ public class UserController {
     @FormatRequest
     @SaCheckLogin
     @ApiOperation(value = "人员详情")
+    @SaCheckRole(value = {SPConfig.SECURITY_ROLE_NAME})
+    @SaCheckPermission(value = SPConfig.SECURITY_USER_DETAIL)
     public M<UserVO> detail(@ApiParam(name = "id", value = "ID", required = true)
                             @PathVariable String id) throws MxException {
         return iUserService.detail(id);
@@ -166,6 +181,8 @@ public class UserController {
     @FormatRequest
     @SaCheckLogin
     @ApiOperation(value = "人员角色列表")
+    @SaCheckRole(value = {SPConfig.SECURITY_ROLE_NAME})
+    @SaCheckPermission(value = SPConfig.SECURITY_USER_ROLE_LIST)
     public M<Pages<AdminRoleVO>> roleList(@ApiParam(name = "userId", value = "人员ID")
                                           @NotNull(message = "人员ID不能为空") String userId,
                                           PageDTO<AdminRoleVO> pageDTO) throws MxException {
@@ -184,6 +201,8 @@ public class UserController {
     @FormatRequest
     @SaCheckLogin
     @ApiOperation(value = "添加人员角色")
+    @SaCheckRole(value = {SPConfig.SECURITY_ROLE_NAME})
+    @SaCheckPermission(value = SPConfig.SECURITY_USER_ROLE_CREATE)
     public R roleCreate(@ApiParam(name = "userId", value = "人员ID")
                         @NotNull(message = "人员ID不能为空") String userId,
                         @ApiParam(name = "roleId", value = "角色ID")
@@ -202,6 +221,8 @@ public class UserController {
     @FormatRequest
     @SaCheckLogin
     @ApiOperation(value = "删除人员角色")
+    @SaCheckRole(value = {SPConfig.SECURITY_ROLE_NAME})
+    @SaCheckPermission(value = SPConfig.SECURITY_USER_ROLE_DELETE)
     public R roleDelete(@ApiParam(name = "ids", value = "ids", required = true)
                         @NotNull(message = "ids不能为空")
                         @RequestParam("ids[]") String[] ids) throws MxException {

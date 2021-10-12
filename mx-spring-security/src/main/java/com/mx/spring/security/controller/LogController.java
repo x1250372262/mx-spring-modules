@@ -1,12 +1,16 @@
 package com.mx.spring.security.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
+import cn.dev33.satoken.annotation.SaCheckPermission;
+import cn.dev33.satoken.annotation.SaCheckRole;
+import cn.dev33.satoken.annotation.SaMode;
 import com.mx.spring.dev.annotation.FormatRequest;
 import com.mx.spring.dev.core.M;
 import com.mx.spring.dev.core.Pages;
 import com.mx.spring.dev.core.R;
 import com.mx.spring.dev.dto.PageDTO;
 import com.mx.spring.dev.exception.MxException;
+import com.mx.spring.security.config.SPConfig;
 import com.mx.spring.security.service.ILogService;
 import com.mx.spring.security.vo.LogVO;
 import io.swagger.annotations.Api;
@@ -47,7 +51,8 @@ public class LogController {
     @GetMapping("/list")
     @FormatRequest
     @SaCheckLogin
-    @ApiOperation(value = "人员列表")
+    @SaCheckRole(value = {SPConfig.SECURITY_ROLE_NAME})
+    @SaCheckPermission(value = SPConfig.SECURITY_LOG_LIST)
     public M<Pages<LogVO>> list(@ApiParam(name = "title", value = "标题") String title,
                                 @ApiParam(name = "startTime", value = "开始时间") Long startTime,
                                 @ApiParam(name = "endTime", value = "结束时间") Long endTime,
@@ -67,6 +72,8 @@ public class LogController {
     @FormatRequest
     @SaCheckLogin
     @ApiOperation(value = "删除日志")
+    @SaCheckRole(value = {SPConfig.SECURITY_ROLE_NAME})
+    @SaCheckPermission(value = SPConfig.SECURITY_LOG_DELETE)
     public R roleDelete(@ApiParam(name = "ids", value = "ids", required = true)
                         @NotNull(message = "ids不能为空")
                         @RequestParam("ids[]") String[] ids) throws MxException {
