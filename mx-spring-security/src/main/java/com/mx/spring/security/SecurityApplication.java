@@ -16,7 +16,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @MapperScan("com.mx.spring.security.mapper")
 @ComponentScan("com.mx.spring.*")
 //开启服务发现
-@EnableDiscoveryClient
+//@EnableDiscoveryClient
 @EnableWebMvc
 public class SecurityApplication {
 
