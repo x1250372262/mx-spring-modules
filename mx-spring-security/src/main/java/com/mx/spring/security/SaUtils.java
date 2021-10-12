@@ -5,8 +5,10 @@ import com.mx.spring.dev.core.Constants;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.dev.util.WebUtils;
 import com.mx.spring.security.bean.SaUser;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.Objects;
 
 /**
@@ -17,7 +19,18 @@ import java.util.Objects;
 @Component
 public class SaUtils {
 
-    public final static String ADMIN_SA_TOKEN_HEADER = "mxToken";
+    @Value("${sa-token.token-name}")
+    private static String tokenName;
+
+    @Value("${sa-token.token-name}")
+    private String token;
+
+
+    @PostConstruct
+    public void init() {
+        tokenName = token;
+    }
+
     public final static String SESSION_ADMIN_INFO_KEY = "session-user-info-";
     public final static String ADMIN_ROLE_LIST = "admin_role_list";
     public final static String ADMIN_PERMISSION_LIST = "admin_permission_list";
@@ -32,7 +45,7 @@ public class SaUtils {
     }
 
     public static String token() throws MxException {
-        return WebUtils.request().getHeader(ADMIN_SA_TOKEN_HEADER);
+        return WebUtils.request().getHeader(tokenName);
     }
 
     public static SaUser user() throws MxException {
