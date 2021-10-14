@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "mx-security.cross",
+      "type": "java.lang.String",
+      "description": "Description for mx-security.cross."
+  }
+] }

@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import static com.mx.spring.security.config.SPConfig.GroupEnum.*;
 
 /**
- * @Author: 徐建鹏.
+ * @Author: mengxiang.
  * @create: 2021-09-07 15:16
  * @Description: 权限配置 常量 方法
  */

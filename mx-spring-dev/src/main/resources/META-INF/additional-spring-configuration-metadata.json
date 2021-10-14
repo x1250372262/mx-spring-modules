@@ -1,23 +1,23 @@
 {
   "properties": [
     {
-      "name": "mx-mall-upload.max-size",
+      "name": "mx-upload.max-size",
       "type": "java.lang.String",
-      "description": "Description for mx-mall-upload.max-size."
+      "description": "Description for mx-upload.max-size."
     },
     {
-      "name": "mx-mall-upload.file-storage-path",
+      "name": "mx-upload.file-storage-path",
       "type": "java.lang.String",
-      "description": "Description for mx-mall-upload.file-storage-path."
+      "description": "Description for mx-upload.file-storage-path."
     },
     {
-      "name": "mx-mall-upload.content-type",
+      "name": "mx-upload.content-type",
       "type": "java.lang.String",
-      "description": "Description for mx-mall-upload.content-type."
+      "description": "Description for mx-upload.content-type."
     },
     {
-      "name": "mx-mall-upload.base-url",
+      "name": "mx-upload.base-url",
       "type": "java.lang.String",
-      "description": "Description for mx-mall-upload.base-url."
+      "description": "Description for mx-upload.base-url."
     }
   ] }

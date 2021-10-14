@@ -11,7 +11,7 @@ import java.util.Objects;
  * @Description:
  */
 @Component
-@ConfigurationProperties(prefix = "mx-mall-upload")
+@ConfigurationProperties(prefix = "mx-upload")
 public class UploadConfig {
 
     /**

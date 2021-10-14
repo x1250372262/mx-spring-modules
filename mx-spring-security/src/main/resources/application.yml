@@ -1,7 +1,10 @@
+#安全模块配置
+mx-security:
+  cross: false
 #文件上传配置
 mx-mall-upload:
   max-size: 1
-  file-storage-path: /Users/xujianpeng/Pictures/项目图片/mx-bdm/
+  file-storage-path:
   content-type: image|video
   base-url: http://192.168.1.121:9997
 server:
@@ -25,7 +28,7 @@ spring:
   #        port: 9999
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://localhost:3306/mx-bdm?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&serverTimezone=GMT&useSSL=false
+    url: jdbc:mysql://localhost:3306/db_name?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&serverTimezone=GMT&useSSL=false
     username: root
     password: root
     druid:
@@ -80,7 +83,7 @@ management:
     health:
       show-details: always
     logfile:
-      external-file: /Users/xujianpeng/ideaProject/zijixiangmu/2021/mx-spring-modules/mx-spring-security/logs/default.log
+      external-file:
 
 mybatis-plus:
   global-config:
