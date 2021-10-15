@@ -11,6 +11,7 @@
     <modules>
         <module>mx-spring-dev</module>
         <module>mx-spring-security</module>
+        <module>mx-spring-maven-plugin</module>
     </modules>
 
 
