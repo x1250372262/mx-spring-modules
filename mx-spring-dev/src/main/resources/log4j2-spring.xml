@@ -5,7 +5,7 @@
 <configuration status="WARN" monitorInterval="30">
     <Properties>
         <!-- Property就是定义一个变量,在整个配置范围内生效-->
-        <Property name="logPath">/logs</Property>
+        <Property name="logPath">/logs/</Property>
     </Properties>
     <!--定义所有的appender -->
     <appenders>
@@ -18,8 +18,8 @@
 
         <!-- 这个会打印出所有的info及以下级别的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行存档 -->
         <RollingFile name="fileInfo"
-                     fileName="${logPath}/info.log"
-                     filePattern="${logPath}/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">
+                     fileName="${logPath}/default.log"
+                     filePattern="${logPath}/$${date:yyyyMMdd}/default-%d{yyMMddHH}-%i.log">
             <PatternLayout
                     pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t][%X{logId}] %-5level %logger{3} - %msg%n"/>
             <Policies>
@@ -29,8 +29,8 @@
         </RollingFile>
 
         <RollingFile name="fileError"
-                     fileName="${logPath}/error.log"
-                     filePattern="${logPath}/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log">
+                     ffileName="${logPath}/default.log"
+                     filePattern="${logPath}/$${date:yyyyMMdd}/default-%d{yyMMddHH}-%i.log">
             <Filters>
                 <ThresholdFilter level="fatal" onMatch="DENY" onMismatch="NEUTRAL"/>
                 <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
@@ -43,8 +43,8 @@
             </Policies>
         </RollingFile>
         <RollingFile name="fileSql"
-                     fileName="${logPath}/sql.log"
-                     filePattern="${logPath}/$${date:yyyy-MM}/debug-%d{yyyy-MM-dd}-%i.log">
+                     fileName="${logPath}/default.log"
+                     filePattern="${logPath}/$${date:yyyyMMdd}/default-%d{yyMMddHH}-%i.log">
             <PatternLayout
                     pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t][%X{logId}] %-5level %logger{3} - %msg%n"/>
             <Policies>
@@ -62,16 +62,19 @@
             <appender-ref ref="Console"/>  <!-- 控制台输出 -->
             <appender-ref ref="fileInfo" /> <!-- 输出到info.log文件 -->
         </Logger>
-        <Logger name="com.mx.cms" level="info" additivity="false">
+        <Logger name="com.mx" level="All" additivity="false">
             <appender-ref ref="Console"/>
-            <appender-ref ref="fileError" />
+            <appender-ref ref="fileInfo" />
         </Logger>
-        <Logger name="com.mx.cms.mapper" level="All" additivity="false">
+        <Logger name="com.mx.dao.mapper" level="All" additivity="false">
             <appender-ref ref="Console"/>
             <appender-ref ref="fileSql"/>
         </Logger>
-        <root level="debug">
-            <appender-ref ref="RollingFileError"/>
+        <root level="all">
+            <appender-ref ref="fileError"/>
+            <appender-ref ref="fileInfo"/>
+            <appender-ref ref="Console"/>
+            <appender-ref ref="FILE" />
         </root>
     </loggers>
 
