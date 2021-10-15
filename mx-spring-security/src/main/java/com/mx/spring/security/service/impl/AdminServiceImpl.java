@@ -96,23 +96,9 @@ public class AdminServiceImpl implements IAdminService {
         //设置用户信息到redis
         SaUser saUser = BeanUtils.copy(admin, SaUser::new);
         StpUtil.getTokenSessionByToken(token.getTokenValue()).set(SESSION_ADMIN_INFO_KEY + admin.getId(), saUser);
-        //设置权限角色到redis
-        setLoginAdminRoleToRedis(admin.getId(),token.getTokenValue());
         //设置权限到redis
         setLoginAdminPermissionToRedis(admin.getId(),token.getTokenValue());
         return M.ok(token);
-    }
-
-    public void setLoginAdminRoleToRedis(String adminId,String token) throws MxException {
-        //设置权限角色到redis
-        //先删除redis的数据
-        String redisRolekey = ADMIN_ROLE_LIST + "-" + adminId;
-        List<Object> redisRoleList = JSONObject.parseArray(Convert.toStr(iRedisService.strGet(redisRolekey)));
-        if (ListUtils.isNotEmpty(redisRoleList)) {
-            iRedisService.delete(redisRolekey);
-        }
-        List<String> roleList = iAdminRoleService.adminRoleList(adminId,token);
-        iRedisService.strSet(redisRolekey, JSONObject.toJSONString(roleList));
     }
 
     public void setLoginAdminPermissionToRedis(String adminId,String token) throws MxException {

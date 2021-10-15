@@ -2,13 +2,14 @@ package com.mx.spring.security.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckPermission;
-import cn.dev33.satoken.annotation.SaCheckRole;
 import com.mx.spring.dev.annotation.FormatRequest;
 import com.mx.spring.dev.core.M;
 import com.mx.spring.dev.core.Pages;
 import com.mx.spring.dev.core.R;
 import com.mx.spring.dev.dto.PageDTO;
+import com.mx.spring.dev.enums.OperationType;
 import com.mx.spring.dev.exception.MxException;
+import com.mx.spring.security.annotation.Log;
 import com.mx.spring.security.config.SPConfig;
 import com.mx.spring.security.dto.MenuDTO;
 import com.mx.spring.security.service.IMenuService;
@@ -68,7 +69,6 @@ public class MenuController {
     @FormatRequest
     @SaCheckLogin
     @ApiOperation(value = "菜单列表")
-    @SaCheckRole(value = {SPConfig.SECURITY_ROLE_NAME})
     @SaCheckPermission(value = SPConfig.SECURITY_MENU_LIST)
     public M<List<MenuListVO>> list() throws MxException {
         return iMenuService.list();
@@ -85,8 +85,8 @@ public class MenuController {
     @FormatRequest
     @SaCheckLogin
     @ApiOperation(value = "添加菜单")
-    @SaCheckRole(value = {SPConfig.SECURITY_ROLE_NAME})
     @SaCheckPermission(value = SPConfig.SECURITY_MENU_CREATE)
+    @Log(operationType = OperationType.CREATE, title = "添加菜单")
     public R create(@Validated MenuDTO menuDTO) throws MxException {
         return iMenuService.create(menuDTO.toBean());
     }
@@ -103,8 +103,8 @@ public class MenuController {
     @FormatRequest
     @SaCheckLogin
     @ApiOperation(value = "修改菜单")
-    @SaCheckRole(value = {SPConfig.SECURITY_ROLE_NAME})
     @SaCheckPermission(value = SPConfig.SECURITY_MENU_UPDATE)
+    @Log(operationType = OperationType.UPDATE, title = "修改菜单")
     public R update(@ApiParam(name = "id", value = "ID", required = true)
                     @NotBlank(message = "ID不能为空") String id,
                     @Validated MenuDTO menuDTO) throws MxException {
@@ -122,7 +122,6 @@ public class MenuController {
     @FormatRequest
     @SaCheckLogin
     @ApiOperation(value = "菜单详情")
-    @SaCheckRole(value = {SPConfig.SECURITY_ROLE_NAME})
     @SaCheckPermission(value = SPConfig.SECURITY_MENU_DETAIL)
     public M<MenuVO> detail(@ApiParam(name = "id", value = "ID", required = true)
                             @NotBlank(message = "ID不能为空") String id) throws MxException {
@@ -140,8 +139,8 @@ public class MenuController {
     @FormatRequest
     @SaCheckLogin
     @ApiOperation(value = "删除菜单")
-    @SaCheckRole(value = {SPConfig.SECURITY_ROLE_NAME})
     @SaCheckPermission(value = SPConfig.SECURITY_MENU_DELETE)
+    @Log(operationType = OperationType.DELETE, title = "删除菜单")
     public R delete(@ApiParam(name = "id", value = "ID", required = true)
                     @NotBlank(message = "ID不能为空") String id) throws MxException {
         return iMenuService.delete(id);
@@ -160,7 +159,6 @@ public class MenuController {
     @FormatRequest
     @SaCheckLogin
     @ApiOperation(value = "菜单角色列表")
-    @SaCheckRole(value = {SPConfig.SECURITY_ROLE_NAME})
     @SaCheckPermission(value = SPConfig.SECURITY_MENU_ROLE_LIST)
     public M<Pages<MenuRoleVO>> roleList(@ApiParam(name = "menuId", value = "菜单ID", required = true)
                                          @NotBlank(message = "菜单ID不能为空") String menuId,
@@ -181,8 +179,8 @@ public class MenuController {
     @FormatRequest
     @SaCheckLogin
     @ApiOperation(value = "添加菜单角色")
-    @SaCheckRole(value = {SPConfig.SECURITY_ROLE_NAME})
     @SaCheckPermission(value = SPConfig.SECURITY_MENU_ROLE_CREATE)
+    @Log(operationType = OperationType.CREATE, title = "添加菜单角色")
     public R roleCreate(@ApiParam(name = "menuId", value = "菜单ID", required = true)
                         @NotBlank(message = "菜单ID不能为空") String menuId,
                         @ApiParam(name = "roleId", value = "角色ID", required = true)
@@ -201,8 +199,8 @@ public class MenuController {
     @FormatRequest
     @SaCheckLogin
     @ApiOperation(value = "删除菜单角色")
-    @SaCheckRole(value = {SPConfig.SECURITY_ROLE_NAME})
     @SaCheckPermission(value = SPConfig.SECURITY_MENU_ROLE_DELETE)
+    @Log(operationType = OperationType.DELETE, title = "删除菜单角色")
     public R roleDelete(@ApiParam(name = "ids", value = "ids", required = true)
                         @NotNull(message = "ids不能为空")
                         @RequestParam("ids[]") String[] ids) throws MxException {

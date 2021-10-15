@@ -5,13 +5,13 @@ import cn.dev33.satoken.stp.StpUtil;
 import com.mx.spring.dev.annotation.FormatRequest;
 import com.mx.spring.dev.core.M;
 import com.mx.spring.dev.core.R;
+import com.mx.spring.dev.enums.OperationType;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.security.SaUtils;
 import com.mx.spring.security.annotation.Log;
 import com.mx.spring.security.annotation.UniqueSubmit;
 import com.mx.spring.security.bean.Token;
 import com.mx.spring.security.dto.AdminDTO;
-import com.mx.spring.security.enums.OperationType;
 import com.mx.spring.security.service.IAdminService;
 import com.mx.spring.security.vo.AdminVO;
 import io.swagger.annotations.Api;
@@ -82,9 +82,7 @@ public class AdminController {
     @GetMapping("/info")
     @FormatRequest
     @SaCheckLogin
-//    @SaCheckRole(value = {"super-admin", "测试角色"}, mode = SaMode.OR)
     @ApiOperation(value = "管理员信息")
-//    @SaCheckPermission(value = PermissionConfig.ADMIN_INFO)
     public M<AdminVO> info() throws MxException {
         return M.ok(iAdminService.info());
     }

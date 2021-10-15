@@ -2,13 +2,14 @@ package com.mx.spring.security.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckPermission;
-import cn.dev33.satoken.annotation.SaCheckRole;
 import com.mx.spring.dev.annotation.FormatRequest;
 import com.mx.spring.dev.core.M;
 import com.mx.spring.dev.core.Pages;
 import com.mx.spring.dev.core.R;
 import com.mx.spring.dev.dto.PageDTO;
+import com.mx.spring.dev.enums.OperationType;
 import com.mx.spring.dev.exception.MxException;
+import com.mx.spring.security.annotation.Log;
 import com.mx.spring.security.config.SPConfig;
 import com.mx.spring.security.dto.RoleDTO;
 import com.mx.spring.security.model.Role;
@@ -52,7 +53,6 @@ public class RoleController {
     @FormatRequest
     @SaCheckLogin
     @ApiOperation(value = "角色列表")
-    @SaCheckRole(value = {SPConfig.SECURITY_ROLE_NAME})
     @SaCheckPermission(value = SPConfig.SECURITY_ROLE_LIST)
     public M<Pages<RoleListVO>> list(@ApiParam(name = "name", value = "角色名称") String name,
                                      PageDTO<Role> pageDTO) throws MxException {
@@ -70,8 +70,8 @@ public class RoleController {
     @FormatRequest
     @SaCheckLogin
     @ApiOperation(value = "添加角色")
-    @SaCheckRole(value = {SPConfig.SECURITY_ROLE_NAME})
     @SaCheckPermission(value = SPConfig.SECURITY_ROLE_CREATE)
+    @Log(operationType = OperationType.CREATE, title = "添加角色")
     public R create(@Validated RoleDTO roleDTO) throws MxException {
         return iRoleService.create(roleDTO.toBean());
     }
@@ -88,8 +88,8 @@ public class RoleController {
     @FormatRequest
     @SaCheckLogin
     @ApiOperation(value = "修改角色")
-    @SaCheckRole(value = {SPConfig.SECURITY_ROLE_NAME})
     @SaCheckPermission(value = SPConfig.SECURITY_ROLE_UPDATE)
+    @Log(operationType = OperationType.UPDATE, title = "修改角色")
     public R update(@ApiParam(name = "id", value = "ID", required = true)
                     @PathVariable String id,
                     @ApiParam(name = "lastModifyTime", value = "最后修改时间(乐观锁)", required = true)
@@ -109,7 +109,6 @@ public class RoleController {
     @FormatRequest
     @SaCheckLogin
     @ApiOperation(value = "角色详情")
-    @SaCheckRole(value = {SPConfig.SECURITY_ROLE_NAME})
     @SaCheckPermission(value = SPConfig.SECURITY_ROLE_DETAIL)
     public M<RoleVO> detail(@ApiParam(name = "id", value = "ID", required = true)
                             @PathVariable String id) throws MxException {
@@ -127,8 +126,8 @@ public class RoleController {
     @FormatRequest
     @SaCheckLogin
     @ApiOperation(value = "删除角色")
-    @SaCheckRole(value = {SPConfig.SECURITY_ROLE_NAME})
     @SaCheckPermission(value = SPConfig.SECURITY_ROLE_DELETE)
+    @Log(operationType = OperationType.DELETE, title = "删除角色")
     public R delete(@ApiParam(name = "ids", value = "ids", required = true)
                     @NotNull(message = "ids不能为空")
                     @RequestParam("ids[]") String[] ids) throws MxException {
@@ -147,7 +146,6 @@ public class RoleController {
     @FormatRequest
     @SaCheckLogin
     @ApiOperation(value = "角色权限列表")
-    @SaCheckRole(value = {SPConfig.SECURITY_ROLE_NAME})
     @SaCheckPermission(value = SPConfig.SECURITY_ROLE_PERMISSION_LIST)
     public R permissionList(@ApiParam(name = "id", value = "id", required = true)
                             @NotBlank(message = "id不能为空") String id) throws MxException {
@@ -167,8 +165,8 @@ public class RoleController {
     @FormatRequest
     @SaCheckLogin
     @ApiOperation(value = "角色权限绑定")
-    @SaCheckRole(value = {SPConfig.SECURITY_ROLE_NAME})
     @SaCheckPermission(value = SPConfig.SECURITY_ROLE_PERMISSION_BIND)
+    @Log(operationType = OperationType.OTHER, title = "角色权限绑定")
     public R permissionBind(@ApiParam(name = "id", value = "id", required = true)
                             @NotBlank(message = "id不能为空") String id,
                             @RequestParam(value = "permissions[]") String[] permissions) throws MxException {

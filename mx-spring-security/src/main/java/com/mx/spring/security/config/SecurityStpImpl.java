@@ -22,9 +22,7 @@ import java.util.List;
 @Component
 public class SecurityStpImpl implements StpInterface {
 
-    public final static String ROLE_LIST = "admin_role_list";
     public final static String PERMISSION_LIST = "admin_permission_list";
-    public final static String ADMIN_INFO = "admin_info";
     @Autowired
     private IAdminRoleService iAdminRoleService;
     @Autowired
@@ -67,36 +65,6 @@ public class SecurityStpImpl implements StpInterface {
 
     @Override
     public List<String> getRoleList(Object loginId, String loginType) {
-        String redisRolekey = null;
-        try {
-            redisRolekey = ROLE_LIST + "-" + SaUtils.loginId();
-        } catch (MxException e) {
-            e.printStackTrace();
-        }
-        //先从redis获取role集合  没有再去数据库获取
-        List<Object> redisRoleList = null;
-        try {
-            redisRoleList = JSONObject.parseArray(Convert.toStr(iRedisService.strGet(redisRolekey)));
-        } catch (MxException e) {
-            e.printStackTrace();
-        }
-        List<String> roleList = new ArrayList<>();
-        if (ListUtils.isNotEmpty(redisRoleList)) {
-            for (Object redisRole : redisRoleList) {
-                roleList.add(Convert.toStr(redisRole));
-            }
-        } else {
-            try {
-                roleList = iAdminRoleService.adminRoleList((String) loginId,null);
-            } catch (MxException e) {
-                e.printStackTrace();
-            }
-            try {
-                iRedisService.strSet(redisRolekey, JSONObject.toJSONString(roleList));
-            } catch (MxException e) {
-                e.printStackTrace();
-            }
-        }
-        return roleList;
+        return null;
     }
 }

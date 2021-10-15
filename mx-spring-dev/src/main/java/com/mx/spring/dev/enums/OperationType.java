@@ -1,4 +1,4 @@
-package com.mx.spring.security.enums;
+package com.mx.spring.dev.enums;
 
 public enum OperationType
 {
@@ -23,6 +23,11 @@ public enum OperationType
     DELETE("删除"),
 
     /**
+     * 其他
+     */
+    OTHER("其他"),
+
+    /**
      * 登录
      */
     LOGIN("登录");
@@ -43,6 +48,8 @@ public enum OperationType
                 return UPDATE;
             case "删除":
                 return DELETE;
+            case "其他":
+                return OTHER;
             case "登录":
                 return LOGIN;
             default:

@@ -1,7 +1,7 @@
 package com.mx.spring.security.annotation;
 
 
-import com.mx.spring.security.enums.OperationType;
+import com.mx.spring.dev.enums.OperationType;
 
 import java.lang.annotation.*;
 
