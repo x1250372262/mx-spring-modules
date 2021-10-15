@@ -185,7 +185,7 @@ public class CurdGeneratorMojo extends BaseGeneratorMojo {
         }
         propMap.put("fieldsList", fieldsList);
         propMap.put("list", true);
-        outFile(curdConfig.getDtoProjectPath(), modelName + "ListDTO.java", "/generator/DTO.ftl", propMap, curdConfig.getDtoName());
+        outFile(curdConfig.getDtoProjectPath(), modelName + "ListDTO.java", "/generator/DTOL.ftl", propMap, curdConfig.getDtoName());
         outFile(curdConfig.getBeanProjectPath(), modelName + "ListBean.java", "/generator/Bean.ftl", propMap, curdConfig.getBeanName());
     }
 
