@@ -83,12 +83,12 @@
                                                 <ul class="list-inline row lyear-uploads-pic mb-0">
                                                     <li class="col-6 col-md-4 col-lg-2">
                                                         <figure class="thumbnail">
-                                                            <img name="{field.varName}" src="/statics/images/no_image.gif">
+                                                            <img name="${field.varName}" src="/statics/images/no_image.gif">
                                                             <figcaption>
                                                                 <input type="file" filter=".png,.jpg,.jpeg,.bmp,.gif"
                                                                        class="fileInput" style="display: none;"
                                                                        name="file"/>
-                                                                <input type="hidden" name="{field.varName}" class="fileresult mx_required" mx_required_msg="${field.comment}不能为空">
+                                                                <input type="hidden" name="${field.varName}" class="fileresult mx_required" mx_required_msg="${field.comment}不能为空">
                                                                 <a class="btn btn-round btn-square btn-primary picUpload"
                                                                    href="#!">上传</a>
                                                                 <a class="btn btn-round btn-square btn-danger picDelete"
