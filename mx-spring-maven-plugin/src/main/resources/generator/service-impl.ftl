@@ -48,14 +48,15 @@ public class ${modelName}ServiceImpl implements I${modelName}Service {
         queryWrapper.eq(Objects.nonNull(${modelName?uncap_first}ListBean.get${field.varName?cap_first}()),${modelName}::get${field.varName?cap_first},${modelName?uncap_first}ListBean.get${field.varName?cap_first}());
         </#if>
         </#list>
-        Page<${modelName}> resultData = i${modelName}Mapper.selectPage(pageBean.toPage(),null);
+        Page<${modelName}> resultData = i${modelName}Mapper.selectPage(pageBean.toPage(),queryWrapper);
         return M.list(BeanUtils.copyPage(resultData,${modelName}ListVO::new));
     }
 
     @Override
     public R create(${modelName}Bean ${modelName?uncap_first}Bean) throws MxException {
         <#if (notSameField!='我的相同字段')>
-        ${modelName} ${modelName?uncap_first} = i${modelName}Mapper.selectOne(MMP.lqw(find${modelName}).eq(${modelName}::get${notSameField?cap_first}, ${modelName?uncap_first}Bean.get${notSameField?cap_first}()));
+        ${modelName} ${modelName?uncap_first} = i${modelName}Mapper.selectOne(MMP.lqw(find${modelName})
+                    .eq(${modelName}::get${notSameField?cap_first}, ${modelName?uncap_first}Bean.get${notSameField?cap_first}()));
         if (${modelName?uncap_first} != null) {
             <#if (notSameField=='name' && notSameText=='名称')>
             return R.sameName();
@@ -87,7 +88,9 @@ public class ${modelName}ServiceImpl implements I${modelName}Service {
     @Override
     public R update(String id, <#if (isCheckVersion)>Long lastModifyTime,</#if> ${modelName}Bean ${modelName?uncap_first}Bean) throws MxException {
         <#if (notSameField!='我的相同字段')>
-        ${modelName} ${modelName?uncap_first} = i${modelName}Mapper.selectOne(MMP.lqw(find${modelName}).eq(${modelName}::get${notSameField?cap_first}, ${modelName?uncap_first}Bean.get${notSameField?cap_first}()));
+        ${modelName} ${modelName?uncap_first} = i${modelName}Mapper.selectOne(MMP.lqw(find${modelName})
+                    .eq(${modelName}::get${notSameField?cap_first}, ${modelName?uncap_first}Bean.get${notSameField?cap_first}())
+                    .ne(${modelName}::getId,id));
         if (${modelName?uncap_first} != null) {
         <#if (notSameField=='name' && notSameText=='名称')>
             return R.sameName();

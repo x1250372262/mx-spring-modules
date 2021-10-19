@@ -58,6 +58,7 @@ public class UploadServiceImpl implements IUploadService {
         return StrUtil.format("{}/{}/{}/{}/{}.{}", type, year, month, day, hash, extension);
     }
 
+
     @Override
     public M<Upload> upload(MultipartFile file) throws MxException {
         if (!checkContentType(file.getContentType())) {
@@ -99,7 +100,7 @@ public class UploadServiceImpl implements IUploadService {
             baseUrl = baseUrl + "/";
         }
         String url = baseUrl + getFilePath(type, hash, extension);
-        Upload upload = new Upload(hash, file.getName(), extension, url, file.getSize(), type, System.currentTimeMillis());
+        Upload upload = new Upload(hash, targetFile.getName(), extension, url, file.getSize(), type, System.currentTimeMillis());
         return M.ok(upload);
     }
 }

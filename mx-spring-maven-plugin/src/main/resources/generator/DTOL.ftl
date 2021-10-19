@@ -2,8 +2,11 @@ package ${dtoPackageName};
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.dev.util.BeanUtils;
 import ${beanPackageName}.${modelName}<#if (list)>ListBean<#else>Bean</#if>;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+<#if (isCreateSwagger)>
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+</#if>
+import java.io.Serializable;
 import java.io.Serializable;
 
 /**

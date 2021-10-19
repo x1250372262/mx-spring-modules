@@ -1,5 +1,6 @@
 package com.mx.spring.dev.support.upload.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.mx.spring.dev.core.M;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.dev.support.upload.bean.Upload;
@@ -28,14 +29,38 @@ public class UploadController {
 
     /**
      * 上传文件
+     *
      * @param file
      * @return
      * @throws MxException
      */
     @PostMapping("/")
     @ApiOperation(value = "文件上传")
-    public M<Upload> upload(@ApiParam(value = "文件",required = true) MultipartFile file) throws MxException {
+    public M<Upload> upload(@ApiParam(value = "文件", required = true) MultipartFile file) throws MxException {
         return iUploadService.upload(file);
     }
+
+    /**
+     * 上传文件
+     *
+     * @param file
+     * @param type
+     * @return
+     * @throws MxException
+     */
+    @PostMapping("/fwb")
+    @ApiOperation(value = "文件上传")
+    public JSONObject uploadBD(@ApiParam(value = "文件", required = true) MultipartFile file, String type) throws MxException {
+        Upload upload = iUploadService.upload(file).getData();
+        JSONObject jsonObject = new JSONObject();
+        if("wang".equals(type)){
+            jsonObject.put("state", "SUCCESS");
+            jsonObject.put("title", upload.getName());
+            jsonObject.put("size", upload.getSize());
+            jsonObject.put("url", upload.getUrl());
+        }
+        return jsonObject;
+    }
+
 
 }

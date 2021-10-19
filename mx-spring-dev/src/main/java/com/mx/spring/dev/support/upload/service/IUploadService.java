@@ -20,4 +20,5 @@ public interface IUploadService {
      * @throws MxException
      */
     M<Upload> upload(MultipartFile file) throws MxException;
+
 }
