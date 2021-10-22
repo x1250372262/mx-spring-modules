@@ -1,5 +1,6 @@
 package com.mx.spring.security.aspect;
 
+import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.extra.servlet.ServletUtil;
@@ -13,7 +14,6 @@ import com.mx.spring.dev.util.WebUtils;
 import com.mx.spring.security.SaUtils;
 import com.mx.spring.security.annotation.Log;
 import com.mx.spring.security.bean.SaUser;
-import com.mx.spring.security.bean.Token;
 import com.mx.spring.security.event.OperationLogEvent;
 import com.mx.spring.security.model.OperationLog;
 import com.mx.spring.security.service.IAdminService;
@@ -97,9 +97,9 @@ public class LogAspect {
                 code = ((M<?>) ret).getCode();
                 msg = ((M<?>) ret).getMsg();
                 if (saUser == null) {
-                    Token token = (Token) ((M<?>) ret).getData();
+                    SaTokenInfo token = (SaTokenInfo) ((M<?>) ret).getData();
                     if (token != null) {
-                        adminId = token.getAdminId();
+                        adminId = Convert.toStr(token.getLoginId());
                     }
                 }
             }

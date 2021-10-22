@@ -1,11 +1,11 @@
 package com.mx.spring.security.service;
 
 
+import cn.dev33.satoken.stp.SaTokenInfo;
 import com.mx.spring.dev.core.M;
 import com.mx.spring.dev.core.R;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.security.bean.AdminBean;
-import com.mx.spring.security.bean.Token;
 import com.mx.spring.security.vo.AdminVO;
 
 /**
@@ -23,7 +23,7 @@ public interface IAdminService {
      * @return
      * @throws MxException
      */
-    M<Token> login(String userName, String password) throws MxException;
+    M<SaTokenInfo> login(String userName, String password) throws MxException;
 
 
     /**

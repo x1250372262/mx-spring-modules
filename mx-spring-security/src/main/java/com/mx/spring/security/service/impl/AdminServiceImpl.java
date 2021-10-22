@@ -17,7 +17,6 @@ import com.mx.spring.dev.util.TimeHelper;
 import com.mx.spring.security.SaUtils;
 import com.mx.spring.security.bean.AdminBean;
 import com.mx.spring.security.bean.SaUser;
-import com.mx.spring.security.bean.Token;
 import com.mx.spring.security.mapper.IAdminMapper;
 import com.mx.spring.security.model.Admin;
 import com.mx.spring.security.service.IAdminRoleService;
@@ -32,7 +31,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Objects;
 
-import static com.mx.spring.security.SaUtils.*;
+import static com.mx.spring.security.SaUtils.ADMIN_PERMISSION_LIST;
+import static com.mx.spring.security.SaUtils.SESSION_ADMIN_INFO_KEY;
 import static com.mx.spring.security.code.SecurityCode.*;
 
 /**
@@ -52,7 +52,7 @@ public class AdminServiceImpl implements IAdminService {
     private IRedisService iRedisService;
 
     @Override
-    public M<Token> login(String userName, String password) throws MxException {
+    public M<SaTokenInfo> login(String userName, String password) throws MxException {
         Admin admin = iAdminMapper.selectOne(MMP.lqw(finalAdmin).eq(Admin::getUserName, userName));
         if (admin == null) {
             return M.fail(SECURITY_LOGIN_USER_NAME_NOT_EXIST.getCode(), SECURITY_LOGIN_USER_NAME_NOT_EXIST.getMsg());
@@ -90,18 +90,15 @@ public class AdminServiceImpl implements IAdminService {
         }
         StpUtil.login(admin.getId());
         SaTokenInfo saTokenInfo = StpUtil.getTokenInfo();
-
-        Token token = BeanUtils.copy(saTokenInfo, Token::new);
-        token.setAdminId(admin.getId());
         //设置用户信息到redis
         SaUser saUser = BeanUtils.copy(admin, SaUser::new);
-        StpUtil.getTokenSessionByToken(token.getTokenValue()).set(SESSION_ADMIN_INFO_KEY + admin.getId(), saUser);
+        StpUtil.getTokenSessionByToken(saTokenInfo.getTokenValue()).set(SESSION_ADMIN_INFO_KEY + admin.getId(), saUser);
         //设置权限到redis
-        setLoginAdminPermissionToRedis(admin.getId(),token.getTokenValue());
-        return M.ok(token);
+        setLoginAdminPermissionToRedis(admin.getId(), saTokenInfo.getTokenValue());
+        return M.ok(saTokenInfo);
     }
 
-    public void setLoginAdminPermissionToRedis(String adminId,String token) throws MxException {
+    public void setLoginAdminPermissionToRedis(String adminId, String token) throws MxException {
         //设置权限角色到redis
         //先删除redis的数据
         String redisPermissionkey = ADMIN_PERMISSION_LIST + "-" + adminId;
@@ -109,7 +106,7 @@ public class AdminServiceImpl implements IAdminService {
         if (ListUtils.isNotEmpty(redisPermissionList)) {
             iRedisService.delete(redisPermissionkey);
         }
-        List<String> permissionList = iAdminRoleService.adminPermissionList(adminId,token);
+        List<String> permissionList = iAdminRoleService.adminPermissionList(adminId, token);
         iRedisService.strSet(redisPermissionkey, JSONObject.toJSONString(permissionList));
     }
 

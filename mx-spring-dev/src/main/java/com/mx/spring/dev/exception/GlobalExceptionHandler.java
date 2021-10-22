@@ -65,48 +65,27 @@ public class GlobalExceptionHandler {
      * 业务异常
      */
     @ExceptionHandler(MxException.class)
-    public Object businessException(HttpServletRequest request, MxException e) {
+    public R businessException(MxException e) {
         log.error(e.getMessage(), e);
-        if (WebUtils.isAjax(request)) {
-            return R.create(C.SYSTEM_ERROR.getCode()).msg(e.getMessage());
-        } else {
-            ModelAndView modelAndView = new ModelAndView();
-            modelAndView.addObject("msg", e.getMessage());
-            modelAndView.setViewName("error/error");
-            return modelAndView;
-        }
+        return R.create(C.SYSTEM_ERROR.getCode()).msg(e.getMessage());
     }
 
     /**
      * 登录异常
      */
     @ExceptionHandler(NotLoginException.class)
-    public Object notLoginException(HttpServletRequest request, NotLoginException e) {
+    public R notLoginException(HttpServletRequest request, NotLoginException e) {
         log.error(e.getMessage(), e);
-        if (WebUtils.isAjax(request)) {
-            return R.create(C.NOT_LOGIN.getCode()).msg(C.NOT_LOGIN.getMsg());
-        } else {
-            ModelAndView modelAndView = new ModelAndView();
-            modelAndView.addObject("msg", C.NOT_LOGIN.getMsg());
-            modelAndView.setViewName("error/error");
-            return modelAndView;
-        }
+        return R.create(C.NOT_LOGIN.getCode()).msg(C.NOT_LOGIN.getMsg());
     }
 
     /**
      * 权限
      */
     @ExceptionHandler({NotPermissionException.class, NotRoleException.class})
-    public Object notPermissionException(HttpServletRequest request, Exception e) {
+    public R notPermissionException(HttpServletRequest request, Exception e) {
         log.error(e.getMessage(), e);
-        if (WebUtils.isAjax(request)) {
-            return R.create(C.NOT_PERMISSION.getCode()).msg(C.NOT_PERMISSION.getMsg());
-        } else {
-            ModelAndView modelAndView = new ModelAndView();
-            modelAndView.addObject("msg", C.NOT_PERMISSION.getMsg());
-            modelAndView.setViewName("error/error");
-            return modelAndView;
-        }
+        return R.create(C.NOT_PERMISSION.getCode()).msg(C.NOT_PERMISSION.getMsg());
     }
 
 

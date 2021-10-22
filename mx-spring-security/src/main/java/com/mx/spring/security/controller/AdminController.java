@@ -1,6 +1,7 @@
 package com.mx.spring.security.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
+import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import com.mx.spring.dev.annotation.FormatRequest;
 import com.mx.spring.dev.core.M;
@@ -10,7 +11,6 @@ import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.security.SaUtils;
 import com.mx.spring.security.annotation.Log;
 import com.mx.spring.security.annotation.UniqueSubmit;
-import com.mx.spring.security.bean.Token;
 import com.mx.spring.security.dto.AdminDTO;
 import com.mx.spring.security.service.IAdminService;
 import com.mx.spring.security.vo.AdminVO;
@@ -53,7 +53,7 @@ public class AdminController {
     @FormatRequest
     @ApiOperation(value = "管理员登录")
     @Log(operationType = OperationType.LOGIN, title = "管理员登录")
-    public M<Token> login(@ApiParam(name = "userName", value = "用户名", required = true) @NotBlank(message = "用户名不能为空") String userName, @ApiParam(name = "password", value = "密码(前端需要自行MD5加密一次)", required = true) @NotBlank(message = "密码不能为空") String password) throws MxException {
+    public M<SaTokenInfo> login(@ApiParam(name = "userName", value = "用户名", required = true) @NotBlank(message = "用户名不能为空") String userName, @ApiParam(name = "password", value = "密码(前端需要自行MD5加密一次)", required = true) @NotBlank(message = "密码不能为空") String password) throws MxException {
         return iAdminService.login(userName, password);
     }
 
