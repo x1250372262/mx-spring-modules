@@ -1,7 +1,6 @@
 package com.mx.spring.security.config;
 
-import com.mx.spring.security.IPConfig;
-import com.mx.spring.security.bean.Permission;
+import com.mx.spring.dev.bean.Permission;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +13,7 @@ import static com.mx.spring.security.config.SPConfig.GroupEnum.*;
  * @create: 2021-09-07 15:16
  * @Description: 权限配置 常量 方法
  */
-public class SPConfig extends IPConfig{
+public class SPConfig {
 
     //菜单管理
     public static final String SECURITY_MENU_LIST = "SECURITY_MENU_LIST";
@@ -46,41 +45,48 @@ public class SPConfig extends IPConfig{
     //日志管理
     public static final String SECURITY_LOG_LIST = "SECURITY_LOG_LIST";
     public static final String SECURITY_LOG_DELETE = "SECURITY_LOG_DELETE";
+    private static final List<Permission> permissionList = new ArrayList<>();
 
     static {
         //菜单管理
-        add(new Permission(SECURITY_MENU.value(), PermissionEnum.SECURITY_MENU_LIST.value(), PermissionEnum.SECURITY_MENU_LIST.name()));
-        add(new Permission(SECURITY_MENU.value(), PermissionEnum.SECURITY_MENU_CREATE.value(), PermissionEnum.SECURITY_MENU_CREATE.name()));
-        add(new Permission(SECURITY_MENU.value(), PermissionEnum.SECURITY_MENU_UPDATE.value(), PermissionEnum.SECURITY_MENU_UPDATE.name()));
-        add(new Permission(SECURITY_MENU.value(), PermissionEnum.SECURITY_MENU_DETAIL.value(), PermissionEnum.SECURITY_MENU_DETAIL.name()));
-        add(new Permission(SECURITY_MENU.value(), PermissionEnum.SECURITY_MENU_DELETE.value(), PermissionEnum.SECURITY_MENU_DELETE.name()));
-        add(new Permission(SECURITY_MENU.value(), PermissionEnum.SECURITY_MENU_ROLE_LIST.value(), PermissionEnum.SECURITY_MENU_ROLE_LIST.name()));
-        add(new Permission(SECURITY_MENU.value(), PermissionEnum.SECURITY_MENU_ROLE_CREATE.value(), PermissionEnum.SECURITY_MENU_ROLE_CREATE.name()));
-        add(new Permission(SECURITY_MENU.value(), PermissionEnum.SECURITY_MENU_ROLE_DELETE.value(), PermissionEnum.SECURITY_MENU_ROLE_DELETE.name()));
+        permissionList.add(new Permission(SECURITY_MENU.value(), PermissionEnum.SECURITY_MENU_LIST.value(), PermissionEnum.SECURITY_MENU_LIST.name()));
+        permissionList.add(new Permission(SECURITY_MENU.value(), PermissionEnum.SECURITY_MENU_CREATE.value(), PermissionEnum.SECURITY_MENU_CREATE.name()));
+        permissionList.add(new Permission(SECURITY_MENU.value(), PermissionEnum.SECURITY_MENU_UPDATE.value(), PermissionEnum.SECURITY_MENU_UPDATE.name()));
+        permissionList.add(new Permission(SECURITY_MENU.value(), PermissionEnum.SECURITY_MENU_DETAIL.value(), PermissionEnum.SECURITY_MENU_DETAIL.name()));
+        permissionList.add(new Permission(SECURITY_MENU.value(), PermissionEnum.SECURITY_MENU_DELETE.value(), PermissionEnum.SECURITY_MENU_DELETE.name()));
+        permissionList.add(new Permission(SECURITY_MENU.value(), PermissionEnum.SECURITY_MENU_ROLE_LIST.value(), PermissionEnum.SECURITY_MENU_ROLE_LIST.name()));
+        permissionList.add(new Permission(SECURITY_MENU.value(), PermissionEnum.SECURITY_MENU_ROLE_CREATE.value(), PermissionEnum.SECURITY_MENU_ROLE_CREATE.name()));
+        permissionList.add(new Permission(SECURITY_MENU.value(), PermissionEnum.SECURITY_MENU_ROLE_DELETE.value(), PermissionEnum.SECURITY_MENU_ROLE_DELETE.name()));
         //角色管理
-        add(new Permission(SECURITY_ROLE.value(), PermissionEnum.SECURITY_ROLE_CREATE.value(), PermissionEnum.SECURITY_ROLE_CREATE.name()));
-        add(new Permission(SECURITY_ROLE.value(), PermissionEnum.SECURITY_ROLE_UPDATE.value(), PermissionEnum.SECURITY_ROLE_UPDATE.name()));
-        add(new Permission(SECURITY_ROLE.value(), PermissionEnum.SECURITY_ROLE_LIST.value(), PermissionEnum.SECURITY_ROLE_LIST.name()));
-        add(new Permission(SECURITY_ROLE.value(), PermissionEnum.SECURITY_ROLE_DETAIL.value(), PermissionEnum.SECURITY_ROLE_DETAIL.name()));
-        add(new Permission(SECURITY_ROLE.value(), PermissionEnum.SECURITY_ROLE_DELETE.value(), PermissionEnum.SECURITY_ROLE_DELETE.name()));
-        add(new Permission(SECURITY_ROLE.value(), PermissionEnum.SECURITY_ROLE_PERMISSION_LIST.value(), PermissionEnum.SECURITY_ROLE_PERMISSION_LIST.name()));
-        add(new Permission(SECURITY_ROLE.value(), PermissionEnum.SECURITY_ROLE_PERMISSION_BIND.value(), PermissionEnum.SECURITY_ROLE_PERMISSION_BIND.name()));
+        permissionList.add(new Permission(SECURITY_ROLE.value(), PermissionEnum.SECURITY_ROLE_CREATE.value(), PermissionEnum.SECURITY_ROLE_CREATE.name()));
+        permissionList.add(new Permission(SECURITY_ROLE.value(), PermissionEnum.SECURITY_ROLE_UPDATE.value(), PermissionEnum.SECURITY_ROLE_UPDATE.name()));
+        permissionList.add(new Permission(SECURITY_ROLE.value(), PermissionEnum.SECURITY_ROLE_LIST.value(), PermissionEnum.SECURITY_ROLE_LIST.name()));
+        permissionList.add(new Permission(SECURITY_ROLE.value(), PermissionEnum.SECURITY_ROLE_DETAIL.value(), PermissionEnum.SECURITY_ROLE_DETAIL.name()));
+        permissionList.add(new Permission(SECURITY_ROLE.value(), PermissionEnum.SECURITY_ROLE_DELETE.value(), PermissionEnum.SECURITY_ROLE_DELETE.name()));
+        permissionList.add(new Permission(SECURITY_ROLE.value(), PermissionEnum.SECURITY_ROLE_PERMISSION_LIST.value(), PermissionEnum.SECURITY_ROLE_PERMISSION_LIST.name()));
+        permissionList.add(new Permission(SECURITY_ROLE.value(), PermissionEnum.SECURITY_ROLE_PERMISSION_BIND.value(), PermissionEnum.SECURITY_ROLE_PERMISSION_BIND.name()));
         //人员管理
-        add(new Permission(SECURITY_USER.value(), PermissionEnum.SECURITY_USER_LIST.value(), PermissionEnum.SECURITY_USER_LIST.name()));
-        add(new Permission(SECURITY_USER.value(), PermissionEnum.SECURITY_USER_CREATE.value(), PermissionEnum.SECURITY_USER_CREATE.name()));
-        add(new Permission(SECURITY_USER.value(), PermissionEnum.SECURITY_USER_UPDATE_STATUS.value(), PermissionEnum.SECURITY_USER_UPDATE_STATUS.name()));
-        add(new Permission(SECURITY_USER.value(), PermissionEnum.SECURITY_USER_UNLOCK.value(), PermissionEnum.SECURITY_USER_UNLOCK.name()));
-        add(new Permission(SECURITY_USER.value(), PermissionEnum.SECURITY_USER_RESET_PASSWORD.value(), PermissionEnum.SECURITY_USER_RESET_PASSWORD.name()));
-        add(new Permission(SECURITY_USER.value(), PermissionEnum.SECURITY_USER_DETAIL.value(), PermissionEnum.SECURITY_USER_DETAIL.name()));
-        add(new Permission(SECURITY_USER.value(), PermissionEnum.SECURITY_USER_ROLE_LIST.value(), PermissionEnum.SECURITY_USER_ROLE_LIST.name()));
-        add(new Permission(SECURITY_USER.value(), PermissionEnum.SECURITY_USER_ROLE_CREATE.value(), PermissionEnum.SECURITY_USER_ROLE_CREATE.name()));
-        add(new Permission(SECURITY_USER.value(), PermissionEnum.SECURITY_USER_ROLE_DELETE.value(), PermissionEnum.SECURITY_USER_ROLE_DELETE.name()));
+        permissionList.add(new Permission(SECURITY_USER.value(), PermissionEnum.SECURITY_USER_LIST.value(), PermissionEnum.SECURITY_USER_LIST.name()));
+        permissionList.add(new Permission(SECURITY_USER.value(), PermissionEnum.SECURITY_USER_CREATE.value(), PermissionEnum.SECURITY_USER_CREATE.name()));
+        permissionList.add(new Permission(SECURITY_USER.value(), PermissionEnum.SECURITY_USER_UPDATE_STATUS.value(), PermissionEnum.SECURITY_USER_UPDATE_STATUS.name()));
+        permissionList.add(new Permission(SECURITY_USER.value(), PermissionEnum.SECURITY_USER_UNLOCK.value(), PermissionEnum.SECURITY_USER_UNLOCK.name()));
+        permissionList.add(new Permission(SECURITY_USER.value(), PermissionEnum.SECURITY_USER_RESET_PASSWORD.value(), PermissionEnum.SECURITY_USER_RESET_PASSWORD.name()));
+        permissionList.add(new Permission(SECURITY_USER.value(), PermissionEnum.SECURITY_USER_DETAIL.value(), PermissionEnum.SECURITY_USER_DETAIL.name()));
+        permissionList.add(new Permission(SECURITY_USER.value(), PermissionEnum.SECURITY_USER_ROLE_LIST.value(), PermissionEnum.SECURITY_USER_ROLE_LIST.name()));
+        permissionList.add(new Permission(SECURITY_USER.value(), PermissionEnum.SECURITY_USER_ROLE_CREATE.value(), PermissionEnum.SECURITY_USER_ROLE_CREATE.name()));
+        permissionList.add(new Permission(SECURITY_USER.value(), PermissionEnum.SECURITY_USER_ROLE_DELETE.value(), PermissionEnum.SECURITY_USER_ROLE_DELETE.name()));
         //日志管理
-        add(new Permission(SECURITY_LOG.value(), PermissionEnum.SECURITY_LOG_LIST.value(), PermissionEnum.SECURITY_LOG_LIST.name()));
-        add(new Permission(SECURITY_LOG.value(), PermissionEnum.SECURITY_LOG_DELETE.value(), PermissionEnum.SECURITY_LOG_DELETE.name()));
+        permissionList.add(new Permission(SECURITY_LOG.value(), PermissionEnum.SECURITY_LOG_LIST.value(), PermissionEnum.SECURITY_LOG_LIST.name()));
+        permissionList.add(new Permission(SECURITY_LOG.value(), PermissionEnum.SECURITY_LOG_DELETE.value(), PermissionEnum.SECURITY_LOG_DELETE.name()));
     }
 
+    public static List<Permission> permissionList() {
+        return permissionList;
+    }
 
+    public static List<Permission> permissionList(String groupName) {
+        return permissionList.stream().filter(permission -> permission.getGroupName().equals(groupName)).collect(Collectors.toList());
+    }
 
     public enum GroupEnum {
         SECURITY_MENU("菜单管理"), SECURITY_ROLE("角色管理"), SECURITY_USER("人员管理"), SECURITY_LOG("日志管理");

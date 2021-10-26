@@ -13,15 +13,10 @@ import org.springframework.stereotype.Component;
 public class MxSecurityConfig {
 
     /**
-     * 是否单独设置跨域
+     * 客户端名称
      */
-    private boolean cross;
+    private String clientName;
 
-    public boolean isCross() {
-        return cross;
-    }
 
-    public void setCross(boolean cross) {
-        this.cross = cross;
-    }
+
 }

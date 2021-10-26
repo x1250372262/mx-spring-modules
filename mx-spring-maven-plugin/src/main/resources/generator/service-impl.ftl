@@ -37,6 +37,8 @@ public class ${modelName}ServiceImpl implements I${modelName}Service {
     private final ${modelName} find${modelName} = ${modelName}.init();
     @Autowired
     private I${modelName}Mapper i${modelName}Mapper;
+    @Autowired
+    private SaUtils saUtils;
 
     @Override
     public M<Pages${left}${modelName}ListVO${right}> list(${modelName}ListBean ${modelName?uncap_first}ListBean, PageBean<${modelName}> pageBean) throws MxException {
@@ -68,18 +70,18 @@ public class ${modelName}ServiceImpl implements I${modelName}Service {
             t.bind()
                 .id(IdUtil.fastSimpleUUID())
                 .createTime(System.currentTimeMillis())
-                .createUser(SaUtils.loginId())
+                .createUser(saUtils.loginId())
                 .lastModifyTime(System.currentTimeMillis())
-                .lastModifyUser(SaUtils.loginId())
+                .lastModifyUser(saUtils.loginId())
         );
         <#else>
         ${modelName} ${modelName?uncap_first} = BeanUtils.copy(${modelName?uncap_first}Bean, ${modelName}::new, (s, t) ->
             t.bind()
                 .id(IdUtil.fastSimpleUUID())
                 .createTime(System.currentTimeMillis())
-                .createUser(SaUtils.loginId())
+                .createUser(saUtils.loginId())
                 .lastModifyTime(System.currentTimeMillis())
-                .lastModifyUser(SaUtils.loginId())
+                .lastModifyUser(saUtils.loginId())
         );
         </#if>
         return R.result(i${modelName}Mapper.insert(${modelName?uncap_first}));
@@ -114,7 +116,7 @@ public class ${modelName}ServiceImpl implements I${modelName}Service {
         ${modelName?uncap_first} = BeanUtils.duplicate(${modelName?uncap_first}Bean, ${modelName?uncap_first}, (s, t) -> {
             t.bind()
                 .lastModifyTime(System.currentTimeMillis())
-                .lastModifyUser(SaUtils.loginId());
+                .lastModifyUser(saUtils.loginId());
         });
         return R.result(i${modelName}Mapper.updateById(${modelName?uncap_first}));
     }
