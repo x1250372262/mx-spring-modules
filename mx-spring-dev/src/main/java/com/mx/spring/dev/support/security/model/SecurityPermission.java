@@ -24,6 +24,12 @@ public class SecurityPermission implements Serializable {
 	private java.lang.String id;
 
 	/**
+	* client
+	*/
+	@FieldInfo(comment = "client", nullable = false)
+	private java.lang.String client;
+
+	/**
 	* 权限组名称
 	*/
 	@FieldInfo(comment = "权限组名称", nullable = false)
@@ -82,6 +88,7 @@ public class SecurityPermission implements Serializable {
 	/**
 	 * 构造器
 	 *	@param id
+	 *	@param client
 	 *	@param groupName
 	 *	@param permissionName
 	 *	@param permissionCode
@@ -90,8 +97,9 @@ public class SecurityPermission implements Serializable {
 	 *	@param lastModifyUser
 	 *	@param lastModifyTime
 	 */
-	public SecurityPermission(java.lang.String id, java.lang.String groupName, java.lang.String permissionName, java.lang.String permissionCode, java.lang.String createUser, java.lang.Long createTime, java.lang.String lastModifyUser, java.lang.Long lastModifyTime) {
+	public SecurityPermission(String id, String client, String groupName, String permissionName, String permissionCode, String createUser, Long createTime, String lastModifyUser, Long lastModifyTime) {
 		this.id = id;
+		this.client = client;
 		this.groupName = groupName;
 		this.permissionName = permissionName;
 		this.permissionCode = permissionCode;
@@ -101,6 +109,7 @@ public class SecurityPermission implements Serializable {
 		this.lastModifyTime = lastModifyTime;
 	}
 
+
 	public java.lang.String getId() {
 		return id;
 	}
@@ -109,6 +118,13 @@ public class SecurityPermission implements Serializable {
 		this.id = id;
 	}
 
+	public String getClient() {
+		return client;
+	}
+
+	public void setClient(String client) {
+		this.client = client;
+	}
 
 	public java.lang.String getGroupName() {
 		return groupName;
@@ -202,6 +218,15 @@ public class SecurityPermission implements Serializable {
 			return this;
 		}
 
+		public java.lang.String client() {
+			return modelTarget.getClient();
+		}
+
+		public SecurityPermissionBuilder client(java.lang.String client) {
+			modelTarget.setClient(client);
+			return this;
+		}
+
 		public java.lang.String groupName() {
 			return modelTarget.getGroupName();
 		}
@@ -272,6 +297,7 @@ public class SecurityPermission implements Serializable {
 	 */
 	public static class FIELDS {
 		public static final String ID = "id";
+		public static final String CLIENT = "client";
 		public static final String GROUP_NAME = "group_name";
 		public static final String PERMISSION_NAME = "permission_name";
 		public static final String PERMISSION_CODE = "permission_code";

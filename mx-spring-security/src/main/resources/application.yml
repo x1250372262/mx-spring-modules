@@ -1,6 +1,7 @@
 #安全模块配置
 mx-security:
-  cross: false
+  #客户端名称 默认default
+  client:
 #文件上传配置
 mx-mall-upload:
   max-size: 1

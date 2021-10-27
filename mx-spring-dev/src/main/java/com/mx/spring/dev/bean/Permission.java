@@ -1,7 +1,7 @@
 package com.mx.spring.dev.bean;
 
 /**
- * @Author: 徐建鹏.
+ * @Author: mengxiang.
  * @create: 2021-10-18 10:04
  * @Description:
  */

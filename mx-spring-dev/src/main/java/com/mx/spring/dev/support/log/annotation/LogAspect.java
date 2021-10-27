@@ -9,7 +9,7 @@ import com.mx.spring.dev.core.M;
 import com.mx.spring.dev.core.R;
 import com.mx.spring.dev.enums.OperationType;
 import com.mx.spring.dev.support.log.event.OperationLogEvent;
-import com.mx.spring.dev.support.log.model.OperationLog;
+import com.mx.spring.dev.support.log.model.SecurityLog;
 import com.mx.spring.dev.support.security.SaUtils;
 import com.mx.spring.dev.support.security.model.SecurityUser;
 import com.mx.spring.dev.util.WebUtils;
@@ -98,7 +98,7 @@ public class LogAspect {
             HttpServletRequest request = WebUtils.request();
             String userAgentStr = request.getHeader("user-agent");
             // *========数据库日志=========*//
-            OperationLog operationLog = OperationLog.builder()
+            SecurityLog operationLog = SecurityLog.builder()
                     .id(IdUtil.fastSimpleUUID())
                     .title(log.title())
                     .type(log.operationType().name())

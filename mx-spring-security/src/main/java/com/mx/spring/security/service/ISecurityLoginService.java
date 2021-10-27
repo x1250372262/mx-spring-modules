@@ -28,22 +28,20 @@ public interface ISecurityLoginService {
 
 
     /**
+     * 退出登录
+     * @return
+     * @throws MxException
+     */
+    R logout() throws MxException;
+
+
+    /**
      * 获取登录人信息
      *
      * @return
      * @throws Exception
      */
     SecurityLoginVO info() throws MxException;
-
-
-    /**
-     * 登录人详情
-     *
-     * @param id
-     * @return
-     * @throws MxException
-     */
-    SecurityLoginVO detail(String id) throws MxException;
 
     /**
      * 修改登录人信息

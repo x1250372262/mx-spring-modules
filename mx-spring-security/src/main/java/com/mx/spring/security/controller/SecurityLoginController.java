@@ -64,8 +64,7 @@ public class SecurityLoginController {
     @FormatRequest
     @ApiOperation(value = "管理员退出")
     public R logout() throws MxException {
-        StpUtil.logout();
-        return R.ok();
+        return iSecurityLoginService.logout();
     }
 
     /**

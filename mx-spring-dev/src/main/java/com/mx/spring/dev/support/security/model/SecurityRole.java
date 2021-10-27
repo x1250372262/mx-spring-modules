@@ -24,6 +24,12 @@ public class SecurityRole implements Serializable {
 	private java.lang.String id;
 
 	/**
+	* client
+	*/
+	@FieldInfo(comment = "client", nullable = false)
+	private java.lang.String client;
+
+	/**
 	* 名称
 	*/
 	@FieldInfo(comment = "名称", nullable = false)
@@ -76,6 +82,7 @@ public class SecurityRole implements Serializable {
 	/**
 	 * 构造器
 	 *	@param id
+	 *	@param client
 	 *	@param name
 	 *	@param remark
 	 *	@param createUser
@@ -83,8 +90,9 @@ public class SecurityRole implements Serializable {
 	 *	@param lastModifyUser
 	 *	@param lastModifyTime
 	 */
-	public SecurityRole(java.lang.String id, java.lang.String name, java.lang.String remark, java.lang.String createUser, java.lang.Long createTime, java.lang.String lastModifyUser, java.lang.Long lastModifyTime) {
+	public SecurityRole(String id, String client, String name, String remark, String createUser, Long createTime, String lastModifyUser, Long lastModifyTime) {
 		this.id = id;
+		this.client = client;
 		this.name = name;
 		this.remark = remark;
 		this.createUser = createUser;
@@ -92,6 +100,7 @@ public class SecurityRole implements Serializable {
 		this.lastModifyUser = lastModifyUser;
 		this.lastModifyTime = lastModifyTime;
 	}
+
 
 	public java.lang.String getId() {
 		return id;
@@ -101,6 +110,13 @@ public class SecurityRole implements Serializable {
 		this.id = id;
 	}
 
+	public String getClient() {
+		return client;
+	}
+
+	public void setClient(String client) {
+		this.client = client;
+	}
 
 	public java.lang.String getName() {
 		return name;
@@ -181,8 +197,20 @@ public class SecurityRole implements Serializable {
 			return modelTarget.getId();
 		}
 
+
 		public SecurityRoleBuilder id(java.lang.String id) {
 			modelTarget.setId(id);
+			return this;
+		}
+
+
+		public java.lang.String client() {
+			return modelTarget.getClient();
+		}
+
+
+		public SecurityRoleBuilder client(java.lang.String client) {
+			modelTarget.setClient(client);
 			return this;
 		}
 
@@ -247,6 +275,7 @@ public class SecurityRole implements Serializable {
 	 */
 	public static class FIELDS {
 		public static final String ID = "id";
+		public static final String CLIENT = "client";
 		public static final String NAME = "name";
 		public static final String REMARK = "remark";
 		public static final String CREATE_USER = "create_user";

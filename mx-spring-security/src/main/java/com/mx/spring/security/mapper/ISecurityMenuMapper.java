@@ -18,7 +18,7 @@ import java.util.List;
 public interface ISecurityMenuMapper extends MxBaseMapper<SecurityMenu> {
 
 
-    List<SecurityMenuNavVO> findAllByType(@Param("type") Integer type);
+    List<SecurityMenuNavVO> findAllByType(@Param("type") Integer type, @Param("client") String client);
 
-    List<SecurityMenuNavVO> findAll(@Param("userId") String userId);
+    List<SecurityMenuNavVO> findAll(@Param("userId") String userId, @Param("client") String client);
 }

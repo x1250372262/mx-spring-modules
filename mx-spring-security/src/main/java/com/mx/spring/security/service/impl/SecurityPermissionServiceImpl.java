@@ -2,9 +2,11 @@ package com.mx.spring.security.service.impl;
 
 import com.mx.spring.dev.core.M;
 import com.mx.spring.dev.exception.MxException;
+import com.mx.spring.dev.support.mybatisplus.MMP;
 import com.mx.spring.dev.support.security.model.SecurityPermission;
 import com.mx.spring.dev.util.BeanUtils;
 import com.mx.spring.dev.util.ListUtils;
+import com.mx.spring.security.config.MxSecurityConfig;
 import com.mx.spring.security.mapper.ISecurityPermissionMapper;
 import com.mx.spring.security.service.ISecurityPermissionService;
 import com.mx.spring.security.vo.SecurityPermissionSelectVO;
@@ -27,11 +29,13 @@ public class SecurityPermissionServiceImpl implements ISecurityPermissionService
 
     @Autowired
     private ISecurityPermissionMapper iPermissionMapper;
+    @Autowired
+    private MxSecurityConfig config;
 
     @Override
     public M<List<SecurityPermissionSelectVO>> list() throws MxException {
         List<SecurityPermissionSelectVO> permissionSelectVOList = new ArrayList<>();
-        List<SecurityPermission> permissionList = iPermissionMapper.selectList(null);
+        List<SecurityPermission> permissionList = iPermissionMapper.selectList(MMP.lqw(SecurityPermission.init()).eq(SecurityPermission::getClient,config.getClient()));
         if (ListUtils.isEmpty(permissionList)) {
             return M.ok(permissionSelectVOList);
         }

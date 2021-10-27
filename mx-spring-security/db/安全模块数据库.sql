@@ -11,11 +11,37 @@
  Target Server Version : 50724
  File Encoding         : 65001
 
- Date: 26/10/2021 11:13:11
+ Date: 27/10/2021 17:26:08
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for mx_security_log
+-- ----------------------------
+DROP TABLE IF EXISTS `mx_security_log`;
+CREATE TABLE `mx_security_log` (
+  `id` varchar(32) NOT NULL COMMENT 'id',
+  `title` varchar(50) NOT NULL COMMENT '标题',
+  `type` varchar(32) NOT NULL COMMENT '类型具体看配置',
+  `type_name` varchar(32) NOT NULL COMMENT '类型名称',
+  `user_id` varchar(32) NOT NULL COMMENT '操作人',
+  `user_name` varchar(100) NOT NULL COMMENT '操作人名称',
+  `create_time` bigint(13) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `request_url` varchar(255) NOT NULL COMMENT '请求路径',
+  `request_param` text COMMENT '请求参数',
+  `return_code` varchar(50) NOT NULL COMMENT '返回错误码',
+  `return_message` text NOT NULL COMMENT '返回错误信息',
+  `return_result` text NOT NULL COMMENT '返回结果',
+  `class_name` varchar(255) NOT NULL COMMENT '类名称',
+  `method_name` varchar(255) NOT NULL COMMENT '方法名',
+  `ip` varchar(50) NOT NULL COMMENT 'ip地址',
+  `location` varchar(255) NOT NULL COMMENT '位置',
+  `os` varchar(255) NOT NULL COMMENT '操作系统',
+  `browser` varchar(255) NOT NULL COMMENT '浏览器',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='操作日志表';
 
 -- ----------------------------
 -- Table structure for mx_security_menu
@@ -23,6 +49,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `mx_security_menu`;
 CREATE TABLE `mx_security_menu` (
   `id` varchar(32) NOT NULL COMMENT 'id',
+  `client` varchar(100) NOT NULL DEFAULT 'default' COMMENT '客户端',
   `type` smallint(1) NOT NULL DEFAULT '0' COMMENT '菜单类型 0默认 1公开 2拥有者可看',
   `parent_id` varchar(32) NOT NULL COMMENT '父id',
   `name` varchar(100) NOT NULL COMMENT '菜单名称',
@@ -55,6 +82,7 @@ CREATE TABLE `mx_security_menu_role` (
 DROP TABLE IF EXISTS `mx_security_permission`;
 CREATE TABLE `mx_security_permission` (
   `id` varchar(32) NOT NULL COMMENT 'id',
+  `client` varchar(100) NOT NULL COMMENT '客户端',
   `group_name` varchar(32) NOT NULL COMMENT '权限组名称',
   `permission_name` varchar(32) NOT NULL COMMENT '权限名称',
   `permission_code` varchar(100) NOT NULL COMMENT '权限码',
@@ -71,6 +99,7 @@ CREATE TABLE `mx_security_permission` (
 DROP TABLE IF EXISTS `mx_security_role`;
 CREATE TABLE `mx_security_role` (
   `id` varchar(32) NOT NULL COMMENT 'id',
+  `client` varchar(100) NOT NULL COMMENT '客户端',
   `name` varchar(100) NOT NULL COMMENT '名称',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   `create_user` varchar(32) NOT NULL COMMENT '创建人',
@@ -103,6 +132,7 @@ CREATE TABLE `mx_security_role_permission` (
 DROP TABLE IF EXISTS `mx_security_user`;
 CREATE TABLE `mx_security_user` (
   `id` varchar(32) NOT NULL COMMENT 'id',
+  `client` varchar(100) NOT NULL COMMENT '客户端',
   `user_name` varchar(32) NOT NULL COMMENT '用户名',
   `real_name` varchar(32) DEFAULT NULL COMMENT '真实姓名',
   `photo_uri` text COMMENT '头像',

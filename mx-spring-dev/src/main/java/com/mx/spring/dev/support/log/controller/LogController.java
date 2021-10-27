@@ -11,7 +11,7 @@ import com.mx.spring.dev.enums.OperationType;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.dev.support.log.LPConfig;
 import com.mx.spring.dev.support.log.annotation.Log;
-import com.mx.spring.dev.support.log.model.OperationLog;
+import com.mx.spring.dev.support.log.model.SecurityLog;
 import com.mx.spring.dev.support.log.service.ILogService;
 import com.mx.spring.dev.support.log.vo.LogVO;
 import io.swagger.annotations.Api;
@@ -56,7 +56,7 @@ public class LogController {
     public M<Pages<LogVO>> list(@ApiParam(name = "title", value = "标题") String title,
                                 @ApiParam(name = "startTime", value = "开始时间") Long startTime,
                                 @ApiParam(name = "endTime", value = "结束时间") Long endTime,
-                                PageDTO<OperationLog> pageDTO) throws MxException {
+                                PageDTO<SecurityLog> pageDTO) throws MxException {
         return iLogService.list(title, startTime, endTime, pageDTO.toBean());
     }
 
@@ -74,7 +74,7 @@ public class LogController {
     @ApiOperation(value = "删除日志")
     @SaCheckPermission(value = LPConfig.LOG_DELETE)
     @Log(operationType = OperationType.DELETE, title = "删除日志")
-    public R roleDelete(@ApiParam(name = "ids", value = "ids", required = true)
+    public R delete(@ApiParam(name = "ids", value = "ids", required = true)
                         @NotNull(message = "ids不能为空")
                         @RequestParam("ids[]") String[] ids) throws MxException {
         return iLogService.delete(ids);

@@ -68,7 +68,7 @@ public class SecurityUserController {
      * 添加人员
      *
      * @param password
-     * @param userDTO
+     * @param securityUserDTO
      * @return
      * @throws MxException
      */

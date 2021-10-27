@@ -24,6 +24,12 @@ public class SecurityMenu implements Serializable {
 	private java.lang.String id;
 
 	/**
+	* 客户端
+	*/
+	@FieldInfo(comment = "client", nullable = false)
+	private java.lang.String client;
+
+	/**
 	* 菜单类型 0默认 1公开 2拥有者可看
 	*/
 	@FieldInfo(comment = "菜单类型 0默认 1公开 2拥有者可看", nullable = false)
@@ -82,6 +88,7 @@ public class SecurityMenu implements Serializable {
 	/**
 	 * 构造器
 	 *	@param id
+	 *	@param client
 	 *	@param type
 	 *	@param parentId
 	 *	@param name
@@ -90,8 +97,9 @@ public class SecurityMenu implements Serializable {
 	 *	@param url
 	 *	@param sort
 	 */
-	public SecurityMenu(java.lang.String id, java.lang.Integer type, java.lang.String parentId, java.lang.String name, java.lang.String icon, java.lang.String path, java.lang.String url, java.lang.Integer sort) {
+	public SecurityMenu(java.lang.String id,java.lang.String client, java.lang.Integer type, java.lang.String parentId, java.lang.String name, java.lang.String icon, java.lang.String path, java.lang.String url, java.lang.Integer sort) {
 		this.id = id;
+		this.client = client;
 		this.type = type;
 		this.parentId = parentId;
 		this.name = name;
@@ -109,6 +117,13 @@ public class SecurityMenu implements Serializable {
 		this.id = id;
 	}
 
+	public String getClient() {
+		return client;
+	}
+
+	public void setClient(String client) {
+		this.client = client;
+	}
 
 	public java.lang.Integer getType() {
 		return type;
@@ -202,6 +217,15 @@ public class SecurityMenu implements Serializable {
 			return this;
 		}
 
+		public java.lang.String client() {
+			return modelTarget.getClient();
+		}
+
+		public SecurityMenuBuilder client(java.lang.String client) {
+			modelTarget.setClient(client);
+			return this;
+		}
+
 		public java.lang.Integer type() {
 			return modelTarget.getType();
 		}
@@ -272,6 +296,7 @@ public class SecurityMenu implements Serializable {
 	 */
 	public static class FIELDS {
 		public static final String ID = "id";
+		public static final String CLIENT = "client";
 		public static final String TYPE = "type";
 		public static final String PARENT_ID = "parent_id";
 		public static final String NAME = "name";

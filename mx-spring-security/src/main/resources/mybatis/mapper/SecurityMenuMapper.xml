@@ -4,6 +4,7 @@
 
     <resultMap id="BaseResultMap" type="com.mx.spring.dev.support.security.model.SecurityMenu">
          <id property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="client" column="client" jdbcType="VARCHAR"/>
         <result property="type" column="type" jdbcType="SMALLINT"/>
         <result property="parentId" column="parent_id" jdbcType="VARCHAR"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
@@ -14,19 +15,17 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, type, parent_id, name, icon, path, url, sort
+        id,client ,type, parent_id, name, icon, path, url, sort
     </sql>
 
     <select id="findAllByType" resultType="com.mx.spring.security.vo.SecurityMenuNavVO">
-        select
-        id, parent_id pid, name,name value, icon, path, url,sort
-        from mx_security_menu
-        <where>
-            <if test="type!=null">
-                and type = #{type}
-            </if>
-        </where>
-        order by sort
+        SELECT id ,parent_id pid, name,name value, icon, path, url,sort
+        FROM mx_security_menu
+        WHERE client = #{client}
+        <if test="type!=null">
+        AND type = #{type}
+        </if>
+        ORDER BY sort
     </select>
 
     <select id="findAll" resultType="com.mx.spring.security.vo.SecurityMenuNavVO">
@@ -35,7 +34,8 @@
         LEFT JOIN mx_security_menu_role smr ON sm.id = smr.menu_id
         LEFT JOIN mx_security_user_role sur ON sur.role_id = smr.role_id
         WHERE sur.user_id = #{userId}
-        AND sm.type=0
+        AND sm.type = 0
+        AND sm.client = #{client}
         ORDER BY sm.sort
     </select>
 

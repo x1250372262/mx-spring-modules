@@ -16,6 +16,6 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface ISecurityUserMapper extends MxBaseMapper<SecurityUser> {
 
-    Page<SecurityUserListVO> findAll(@Param("userName") String userName, @Param("realName") String realName, @Param("disableStatus") Integer disableStatus, Page<SecurityUserListVO> page);
+    Page<SecurityUserListVO> findAll(@Param("userName") String userName, @Param("realName") String realName, @Param("disableStatus") Integer disableStatus,@Param("client") String client, Page<SecurityUserListVO> page);
 
 }

@@ -10,12 +10,12 @@ import java.io.Serializable;
  * @Time: 15:14:05.
  * @Description: 2021/10/22 15:14:05 生成 OperationLog
  */
-@TableName("mx_operation_log")
-public class OperationLog implements Serializable {
+@TableName("mx_security_log")
+public class SecurityLog implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final String TABLE_NAME = "mx_operation_log";
+	public static final String TABLE_NAME = "mx_security_log";
 
 	/**
 	* id
@@ -129,14 +129,14 @@ public class OperationLog implements Serializable {
 	/**
 	* 初始化
 	*/
-	public static OperationLog init() {
-		return new OperationLog();
+	public static SecurityLog init() {
+		return new SecurityLog();
 	}
 
 	/**
 	 * 构造器
 	 */
-	public OperationLog() {
+	public SecurityLog() {
 	}
 
 	/**
@@ -160,7 +160,7 @@ public class OperationLog implements Serializable {
 	 *	@param os
 	 *	@param browser
 	 */
-	public OperationLog(java.lang.String id, java.lang.String title, java.lang.String type, java.lang.String typeName, java.lang.String userId, java.lang.String userName, java.lang.Long createTime, java.lang.String requestUrl, java.lang.String requestParam, java.lang.String returnCode, java.lang.String returnMessage, java.lang.String returnResult, java.lang.String className, java.lang.String methodName, java.lang.String ip, java.lang.String location, java.lang.String os, java.lang.String browser) {
+	public SecurityLog(java.lang.String id, java.lang.String title, java.lang.String type, java.lang.String typeName, java.lang.String userId, java.lang.String userName, java.lang.Long createTime, java.lang.String requestUrl, java.lang.String requestParam, java.lang.String returnCode, java.lang.String returnMessage, java.lang.String returnResult, java.lang.String className, java.lang.String methodName, java.lang.String ip, java.lang.String location, java.lang.String os, java.lang.String browser) {
 		this.id = id;
 		this.title = title;
 		this.type = type;
@@ -339,17 +339,17 @@ public class OperationLog implements Serializable {
 
 	public static class OperationLogBuilder {
 
-		private final OperationLog modelTarget;
+		private final SecurityLog modelTarget;
 
 		public OperationLogBuilder() {
-			modelTarget = new OperationLog();
+			modelTarget = new SecurityLog();
 		}
 
-		public OperationLogBuilder(OperationLog model) {
+		public OperationLogBuilder(SecurityLog model) {
 			modelTarget = model;
 		}
 
-		public OperationLog build() {
+		public SecurityLog build() {
 			return modelTarget;
 		}
 

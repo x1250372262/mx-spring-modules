@@ -2,6 +2,7 @@ package com.mx.spring.security.service.impl;
 
 import cn.hutool.core.util.IdUtil;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.mx.spring.dev.bean.PageBean;
 import com.mx.spring.dev.core.M;
 import com.mx.spring.dev.core.Pages;
@@ -16,6 +17,7 @@ import com.mx.spring.dev.support.security.model.SecurityUserRole;
 import com.mx.spring.dev.util.BeanUtils;
 import com.mx.spring.dev.util.ListUtils;
 import com.mx.spring.security.bean.SecurityRoleBean;
+import com.mx.spring.security.config.MxSecurityConfig;
 import com.mx.spring.security.mapper.ISecurityPermissionMapper;
 import com.mx.spring.security.mapper.ISecurityRoleMapper;
 import com.mx.spring.security.mapper.ISecurityRolePermissionMapper;
@@ -53,10 +55,15 @@ public class SecurityRoleServiceImpl implements ISecurityRoleService {
     private ISecurityPermissionMapper iPermissionMapper;
     @Autowired
     private SaUtils saUtils;
+    @Autowired
+    private MxSecurityConfig config;
 
     @Override
     public M<Pages<SecurityRoleListVO>> list(String name, PageBean<SecurityRole> pageBean) throws MxException {
-        return M.list(BeanUtils.copyPage(iRoleMapper.selectPage(pageBean.toPage(), MMP.lqw(findRole).like(StringUtils.isNotBlank(name), SecurityRole::getName, name)), SecurityRoleListVO::new));
+        LambdaQueryWrapper<SecurityRole> lambdaQueryWrapper = MMP.lqw(findRole)
+                .like(StringUtils.isNotBlank(name), SecurityRole::getName, name)
+                .eq(SecurityRole::getClient, config.getClient());
+        return M.list(BeanUtils.copyPage(iRoleMapper.selectPage(pageBean.toPage(), lambdaQueryWrapper), SecurityRoleListVO::new));
     }
 
     @Override
@@ -68,6 +75,7 @@ public class SecurityRoleServiceImpl implements ISecurityRoleService {
         role = BeanUtils.copy(roleBean, SecurityRole::new, (s, t) ->
                 t.bind()
                         .id(IdUtil.fastSimpleUUID())
+                        .client(config.getClient())
                         .createTime(System.currentTimeMillis())
                         .createUser(saUtils.loginId())
                         .lastModifyTime(System.currentTimeMillis())

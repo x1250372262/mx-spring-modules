@@ -6,7 +6,7 @@ import com.mx.spring.dev.core.M;
 import com.mx.spring.dev.core.Pages;
 import com.mx.spring.dev.core.R;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.support.log.model.OperationLog;
+import com.mx.spring.dev.support.log.model.SecurityLog;
 import com.mx.spring.dev.support.log.vo.LogVO;
 
 /**
@@ -27,7 +27,7 @@ public interface ILogService {
      * @return
      * @throws MxException
      */
-    M<Pages<LogVO>> list(String title, Long startTime, Long endTime, PageBean<OperationLog> pageBean) throws MxException;
+    M<Pages<LogVO>> list(String title, Long startTime, Long endTime, PageBean<SecurityLog> pageBean) throws MxException;
 
 
     /**

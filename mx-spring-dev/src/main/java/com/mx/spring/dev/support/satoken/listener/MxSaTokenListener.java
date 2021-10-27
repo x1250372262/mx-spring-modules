@@ -9,8 +9,8 @@ import cn.hutool.http.useragent.UserAgentUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.mx.spring.dev.enums.OperationType;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.support.log.mapper.IOperationLogMapper;
-import com.mx.spring.dev.support.log.model.OperationLog;
+import com.mx.spring.dev.support.log.mapper.ISecurityLogMapper;
+import com.mx.spring.dev.support.log.model.SecurityLog;
 import com.mx.spring.dev.support.security.SaUtils;
 import com.mx.spring.dev.util.WebUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @Author: 徐建鹏.
+ * @Author: mengxiang.
  * @create: 2021-10-22 16:52
  * @Description:
  */
@@ -28,16 +28,16 @@ import javax.servlet.http.HttpServletRequest;
 public class MxSaTokenListener implements SaTokenListener {
 
     @Autowired
-    private IOperationLogMapper iOperationLogMapper;
+    private ISecurityLogMapper iOperationLogMapper;
     @Autowired
     private SaUtils saUtils;
 
-    private OperationLog createOperationLog(String title, JSONObject jsonObject, String methodName,String loginId) throws MxException {
+    private SecurityLog createOperationLog(String title, JSONObject jsonObject, String methodName, String loginId) throws MxException {
         HttpServletRequest request = WebUtils.request();
         String userAgentStr = request.getHeader("user-agent");
         String userName = StringUtils.defaultIfBlank(WebUtils.request().getParameter("userName"),"管理员:id:"+loginId);
         // *========数据库日志=========*//
-        return OperationLog.builder()
+        return SecurityLog.builder()
                 .id(IdUtil.fastSimpleUUID())
                 .title(title)
                 .type(OperationType.LOGIN.name())
@@ -67,7 +67,7 @@ public class MxSaTokenListener implements SaTokenListener {
         jsonObject.put("code","0");
         jsonObject.put("msg","登录成功");
         try {
-            OperationLog operationLog = createOperationLog("管理员登录",jsonObject, "login",Convert.toStr(loginId));
+            SecurityLog operationLog = createOperationLog("管理员登录",jsonObject, "login",Convert.toStr(loginId));
             iOperationLogMapper.insert(operationLog);
         } catch (MxException e) {
             e.printStackTrace();
@@ -80,7 +80,7 @@ public class MxSaTokenListener implements SaTokenListener {
         jsonObject.put("code","0");
         jsonObject.put("msg","退出成功");
         try {
-            OperationLog operationLog = createOperationLog("管理员退出",jsonObject, "logout", Convert.toStr(loginId));
+            SecurityLog operationLog = createOperationLog("管理员退出",jsonObject, "logout", Convert.toStr(loginId));
             iOperationLogMapper.insert(operationLog);
         } catch (MxException e) {
             e.printStackTrace();

@@ -1,7 +1,7 @@
 package com.mx.spring.dev.support.log.event;
 
-import com.mx.spring.dev.support.log.mapper.IOperationLogMapper;
-import com.mx.spring.dev.support.log.model.OperationLog;
+import com.mx.spring.dev.support.log.mapper.ISecurityLogMapper;
+import com.mx.spring.dev.support.log.model.SecurityLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.Order;
@@ -17,13 +17,13 @@ import org.springframework.stereotype.Component;
 public class OperationLogListener {
 
     @Autowired
-    private IOperationLogMapper iOperationLogMapper;
+    private ISecurityLogMapper iOperationLogMapper;
 
     @Async
     @Order
     @EventListener(OperationLogEvent.class)
     public void saveSysLog(OperationLogEvent event) {
-        OperationLog operationLog = (OperationLog) event.getSource();
+        SecurityLog operationLog = (SecurityLog) event.getSource();
         iOperationLogMapper.insert(operationLog);
     }
 }

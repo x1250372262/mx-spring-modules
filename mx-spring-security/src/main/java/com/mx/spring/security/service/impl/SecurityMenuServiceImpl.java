@@ -14,6 +14,7 @@ import com.mx.spring.dev.util.BeanUtils;
 import com.mx.spring.dev.util.ListUtils;
 import com.mx.spring.dev.util.MapUtils;
 import com.mx.spring.security.bean.SecurityMenuBean;
+import com.mx.spring.security.config.MxSecurityConfig;
 import com.mx.spring.security.enums.MenuType;
 import com.mx.spring.security.mapper.ISecurityMenuMapper;
 import com.mx.spring.security.mapper.ISecurityMenuRoleMapper;
@@ -49,16 +50,18 @@ public class SecurityMenuServiceImpl implements ISecurityMenuService {
     private ISecurityMenuRoleMapper iMenuRoleMapper;
     @Autowired
     private SaUtils saUtils;
+    @Autowired
+    private MxSecurityConfig config;
 
     @Override
     public M<List<SecurityMenuNavVO>> nav() throws MxException {
         if (saUtils.isFounder()) {
-            return M.ok(iMenuMapper.findAllByType(null));
+            return M.ok(iMenuMapper.findAllByType(null, config.getClient()));
         }
         //查询带权限的还有公开的 合并到一起
-        List<SecurityMenuNavVO> list = iMenuMapper.findAll(saUtils.loginId());
+        List<SecurityMenuNavVO> list = iMenuMapper.findAll(saUtils.loginId(), config.getClient());
 
-        List<SecurityMenuNavVO> publicList = iMenuMapper.findAllByType(MenuType.PUBLIC.value());
+        List<SecurityMenuNavVO> publicList = iMenuMapper.findAllByType(MenuType.PUBLIC.value(), config.getClient());
         list.addAll(publicList);
         if (ListUtils.isNotEmpty(list)) {
             list = list.stream().sorted(Comparator.comparing(SecurityMenuNavVO::getSort)).collect(Collectors.toList());
@@ -94,7 +97,7 @@ public class SecurityMenuServiceImpl implements ISecurityMenuService {
 
     @Override
     public M<List<SecurityMenuListVO>> list() throws MxException {
-        List<SecurityMenuNavVO> menuNavVOList = iMenuMapper.findAllByType(null);
+        List<SecurityMenuNavVO> menuNavVOList = iMenuMapper.findAllByType(null, config.getClient());
         List<SecurityMenuListVO> menuListVOList = new ArrayList<>();
         if (ListUtils.isEmpty(menuNavVOList)) {
             return M.ok(menuListVOList);
@@ -109,7 +112,10 @@ public class SecurityMenuServiceImpl implements ISecurityMenuService {
 
     @Override
     public R create(SecurityMenuBean menuBean) throws MxException {
-        SecurityMenu menu = BeanUtils.copy(menuBean, SecurityMenu::new, (s, t) -> t.bind().id(IdUtil.fastSimpleUUID()));
+        SecurityMenu menu = BeanUtils.copy(menuBean, SecurityMenu::new, (s, t) ->
+                t.bind()
+                        .id(IdUtil.fastSimpleUUID())
+                        .client(config.getClient()));
         return R.result(iMenuMapper.insert(menu));
     }
 

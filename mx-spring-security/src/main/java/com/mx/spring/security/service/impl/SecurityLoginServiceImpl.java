@@ -3,7 +3,10 @@ package com.mx.spring.security.service.impl;
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.convert.Convert;
+import cn.hutool.core.util.ClassUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.extra.servlet.ServletUtil;
+import cn.hutool.extra.spring.SpringUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.mx.spring.dev.core.Constants;
 import com.mx.spring.dev.core.M;
@@ -16,19 +19,24 @@ import com.mx.spring.dev.support.security.model.SecurityUser;
 import com.mx.spring.dev.util.BeanUtils;
 import com.mx.spring.dev.util.ListUtils;
 import com.mx.spring.dev.util.TimeHelper;
+import com.mx.spring.dev.util.WebUtils;
 import com.mx.spring.security.bean.SecurityLoginInfoBean;
-import com.mx.spring.security.bean.SecurityUserBean;
+import com.mx.spring.security.config.MxSecurityConfig;
+import com.mx.spring.security.handler.Handler;
+import com.mx.spring.security.handler.ILoginHandler;
 import com.mx.spring.security.mapper.ISecurityUserMapper;
 import com.mx.spring.security.service.ISecurityLoginService;
 import com.mx.spring.security.service.ISecurityUserRoleService;
 import com.mx.spring.security.vo.SecurityLoginVO;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import static com.mx.spring.dev.support.security.SaUtils.PERMISSION_LIST;
@@ -41,6 +49,7 @@ import static com.mx.spring.security.code.SecurityCode.*;
  * @Description:
  */
 @Service
+@Import(cn.hutool.extra.spring.SpringUtil.class)
 public class SecurityLoginServiceImpl implements ISecurityLoginService {
 
     private final SecurityUser bean = SecurityUser.init();
@@ -52,10 +61,18 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
     private IRedisService iRedisService;
     @Autowired
     private SaUtils saUtils;
+    @Autowired
+    private MxSecurityConfig config;
 
     @Override
     public M<SaTokenInfo> login(String userName, String password) throws MxException {
-        SecurityUser securityUser = iSecurityUserMapper.selectOne(MMP.lqw(bean).eq(SecurityUser::getUserName, userName));
+        Map<String, String> params = ServletUtil.getParamMap(WebUtils.request());
+        ILoginHandler loginHandler = Handler.loginHandler();
+        R r = loginHandler.loginBefore(params);
+        if (Handler.check(r)) {
+            return Handler.toM(r);
+        }
+        SecurityUser securityUser = iSecurityUserMapper.selectOne(MMP.lqw(bean).eq(SecurityUser::getUserName, userName).eq(SecurityUser::getClient, config.getClient()));
         if (securityUser == null) {
             return M.fail(SECURITY_LOGIN_USER_NAME_NOT_EXIST.getCode(), SECURITY_LOGIN_USER_NAME_NOT_EXIST.getMsg());
         }
@@ -81,6 +98,10 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
                 securityUser.setLoginLockEndTime(System.currentTimeMillis() + TimeHelper.DAY);
             }
             iSecurityUserMapper.updateById(securityUser);
+            r = loginHandler.loginFail(params, securityUser);
+            if (Handler.check(r)) {
+                return Handler.toM(r);
+            }
             return M.fail(SECURITY_LOGIN_USER_NAME_OR_PASSWORD_ERROR.getCode(), SECURITY_LOGIN_USER_NAME_OR_PASSWORD_ERROR.getMsg());
         } else {
             //重置时间和次数
@@ -89,6 +110,10 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
             securityUser.setLoginLockStartTime(0L);
             securityUser.setLoginLockEndTime(0L);
             iSecurityUserMapper.updateById(securityUser);
+            r = loginHandler.loginSuccess(params, securityUser);
+            if (Handler.check(r)) {
+                return Handler.toM(r);
+            }
         }
         StpUtil.login(securityUser.getId());
         SaTokenInfo saTokenInfo = StpUtil.getTokenInfo();
@@ -97,6 +122,22 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
         //设置权限到redis
         setLoginSecurityUserPermissionToRedis(securityUser.getId(), saTokenInfo.getTokenValue());
         return M.ok(saTokenInfo);
+    }
+
+    @Override
+    public R logout() throws MxException {
+        Map<String, String> params = ServletUtil.getParamMap(WebUtils.request());
+        ILoginHandler loginHandler = Handler.loginHandler();
+        R r = loginHandler.logoutBefore(params);
+        if (Handler.check(r)) {
+            return r;
+        }
+        StpUtil.logout();
+        r = loginHandler.logoutAfter(params);
+        if (Handler.check(r)) {
+            return r;
+        }
+        return R.ok();
     }
 
     public void setLoginSecurityUserPermissionToRedis(String securityUserId, String token) throws MxException {
@@ -113,12 +154,7 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
 
     @Override
     public SecurityLoginVO info() throws MxException {
-        return detail(saUtils.loginId());
-    }
-
-    @Override
-    public SecurityLoginVO detail(String id) throws MxException {
-        SecurityUser securityUser = iSecurityUserMapper.selectOne(MMP.lqw(bean).eq(SecurityUser::getId, id));
+        SecurityUser securityUser = iSecurityUserMapper.selectOne(MMP.lqw(bean).eq(SecurityUser::getId, saUtils.loginId()));
         SecurityLoginVO securityUserVO = BeanUtils.copy(securityUser, SecurityLoginVO::new);
         return BeanUtils.copy(securityUserVO, SecurityLoginVO::new);
     }

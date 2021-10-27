@@ -1,5 +1,8 @@
 package com.mx.spring.security.config;
 
+import com.mx.spring.security.handler.ILoginHandler;
+import com.mx.spring.security.handler.IUserHandler;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -15,8 +18,39 @@ public class MxSecurityConfig {
     /**
      * 客户端名称
      */
-    private String clientName;
+    private String client;
 
+    /**
+     * loginHandler实现类
+     */
+    private String loginHandlerClass;
 
+    /**
+     * userHandler实现类
+     */
+    private String userHandlerClass;
 
+    public String getClient() {
+        return StringUtils.defaultIfBlank(client, "default");
+    }
+
+    public void setClient(String client) {
+        this.client = client;
+    }
+
+    public String getLoginHandlerClass() {
+        return StringUtils.defaultIfBlank(loginHandlerClass, ILoginHandler.DefaultLoginHandler.class.getName());
+    }
+
+    public void setLoginHandlerClass(String loginHandlerClass) {
+        this.loginHandlerClass = loginHandlerClass;
+    }
+
+    public String getUserHandlerClass() {
+        return StringUtils.defaultIfBlank(userHandlerClass, IUserHandler.DefaultUserHandler.class.getName());
+    }
+
+    public void setUserHandlerClass(String userHandlerClass) {
+        this.userHandlerClass = userHandlerClass;
+    }
 }

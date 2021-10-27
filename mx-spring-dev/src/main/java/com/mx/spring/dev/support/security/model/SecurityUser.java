@@ -24,6 +24,12 @@ public class SecurityUser implements Serializable {
 	private java.lang.String id;
 
 	/**
+	 * client
+	 */
+	@FieldInfo(comment = "client", nullable = false)
+	private java.lang.String client;
+
+	/**
 	* 用户名
 	*/
 	@FieldInfo(comment = "用户名", nullable = false)
@@ -142,6 +148,7 @@ public class SecurityUser implements Serializable {
 	/**
 	 * 构造器
 	 *	@param id
+	 *	@param client
 	 *	@param userName
 	 *	@param realName
 	 *	@param photoUri
@@ -160,8 +167,9 @@ public class SecurityUser implements Serializable {
 	 *	@param loginLockStartTime
 	 *	@param loginLockEndTime
 	 */
-	public SecurityUser(java.lang.String id, java.lang.String userName, java.lang.String realName, java.lang.String photoUri, java.lang.String password, java.lang.String mobile, java.lang.Integer gender, java.lang.String createUser, java.lang.Long createTime, java.lang.Long lastModifyTime, java.lang.String lastModifyUser, java.lang.String salt, java.lang.Integer disableStatus, java.lang.Integer founder, java.lang.Integer loginErrorCount, java.lang.Integer loginLockStatus, java.lang.Long loginLockStartTime, java.lang.Long loginLockEndTime) {
+	public SecurityUser(String id, String client, String userName, String realName, String photoUri, String password, String mobile, Integer gender, String createUser, Long createTime, Long lastModifyTime, String lastModifyUser, String salt, Integer disableStatus, Integer founder, Integer loginErrorCount, Integer loginLockStatus, Long loginLockStartTime, Long loginLockEndTime) {
 		this.id = id;
+		this.client = client;
 		this.userName = userName;
 		this.realName = realName;
 		this.photoUri = photoUri;
@@ -189,6 +197,14 @@ public class SecurityUser implements Serializable {
 		this.id = id;
 	}
 
+
+	public String getClient() {
+		return client;
+	}
+
+	public void setClient(String client) {
+		this.client = client;
+	}
 
 	public java.lang.String getUserName() {
 		return userName;
@@ -362,6 +378,15 @@ public class SecurityUser implements Serializable {
 			return this;
 		}
 
+		public java.lang.String client() {
+			return modelTarget.getClient();
+		}
+
+		public SecurityUserBuilder client(java.lang.String client) {
+			modelTarget.setClient(client);
+			return this;
+		}
+
 		public java.lang.String userName() {
 			return modelTarget.getUserName();
 		}
@@ -522,6 +547,7 @@ public class SecurityUser implements Serializable {
 	 */
 	public static class FIELDS {
 		public static final String ID = "id";
+		public static final String CLIENT = "client";
 		public static final String USER_NAME = "user_name";
 		public static final String REAL_NAME = "real_name";
 		public static final String PHOTO_URI = "photo_uri";
