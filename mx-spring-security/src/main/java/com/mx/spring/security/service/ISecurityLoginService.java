@@ -5,6 +5,7 @@ import cn.dev33.satoken.stp.SaTokenInfo;
 import com.mx.spring.dev.core.M;
 import com.mx.spring.dev.core.R;
 import com.mx.spring.dev.exception.MxException;
+import com.mx.spring.security.bean.LoginResult;
 import com.mx.spring.security.bean.SecurityLoginInfoBean;
 import com.mx.spring.security.bean.SecurityUserBean;
 import com.mx.spring.security.vo.SecurityLoginVO;
@@ -24,7 +25,7 @@ public interface ISecurityLoginService {
      * @return
      * @throws MxException
      */
-    M<SaTokenInfo> login(String userName, String password) throws MxException;
+    M<LoginResult> login(String userName, String password) throws MxException;
 
 
     /**

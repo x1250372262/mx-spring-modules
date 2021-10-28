@@ -9,6 +9,7 @@ import com.mx.spring.dev.core.R;
 import com.mx.spring.dev.enums.OperationType;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.dev.support.log.annotation.Log;
+import com.mx.spring.security.bean.LoginResult;
 import com.mx.spring.security.dto.SecurityLoginInfoDTO;
 import com.mx.spring.security.service.ISecurityLoginService;
 import com.mx.spring.security.vo.SecurityLoginVO;
@@ -50,7 +51,7 @@ public class SecurityLoginController {
     @PostMapping("/login")
     @FormatRequest
     @ApiOperation(value = "管理员登录")
-    public M<SaTokenInfo> login(@ApiParam(name = "userName", value = "用户名", required = true) @NotBlank(message = "用户名不能为空") String userName, @ApiParam(name = "password", value = "密码(前端需要自行MD5加密一次)", required = true) @NotBlank(message = "密码不能为空") String password) throws MxException {
+    public M<LoginResult> login(@ApiParam(name = "userName", value = "用户名", required = true) @NotBlank(message = "用户名不能为空") String userName, @ApiParam(name = "password", value = "密码(前端需要自行MD5加密一次)", required = true) @NotBlank(message = "密码不能为空") String password) throws MxException {
         return iSecurityLoginService.login(userName, password);
     }
 

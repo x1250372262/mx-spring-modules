@@ -4,6 +4,7 @@ import cn.hutool.core.io.file.FileWriter;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
+import com.mx.spring.dev.bean.Permission;
 import com.mx.spring.dev.support.log.LPConfig;
 import com.mx.spring.security.config.SPConfig;
 import org.apache.commons.lang3.StringUtils;
@@ -54,11 +55,11 @@ public class Security {
         FileWriter.create(outFile, Charset.defaultCharset()).writeLines(sqlList);
     }
 
-    public static void permissionSql(File outFile, String dbName, String client, String userId) {
+    public static void permissionSql(List<Permission> permissionList, File outFile, String dbName, String client, String userId) {
         List<String> sqlList = new ArrayList<>();
         long time = System.currentTimeMillis();
         String sql = "INSERT INTO `{}`.`mx_security_permission` (`id`, `client`, `group_name`, `permission_name`, `permission_code`, `create_user`, `create_time`, `last_modify_user`, `last_modify_time`) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', {}, '{}', {});";
-        SPConfig.permissionList().forEach(permission -> sqlList.add(StrUtil.format(sql, dbName, IdUtil.fastSimpleUUID(), client, permission.getGroupName(), permission.getName(), permission.getCode(), userId, time, userId, time)));
+        permissionList.forEach(permission -> sqlList.add(StrUtil.format(sql, dbName, IdUtil.fastSimpleUUID(), client, permission.getGroupName(), permission.getName(), permission.getCode(), userId, time, userId, time)));
         FileWriter.create(outFile, Charset.defaultCharset()).writeLines(sqlList);
     }
 

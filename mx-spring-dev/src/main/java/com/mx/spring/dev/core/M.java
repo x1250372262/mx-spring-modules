@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
+import java.util.Map;
 
 /**
  * @Author: mengxiang.
@@ -90,6 +91,7 @@ public class M<T> implements Serializable {
     public static <T> M<T> fail(int code, String msg) {
         return fail(code, msg, null);
     }
+
 
     public int getCode() {
         return code;

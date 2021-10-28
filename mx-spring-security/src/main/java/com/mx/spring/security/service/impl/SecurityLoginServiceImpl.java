@@ -20,6 +20,7 @@ import com.mx.spring.dev.util.BeanUtils;
 import com.mx.spring.dev.util.ListUtils;
 import com.mx.spring.dev.util.TimeHelper;
 import com.mx.spring.dev.util.WebUtils;
+import com.mx.spring.security.bean.LoginResult;
 import com.mx.spring.security.bean.SecurityLoginInfoBean;
 import com.mx.spring.security.config.MxSecurityConfig;
 import com.mx.spring.security.handler.Handler;
@@ -65,7 +66,7 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
     private MxSecurityConfig config;
 
     @Override
-    public M<SaTokenInfo> login(String userName, String password) throws MxException {
+    public M<LoginResult> login(String userName, String password) throws MxException {
         Map<String, String> params = ServletUtil.getParamMap(WebUtils.request());
         ILoginHandler loginHandler = Handler.loginHandler();
         R r = loginHandler.loginBefore(params);
@@ -89,6 +90,10 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
         }
         password = DigestUtils.md5DigestAsHex(Base64.encodeBase64((password + securityUser.getSalt()).getBytes(StandardCharsets.UTF_8)));
         if (!password.equals(securityUser.getPassword())) {
+            r = loginHandler.loginFail(params, securityUser);
+            if (Handler.check(r)) {
+                return Handler.toM(r);
+            }
             //次数+1 到数之后直接冻结
             securityUser.setLoginErrorCount(securityUser.getLoginErrorCount() + 1);
             //冻结了
@@ -98,22 +103,18 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
                 securityUser.setLoginLockEndTime(System.currentTimeMillis() + TimeHelper.DAY);
             }
             iSecurityUserMapper.updateById(securityUser);
-            r = loginHandler.loginFail(params, securityUser);
+            return M.fail(SECURITY_LOGIN_USER_NAME_OR_PASSWORD_ERROR.getCode(), SECURITY_LOGIN_USER_NAME_OR_PASSWORD_ERROR.getMsg());
+        } else {
+            r = loginHandler.loginSuccess(params, securityUser);
             if (Handler.check(r)) {
                 return Handler.toM(r);
             }
-            return M.fail(SECURITY_LOGIN_USER_NAME_OR_PASSWORD_ERROR.getCode(), SECURITY_LOGIN_USER_NAME_OR_PASSWORD_ERROR.getMsg());
-        } else {
             //重置时间和次数
             securityUser.setLoginLockStatus(Constants.BOOL_FALSE);
             securityUser.setLoginErrorCount(0);
             securityUser.setLoginLockStartTime(0L);
             securityUser.setLoginLockEndTime(0L);
             iSecurityUserMapper.updateById(securityUser);
-            r = loginHandler.loginSuccess(params, securityUser);
-            if (Handler.check(r)) {
-                return Handler.toM(r);
-            }
         }
         StpUtil.login(securityUser.getId());
         SaTokenInfo saTokenInfo = StpUtil.getTokenInfo();
@@ -121,7 +122,11 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
         StpUtil.getTokenSessionByToken(saTokenInfo.getTokenValue()).set(USER_INFO + securityUser.getId(), securityUser);
         //设置权限到redis
         setLoginSecurityUserPermissionToRedis(securityUser.getId(), saTokenInfo.getTokenValue());
-        return M.ok(saTokenInfo);
+        LoginResult loginResult = BeanUtils.copy(saTokenInfo,LoginResult::new);
+        if(r != null) {
+            loginResult.setAttrs(r.attrs());
+        }
+        return M.ok(loginResult);
     }
 
     @Override
