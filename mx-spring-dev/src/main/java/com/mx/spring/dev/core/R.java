@@ -41,6 +41,10 @@ public class R implements Serializable {
         return r.code() == C.SUCCESS.getCode();
     }
 
+    public R none() {
+        return R.create(-10);
+    }
+
     /**
      * 根据参数返回成功还是失败
      */

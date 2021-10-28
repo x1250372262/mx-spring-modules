@@ -3,10 +3,8 @@ package com.mx.spring.security.service.impl;
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.convert.Convert;
-import cn.hutool.core.util.ClassUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.servlet.ServletUtil;
-import cn.hutool.extra.spring.SpringUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.mx.spring.dev.core.Constants;
 import com.mx.spring.dev.core.M;
@@ -36,6 +34,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -67,6 +66,7 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
 
     @Override
     public M<LoginResult> login(String userName, String password) throws MxException {
+        Map<String, Object> attrs = new HashMap<>();
         Map<String, String> params = ServletUtil.getParamMap(WebUtils.request());
         ILoginHandler loginHandler = Handler.loginHandler();
         R r = loginHandler.loginBefore(params);
@@ -109,6 +109,7 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
             if (Handler.check(r)) {
                 return Handler.toM(r);
             }
+
             //重置时间和次数
             securityUser.setLoginLockStatus(Constants.BOOL_FALSE);
             securityUser.setLoginErrorCount(0);
@@ -122,8 +123,8 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
         StpUtil.getTokenSessionByToken(saTokenInfo.getTokenValue()).set(USER_INFO + securityUser.getId(), securityUser);
         //设置权限到redis
         setLoginSecurityUserPermissionToRedis(securityUser.getId(), saTokenInfo.getTokenValue());
-        LoginResult loginResult = BeanUtils.copy(saTokenInfo,LoginResult::new);
-        if(r != null) {
+        LoginResult loginResult = BeanUtils.copy(saTokenInfo, LoginResult::new);
+        if (r != null) {
             loginResult.setAttrs(r.attrs());
         }
         return M.ok(loginResult);

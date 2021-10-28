@@ -17,25 +17,25 @@ public class Handler {
 
     public static MxSecurityConfig config = SpringUtil.getBean(MxSecurityConfig.class);
 
-    public static boolean check(R result){
-        return result != null;
+    public static boolean check(R result) {
+        return result != null && result.code() != -10;
     }
 
-    public static <T> M<T> toM(R result){
-        return M.fail(result.getCode(),result.getMsg());
+    public static <T> M<T> toM(R result) {
+        return M.fail(result.getCode(), result.getMsg());
     }
 
-    public static ILoginHandler loginHandler(){
+    public static ILoginHandler loginHandler() {
         ILoginHandler loginHandler = SpringUtil.getBean(ClassUtil.loadClass(config.getLoginHandlerClass()));
-        if(loginHandler == null){
+        if (loginHandler == null) {
             loginHandler = SpringUtil.getBean(ILoginHandler.DefaultLoginHandler.class);
         }
         return loginHandler;
     }
 
-    public static IUserHandler userHandler(){
+    public static IUserHandler userHandler() {
         IUserHandler userHandler = SpringUtil.getBean(ClassUtil.loadClass(config.getUserHandlerClass()));
-        if(userHandler == null){
+        if (userHandler == null) {
             userHandler = SpringUtil.getBean(IUserHandler.DefaultUserHandler.class);
         }
         return userHandler;
