@@ -12,13 +12,17 @@
         <module>mx-spring-dev</module>
         <module>mx-spring-security</module>
         <module>mx-spring-maven-plugin</module>
+        <module>mx-spring-redis</module>
+        <module>mx-spring-jdbc-mp</module>
+        <module>mx-spring-log</module>
+        <module>mx-spring-upload</module>
     </modules>
 
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <spring.boot.version>2.3.3.RELEASE</spring.boot.version>
+        <spring.boot.version>2.4.13</spring.boot.version>
         <spring.cloud.version>Hoxton.SR8</spring.cloud.version>
         <spring.cloud.alibaba.version>2.2.1.RELEASE</spring.cloud.alibaba.version>
         <spring.boot.admin.version>2.2.3</spring.boot.admin.version>
