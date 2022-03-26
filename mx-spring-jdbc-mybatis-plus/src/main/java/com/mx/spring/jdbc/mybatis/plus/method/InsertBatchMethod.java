@@ -1,4 +1,4 @@
-package com.mx.spring.mp.method;
+package com.mx.spring.jdbc.mybatis.plus.method;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;

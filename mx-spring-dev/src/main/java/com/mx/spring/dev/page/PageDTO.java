@@ -12,7 +12,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @Description:
  */
 @ApiModel(value = "分页信息", description = "分页信息")
-public class PageDTO {
+public class PageDTO<T> {
 
     @ApiModelProperty(value = "当前页")
     private Integer page = 1;
@@ -28,7 +28,7 @@ public class PageDTO {
         this.pageSize = pageSize;
     }
 
-    public PageBean toBean() throws MxException {
+    public PageBean<T> toBean() throws MxException {
         return BeanUtils.copy(this, PageBean::new);
     }
 

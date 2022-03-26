@@ -6,7 +6,7 @@ package com.mx.spring.dev.page;
  * @create: 2021-07-02 16:58
  * @Description:
  */
-public class PageBean {
+public class PageBean<T> {
 
     private Integer page;
 

@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>mx-spring-jdbc-mp</artifactId>
+    <artifactId>mx-spring-jdbc-mybatis-plus</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -21,10 +21,6 @@
             <groupId>com.mx.modules</groupId>
             <artifactId>mx-spring-dev</artifactId>
             <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis-spring</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>

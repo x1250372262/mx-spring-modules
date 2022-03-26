@@ -1,23 +1,8 @@
 {
   "properties": [
     {
-      "name": "mx-upload.max-size",
+      "name": "mx.config.outRestUrl",
       "type": "java.lang.String",
-      "description": "Description for mx-upload.max-size."
-    },
-    {
-      "name": "mx-upload.file-storage-path",
-      "type": "java.lang.String",
-      "description": "Description for mx-upload.file-storage-path."
-    },
-    {
-      "name": "mx-upload.content-type",
-      "type": "java.lang.String",
-      "description": "Description for mx-upload.content-type."
-    },
-    {
-      "name": "mx-upload.base-url",
-      "type": "java.lang.String",
-      "description": "Description for mx-upload.base-url."
-    }
-  ] }
+      "description": "是否输出api接口列表"
+  }
+] }

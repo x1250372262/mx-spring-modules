@@ -1,4 +1,4 @@
-package com.mx.spring.mp.method;
+package com.mx.spring.jdbc.mybatis.plus.method;
 
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.metadata.TableFieldInfo;

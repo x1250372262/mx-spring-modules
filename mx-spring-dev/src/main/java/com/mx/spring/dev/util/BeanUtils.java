@@ -120,31 +120,6 @@ public class BeanUtils {
         return list;
     }
 
-//    /**
-//     * 复制Pages
-//     *
-//     * @param sources  要复制的
-//     * @param target   目标对象
-//     * @param callBack 处理额外数据接口
-//     * @return 目标对象
-//     */
-//    public static <S, T> Pages<T> copyPage(Page<S> sources, Supplier<T> target, BeanUtilCallBack<S, T> callBack, String... ignoreProperties) throws MxException {
-//        List<T> result = copyList(sources.getRecords(), target, callBack, ignoreProperties);
-//        return new Pages<>(sources.getCurrent(), sources.getSize(), sources.getPages(), sources.getTotal(), result);
-//    }
-//
-//    /**
-//     * 复制Pages
-//     *
-//     * @param sources 要复制的
-//     * @param target  目标对象
-//     * @return 目标对象
-//     */
-//    public static <S, T> Pages<T> copyPage(Page<S> sources, Supplier<T> target, String... ignoreProperties) throws MxException {
-//        List<T> result = copyList(sources.getRecords(), target, ignoreProperties);
-//        return new Pages<>(sources.getCurrent(), sources.getSize(), sources.getPages(), sources.getTotal(), result);
-//    }
-
     @FunctionalInterface
     public interface BeanUtilCallBack<S, T> {
 

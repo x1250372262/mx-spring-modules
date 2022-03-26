@@ -1,4 +1,4 @@
-package com.mx.spring.mp;
+package com.mx.spring.jdbc.mybatis.plus;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -10,7 +10,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
  * @create: 2021-09-30 09:21
  * @Description:
  */
-public class MMP {
+public class MP {
 
     public static <T> LambdaQueryWrapper<T> lqw(T obj) {
         return new LambdaQueryWrapper<>(obj);

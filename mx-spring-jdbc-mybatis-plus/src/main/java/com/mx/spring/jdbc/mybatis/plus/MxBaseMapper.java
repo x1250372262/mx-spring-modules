@@ -1,4 +1,4 @@
-package com.mx.spring.mp;
+package com.mx.spring.jdbc.mybatis.plus;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;

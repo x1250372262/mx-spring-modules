@@ -13,7 +13,7 @@
         <module>mx-spring-security</module>
         <module>mx-spring-maven-plugin</module>
         <module>mx-spring-redis</module>
-        <module>mx-spring-jdbc-mp</module>
+        <module>mx-spring-jdbc-mybatis-plus</module>
         <module>mx-spring-log</module>
         <module>mx-spring-upload</module>
     </modules>
@@ -27,7 +27,7 @@
         <spring.cloud.alibaba.version>2.2.1.RELEASE</spring.cloud.alibaba.version>
         <spring.boot.admin.version>2.2.3</spring.boot.admin.version>
         <knife4j.spring.boot.version>3.0.3</knife4j.spring.boot.version>
-        <mybatis.plus.boot.version>3.3.2</mybatis.plus.boot.version>
+        <mybatis.plus.boot.version>3.5.1</mybatis.plus.boot.version>
         <commons.lang3.version>3.12.0</commons.lang3.version>
         <hutool.all.version>5.7.22</hutool.all.version>
         <fastjson.version>1.2.79</fastjson.version>
@@ -35,7 +35,7 @@
         <redisson.spring.boot.version>3.13.6</redisson.spring.boot.version>
         <sa.token.spring.boot.version>1.29.1.trial</sa.token.spring.boot.version>
         <sa.token.dao.redis.jackson.version>1.26.0</sa.token.dao.redis.jackson.version>
-        <mysql.connector.java.version>8.0.21</mysql.connector.java.version>
+        <mysql.connector.java.version>8.0.28</mysql.connector.java.version>
         <commons.pool2.version>2.10.0</commons.pool2.version>
         <druid.spring.boot.version>1.1.23</druid.spring.boot.version>
     </properties>
