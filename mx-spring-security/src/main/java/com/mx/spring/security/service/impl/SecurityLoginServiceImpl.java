@@ -6,7 +6,7 @@ import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import com.alibaba.fastjson.JSONObject;
-import com.mx.spring.dev.core.Constants;
+import com.mx.spring.dev.constants.Constants;
 import com.mx.spring.dev.core.M;
 import com.mx.spring.dev.core.R;
 import com.mx.spring.dev.exception.MxException;

@@ -1,4 +1,4 @@
-package com.mx.spring.dev.core;
+package com.mx.spring.dev.page;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

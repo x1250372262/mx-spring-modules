@@ -1,3 +1,7 @@
+mx:
+  config:
+    outRestUrl: true
+    name: 1111
 #文件上传配置
 mx-upload:
   #上传文件大小最大值(M) 默认10M

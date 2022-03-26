@@ -1,4 +1,4 @@
-package com.mx.spring.dev.enums;
+package com.mx.spring.log.enums;
 
 public enum OperationType
 {

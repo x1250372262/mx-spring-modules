@@ -1,7 +1,9 @@
 package com.mx.spring.security;
 
 import cn.dev33.satoken.stp.StpUtil;
-import com.mx.spring.dev.core.Constants;
+import cn.hutool.core.util.NumberUtil;
+import cn.hutool.core.util.StrUtil;
+import com.mx.spring.dev.constants.Constants;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.dev.support.security.model.SecurityUser;
 import com.mx.spring.dev.util.WebUtils;

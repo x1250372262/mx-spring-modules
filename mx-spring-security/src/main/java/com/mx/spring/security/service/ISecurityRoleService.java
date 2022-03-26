@@ -1,8 +1,8 @@
 package com.mx.spring.security.service;
 
-import com.mx.spring.dev.bean.PageBean;
+import com.mx.spring.dev.page.PageBean;
 import com.mx.spring.dev.core.M;
-import com.mx.spring.dev.core.Pages;
+import com.mx.spring.dev.page.Pages;
 import com.mx.spring.dev.core.R;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.dev.support.security.model.SecurityRole;

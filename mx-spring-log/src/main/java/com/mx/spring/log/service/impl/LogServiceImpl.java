@@ -1,9 +1,9 @@
 package com.mx.spring.log.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.mx.spring.dev.bean.PageBean;
+import com.mx.spring.dev.page.PageBean;
 import com.mx.spring.dev.core.M;
-import com.mx.spring.dev.core.Pages;
+import com.mx.spring.dev.page.Pages;
 import com.mx.spring.dev.core.R;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.dev.support.log.mapper.ISecurityLogMapper;

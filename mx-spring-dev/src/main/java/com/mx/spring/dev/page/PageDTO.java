@@ -1,7 +1,6 @@
-package com.mx.spring.dev.dto;
+package com.mx.spring.dev.page;
 
 
-import com.mx.spring.dev.bean.PageBean;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.dev.util.BeanUtils;
 import io.swagger.annotations.ApiModel;
@@ -13,7 +12,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @Description:
  */
 @ApiModel(value = "分页信息", description = "分页信息")
-public class PageDTO<T> {
+public class PageDTO {
 
     @ApiModelProperty(value = "当前页")
     private Integer page = 1;
@@ -29,7 +28,7 @@ public class PageDTO<T> {
         this.pageSize = pageSize;
     }
 
-    public PageBean<T> toBean() throws MxException {
+    public PageBean toBean() throws MxException {
         return BeanUtils.copy(this, PageBean::new);
     }
 

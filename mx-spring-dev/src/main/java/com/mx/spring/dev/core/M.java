@@ -1,12 +1,11 @@
 package com.mx.spring.dev.core;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mx.spring.dev.code.C;
+import com.mx.spring.dev.page.Pages;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
-import java.util.Map;
 
 /**
  * @Author: mengxiang.
@@ -27,15 +26,6 @@ public class M<T> implements Serializable {
 
 
     private M() {
-    }
-
-    public static <T> M<Pages<T>> list(Page<T> page) {
-        Pages<T> pages = new Pages<>(page.getCurrent(),
-                page.getSize(),
-                page.getPages(),
-                page.getTotal(),
-                page.getRecords());
-        return M.ok(pages);
     }
 
     public static <T> M<Pages<T>> list(Pages<T> pages) {

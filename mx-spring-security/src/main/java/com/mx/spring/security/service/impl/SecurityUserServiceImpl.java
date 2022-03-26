@@ -3,10 +3,10 @@ package com.mx.spring.security.service.impl;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.extra.servlet.ServletUtil;
-import com.mx.spring.dev.bean.PageBean;
-import com.mx.spring.dev.core.Constants;
+import com.mx.spring.dev.page.PageBean;
+import com.mx.spring.dev.constants.Constants;
 import com.mx.spring.dev.core.M;
-import com.mx.spring.dev.core.Pages;
+import com.mx.spring.dev.page.Pages;
 import com.mx.spring.dev.core.R;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.dev.support.mybatisplus.MMP;
@@ -37,7 +37,6 @@ import org.springframework.util.DigestUtils;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
 
 import static com.mx.spring.security.code.SecurityCode.SECURITY_USER_ROLE_EXISTS;
@@ -112,7 +111,7 @@ public class SecurityUserServiceImpl implements ISecurityUserService {
         if (securityUser == null) {
             return R.noData();
         }
-        if (!R.checkVersion(securityUser.getLastModifyTime(), lastModifyTime)) {
+        if (R.checkVersion(securityUser.getLastModifyTime(), lastModifyTime)) {
             return R.noVersion();
         }
         securityUser.setLastModifyUser(saUtils.loginId());
@@ -127,7 +126,7 @@ public class SecurityUserServiceImpl implements ISecurityUserService {
         if (securityUser == null) {
             return R.noData();
         }
-        if (!R.checkVersion(securityUser.getLastModifyTime(), lastModifyTime)) {
+        if (R.checkVersion(securityUser.getLastModifyTime(), lastModifyTime)) {
             return R.noVersion();
         }
         securityUser.setLastModifyUser(saUtils.loginId());
@@ -145,7 +144,7 @@ public class SecurityUserServiceImpl implements ISecurityUserService {
         if (securityUser == null) {
             return R.noData();
         }
-        if (!R.checkVersion(securityUser.getLastModifyTime(), lastModifyTime)) {
+        if (R.checkVersion(securityUser.getLastModifyTime(), lastModifyTime)) {
             return R.noVersion();
         }
         securityUser.setLastModifyUser(saUtils.loginId());

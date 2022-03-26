@@ -1,4 +1,4 @@
-package com.mx.spring.dev.core;
+package com.mx.spring.dev.constants;
 
 /**
  * @Author: mengxiang.

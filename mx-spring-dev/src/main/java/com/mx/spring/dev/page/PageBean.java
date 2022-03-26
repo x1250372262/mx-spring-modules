@@ -1,14 +1,12 @@
-package com.mx.spring.dev.bean;
+package com.mx.spring.dev.page;
 
-
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 /**
  * @Author: mengxiang.
  * @create: 2021-07-02 16:58
  * @Description:
  */
-public class PageBean<T> {
+public class PageBean {
 
     private Integer page;
 
@@ -39,7 +37,4 @@ public class PageBean<T> {
         this.pageSize = pageSize;
     }
 
-    public Page<T> toPage() {
-        return new Page<>(this.page, this.pageSize);
-    }
 }

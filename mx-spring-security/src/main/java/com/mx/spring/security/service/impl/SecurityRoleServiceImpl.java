@@ -3,9 +3,9 @@ package com.mx.spring.security.service.impl;
 import cn.hutool.core.util.IdUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.mx.spring.dev.bean.PageBean;
+import com.mx.spring.dev.page.PageBean;
 import com.mx.spring.dev.core.M;
-import com.mx.spring.dev.core.Pages;
+import com.mx.spring.dev.page.Pages;
 import com.mx.spring.dev.core.R;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.dev.support.mybatisplus.MMP;
@@ -94,7 +94,7 @@ public class SecurityRoleServiceImpl implements ISecurityRoleService {
         if (role == null) {
             return R.noData();
         }
-        if (!R.checkVersion(role.getLastModifyTime(), lastModifyTime)) {
+        if (R.checkVersion(role.getLastModifyTime(), lastModifyTime)) {
             return R.noVersion();
         }
         role = BeanUtils.duplicate(roleBean, role, (s, t) -> {

@@ -1,4 +1,4 @@
-package com.mx.spring.dev.bean;
+package com.mx.spring.security.bean;
 
 /**
  * @Author: mengxiang.
