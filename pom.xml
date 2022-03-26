@@ -32,7 +32,7 @@
         <hutool.all.version>5.7.22</hutool.all.version>
         <fastjson.version>1.2.79</fastjson.version>
         <mybatis.spring.version>2.0.4</mybatis.spring.version>
-        <redisson.spring.boot.version>3.13.6</redisson.spring.boot.version>
+        <redisson.spring.boot.version>3.17.0</redisson.spring.boot.version>
         <sa.token.spring.boot.version>1.29.1.trial</sa.token.spring.boot.version>
         <sa.token.dao.redis.jackson.version>1.26.0</sa.token.dao.redis.jackson.version>
         <mysql.connector.java.version>8.0.28</mysql.connector.java.version>

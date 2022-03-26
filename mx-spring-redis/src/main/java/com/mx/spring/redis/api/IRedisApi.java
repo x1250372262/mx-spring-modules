@@ -12,7 +12,7 @@ import java.util.Set;
  * @create: 2021-09-04 18:59
  * @Description:
  */
-public interface IRedisService {
+public interface IRedisApi {
 
     /**
      * 设置过期时间

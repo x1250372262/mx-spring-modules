@@ -2,19 +2,19 @@ package com.mx.spring.redis.api.impl;
 
 import cn.hutool.core.convert.Convert;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.redis.api.IRedisService;
+import com.mx.spring.redis.api.IRedisApi;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-@Service
-public class RedisServiceImpl implements IRedisService {
+@Component
+public class RedisApiImpl implements IRedisApi {
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
