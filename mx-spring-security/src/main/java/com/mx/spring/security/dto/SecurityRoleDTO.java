@@ -1,7 +1,7 @@
 package com.mx.spring.security.dto;
 
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.util.BeanUtils;
+import com.mx.spring.dev.util.BeanUtil;
 import com.mx.spring.security.bean.SecurityRoleBean;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -21,7 +21,7 @@ public class SecurityRoleDTO implements Serializable {
     private String remark;
 
     public SecurityRoleBean toBean() throws MxException {
-        return BeanUtils.copy(this, SecurityRoleBean::new);
+        return BeanUtil.copy(this, SecurityRoleBean::new);
     }
 
     public String getName() {

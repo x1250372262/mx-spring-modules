@@ -1,8 +1,16 @@
 {
   "properties": [
     {
-      "name": "mx.config.outRestUrl",
-      "type": "java.lang.String",
-      "description": "是否输出api接口列表"
-  }
-] }
+      "name": "mx.config.format-request",
+      "type": "java.lang.Boolean",
+      "description": "是否格式化请求",
+      "defaultValue": false
+    },
+    {
+      "name": "mx.config.print-rest-url",
+      "type": "java.lang.Boolean",
+      "description": "输出请求url",
+      "defaultValue": false
+    }
+  ]
+}

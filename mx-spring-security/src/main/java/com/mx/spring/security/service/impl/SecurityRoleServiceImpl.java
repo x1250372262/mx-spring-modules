@@ -3,10 +3,10 @@ package com.mx.spring.security.service.impl;
 import cn.hutool.core.util.IdUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.mx.spring.dev.page.PageBean;
-import com.mx.spring.dev.core.M;
-import com.mx.spring.dev.page.Pages;
-import com.mx.spring.dev.core.R;
+import com.mx.spring.dev.support.page.PageBean;
+import com.mx.spring.dev.result.M;
+import com.mx.spring.dev.support.page.Pages;
+import com.mx.spring.dev.result.R;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.dev.support.mybatisplus.MMP;
 import com.mx.spring.dev.support.security.SaUtils;
@@ -14,7 +14,7 @@ import com.mx.spring.dev.support.security.model.SecurityPermission;
 import com.mx.spring.dev.support.security.model.SecurityRole;
 import com.mx.spring.dev.support.security.model.SecurityRolePermission;
 import com.mx.spring.dev.support.security.model.SecurityUserRole;
-import com.mx.spring.dev.util.BeanUtils;
+import com.mx.spring.dev.util.BeanUtil;
 import com.mx.spring.dev.util.ListUtils;
 import com.mx.spring.security.bean.SecurityRoleBean;
 import com.mx.spring.security.config.MxSecurityConfig;
@@ -63,7 +63,7 @@ public class SecurityRoleServiceImpl implements ISecurityRoleService {
         LambdaQueryWrapper<SecurityRole> lambdaQueryWrapper = MMP.lqw(findRole)
                 .like(StringUtils.isNotBlank(name), SecurityRole::getName, name)
                 .eq(SecurityRole::getClient, config.getClient());
-        return M.list(BeanUtils.copyPage(iRoleMapper.selectPage(pageBean.toPage(), lambdaQueryWrapper), SecurityRoleListVO::new));
+        return M.list(BeanUtil.copyPage(iRoleMapper.selectPage(pageBean.toPage(), lambdaQueryWrapper), SecurityRoleListVO::new));
     }
 
     @Override
@@ -72,7 +72,7 @@ public class SecurityRoleServiceImpl implements ISecurityRoleService {
         if (role != null) {
             return R.sameName();
         }
-        role = BeanUtils.copy(roleBean, SecurityRole::new, (s, t) ->
+        role = BeanUtil.copy(roleBean, SecurityRole::new, (s, t) ->
                 t.bind()
                         .id(IdUtil.fastSimpleUUID())
                         .client(config.getClient())
@@ -97,7 +97,7 @@ public class SecurityRoleServiceImpl implements ISecurityRoleService {
         if (R.checkVersion(role.getLastModifyTime(), lastModifyTime)) {
             return R.noVersion();
         }
-        role = BeanUtils.duplicate(roleBean, role, (s, t) -> {
+        role = BeanUtil.duplicate(roleBean, role, (s, t) -> {
             t.bind()
                     .lastModifyTime(System.currentTimeMillis())
                     .lastModifyUser(saUtils.loginId());
@@ -107,7 +107,7 @@ public class SecurityRoleServiceImpl implements ISecurityRoleService {
 
     @Override
     public M<SecurityRoleVO> detail(String id) throws MxException {
-        return M.ok(BeanUtils.copy(iRoleMapper.selectById(id), SecurityRoleVO::new));
+        return M.ok(BeanUtil.copy(iRoleMapper.selectById(id), SecurityRoleVO::new));
     }
 
     @Override

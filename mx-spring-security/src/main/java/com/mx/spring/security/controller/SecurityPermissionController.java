@@ -1,8 +1,8 @@
 package com.mx.spring.security.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
-import com.mx.spring.dev.annotation.FormatRequest;
-import com.mx.spring.dev.core.M;
+import com.mx.spring.dev.support.formatRequest.annotation.FormatRequest;
+import com.mx.spring.dev.result.M;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.security.service.ISecurityPermissionService;
 import com.mx.spring.security.vo.SecurityPermissionSelectVO;

@@ -1,0 +1,87 @@
+package com.mx.spring.upload.config;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
+
+/**
+ * @Author: mengxiang.
+ * @create: 2021-09-23 13:53
+ * @Description: 腾讯云配置
+ */
+@Component
+@ConfigurationProperties(prefix = "mx.upload.tx")
+public class TxUploadConfig {
+
+//
+//    private String secretId="你的腾讯云secretId";     				//腾讯云对象存储的secretId(需替换)
+//    private String secretKey="你的腾讯云secretKey";          			//腾讯云对象存储的secretKey(需替换)
+//    private String bucket="ap-chengdu";                             //所属地域
+//    private String bucketName="你的存储桶名称";                       //存储桶名称(需替换)
+//    private String path="https://bucketName.coscd.myqcloud.com";    //访问域名（bucketName替换为你的存储桶名称）
+//    private String qianzhui="directory";
+
+    /**
+     * 外链地址
+     */
+    private String url;
+
+    /**
+     * 腾讯云secretId
+     */
+    private String secretId;
+
+    /**
+     * 腾讯云secretKey
+     */
+    private String secretKey;
+
+    /**
+     * 存储桶名称
+     */
+    private String bucket;
+
+    /**
+     * 地域
+     */
+    private String region;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getSecretId() {
+        return secretId;
+    }
+
+    public void setSecretId(String secretId) {
+        this.secretId = secretId;
+    }
+
+    public String getSecretKey() {
+        return secretKey;
+    }
+
+    public void setSecretKey(String secretKey) {
+        this.secretKey = secretKey;
+    }
+
+    public String getBucket() {
+        return bucket;
+    }
+
+    public void setBucket(String bucket) {
+        this.bucket = bucket;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+}

@@ -12,7 +12,7 @@ import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.dev.support.log.mapper.ISecurityLogMapper;
 import com.mx.spring.dev.support.log.model.SecurityLog;
 import com.mx.spring.dev.support.security.SaUtils;
-import com.mx.spring.dev.util.WebUtils;
+import com.mx.spring.dev.util.WebUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -33,9 +33,9 @@ public class MxSaTokenListener implements SaTokenListener {
     private SaUtils saUtils;
 
     private SecurityLog createOperationLog(String title, JSONObject jsonObject, String methodName, String loginId) throws MxException {
-        HttpServletRequest request = WebUtils.request();
+        HttpServletRequest request = WebUtil.request();
         String userAgentStr = request.getHeader("user-agent");
-        String userName = StringUtils.defaultIfBlank(WebUtils.request().getParameter("userName"),"管理员:id:"+loginId);
+        String userName = StringUtils.defaultIfBlank(WebUtil.request().getParameter("userName"),"管理员:id:"+loginId);
         // *========数据库日志=========*//
         return SecurityLog.builder()
                 .id(IdUtil.fastSimpleUUID())

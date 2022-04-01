@@ -2,8 +2,8 @@ package com.mx.spring.jdbc.mybatis.plus.page;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.page.PageBean;
-import com.mx.spring.dev.page.Pages;
+import com.mx.spring.dev.support.page.PageBean;
+import com.mx.spring.dev.support.page.Pages;
 import com.mx.spring.jdbc.mybatis.plus.util.MPBeanUtils;
 
 import java.util.function.Supplier;

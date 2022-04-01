@@ -1,12 +1,10 @@
 package com.mx.spring.security;
 
 import cn.dev33.satoken.stp.StpUtil;
-import cn.hutool.core.util.NumberUtil;
-import cn.hutool.core.util.StrUtil;
 import com.mx.spring.dev.constants.Constants;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.dev.support.security.model.SecurityUser;
-import com.mx.spring.dev.util.WebUtils;
+import com.mx.spring.dev.util.WebUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -55,7 +53,7 @@ public class SaUtils {
     }
 
     public String token() throws MxException {
-        return WebUtils.request().getHeader(tokenName);
+        return WebUtil.request().getHeader(tokenName);
     }
 
     public SecurityUser user(String loginId, String token) throws MxException {

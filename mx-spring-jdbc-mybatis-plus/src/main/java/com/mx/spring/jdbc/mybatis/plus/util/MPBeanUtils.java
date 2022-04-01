@@ -2,8 +2,8 @@ package com.mx.spring.jdbc.mybatis.plus.util;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.page.Pages;
-import com.mx.spring.dev.util.BeanUtils;
+import com.mx.spring.dev.support.page.Pages;
+import com.mx.spring.dev.util.BeanUtil;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -13,7 +13,7 @@ import java.util.function.Supplier;
  * @create: 2021-07-02 16:58
  * @Description:
  */
-public class MPBeanUtils extends BeanUtils {
+public class MPBeanUtils extends BeanUtil {
 
     /**
      * 复制Pages

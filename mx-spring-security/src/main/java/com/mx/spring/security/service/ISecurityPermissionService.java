@@ -1,6 +1,6 @@
 package com.mx.spring.security.service;
 
-import com.mx.spring.dev.core.M;
+import com.mx.spring.dev.result.M;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.security.vo.SecurityPermissionSelectVO;
 

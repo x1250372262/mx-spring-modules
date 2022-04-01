@@ -1,10 +1,10 @@
 package com.mx.spring.security.service.impl;
 
-import com.mx.spring.dev.core.M;
+import com.mx.spring.dev.result.M;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.dev.support.mybatisplus.MMP;
 import com.mx.spring.dev.support.security.model.SecurityPermission;
-import com.mx.spring.dev.util.BeanUtils;
+import com.mx.spring.dev.util.BeanUtil;
 import com.mx.spring.dev.util.ListUtils;
 import com.mx.spring.security.config.MxSecurityConfig;
 import com.mx.spring.security.mapper.ISecurityPermissionMapper;
@@ -43,7 +43,7 @@ public class SecurityPermissionServiceImpl implements ISecurityPermissionService
         for (Map.Entry<String, List<SecurityPermission>> entry : permissionMap.entrySet()) {
             SecurityPermissionSelectVO permissionGroupVO = new SecurityPermissionSelectVO();
             permissionGroupVO.setGroupName(entry.getKey());
-            List<SecurityPermissionVO> permissionVOList = BeanUtils.copyList(entry.getValue(), SecurityPermissionVO::new, (s, t) -> {
+            List<SecurityPermissionVO> permissionVOList = BeanUtil.copyList(entry.getValue(), SecurityPermissionVO::new, (s, t) -> {
                 t.setCode(s.getPermissionCode());
                 t.setName(s.getPermissionName());
             });

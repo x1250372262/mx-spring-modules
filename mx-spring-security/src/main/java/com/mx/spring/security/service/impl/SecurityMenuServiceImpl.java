@@ -1,16 +1,16 @@
 package com.mx.spring.security.service.impl;
 
 import cn.hutool.core.util.IdUtil;
-import com.mx.spring.dev.page.PageBean;
-import com.mx.spring.dev.core.M;
-import com.mx.spring.dev.page.Pages;
-import com.mx.spring.dev.core.R;
+import com.mx.spring.dev.support.page.PageBean;
+import com.mx.spring.dev.result.M;
+import com.mx.spring.dev.support.page.Pages;
+import com.mx.spring.dev.result.R;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.dev.support.mybatisplus.MMP;
 import com.mx.spring.dev.support.security.SaUtils;
 import com.mx.spring.dev.support.security.model.SecurityMenu;
 import com.mx.spring.dev.support.security.model.SecurityMenuRole;
-import com.mx.spring.dev.util.BeanUtils;
+import com.mx.spring.dev.util.BeanUtil;
 import com.mx.spring.dev.util.ListUtils;
 import com.mx.spring.dev.util.MapUtils;
 import com.mx.spring.security.bean.SecurityMenuBean;
@@ -112,7 +112,7 @@ public class SecurityMenuServiceImpl implements ISecurityMenuService {
 
     @Override
     public R create(SecurityMenuBean menuBean) throws MxException {
-        SecurityMenu menu = BeanUtils.copy(menuBean, SecurityMenu::new, (s, t) ->
+        SecurityMenu menu = BeanUtil.copy(menuBean, SecurityMenu::new, (s, t) ->
                 t.bind()
                         .id(IdUtil.fastSimpleUUID())
                         .client(config.getClient()));
@@ -125,13 +125,13 @@ public class SecurityMenuServiceImpl implements ISecurityMenuService {
         if (menu == null) {
             return R.noData();
         }
-        menu = BeanUtils.duplicate(menuBean, menu);
+        menu = BeanUtil.duplicate(menuBean, menu);
         return R.result(iMenuMapper.updateById(menu));
     }
 
     @Override
     public M<SecurityMenuVO> detail(String id) throws MxException {
-        return M.ok(BeanUtils.copy(iMenuMapper.selectById(id), SecurityMenuVO::new));
+        return M.ok(BeanUtil.copy(iMenuMapper.selectById(id), SecurityMenuVO::new));
     }
 
     @Override

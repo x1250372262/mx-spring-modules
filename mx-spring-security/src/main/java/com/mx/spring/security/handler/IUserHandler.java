@@ -1,6 +1,6 @@
 package com.mx.spring.security.handler;
 
-import com.mx.spring.dev.core.R;
+import com.mx.spring.dev.result.R;
 import com.mx.spring.dev.exception.MxException;
 import org.springframework.stereotype.Component;
 

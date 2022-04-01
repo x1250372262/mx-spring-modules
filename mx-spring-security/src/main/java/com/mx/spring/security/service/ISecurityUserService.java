@@ -1,10 +1,10 @@
 package com.mx.spring.security.service;
 
 
-import com.mx.spring.dev.page.PageBean;
-import com.mx.spring.dev.core.M;
-import com.mx.spring.dev.page.Pages;
-import com.mx.spring.dev.core.R;
+import com.mx.spring.dev.support.page.PageBean;
+import com.mx.spring.dev.result.M;
+import com.mx.spring.dev.support.page.Pages;
+import com.mx.spring.dev.result.R;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.security.bean.SecurityUserBean;
 import com.mx.spring.security.vo.SecurityUserListVO;

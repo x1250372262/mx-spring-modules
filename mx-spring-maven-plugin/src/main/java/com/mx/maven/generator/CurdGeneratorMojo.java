@@ -6,7 +6,7 @@ import cn.hutool.setting.dialect.Props;
 import com.mx.maven.bean.Attr;
 import com.mx.maven.conf.CurdConfig;
 import com.mx.maven.util.PropUtils;
-import com.mx.spring.dev.annotation.FieldInfo;
+import com.mx.spring.dev.support.generator.annotation.FieldInfo;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;

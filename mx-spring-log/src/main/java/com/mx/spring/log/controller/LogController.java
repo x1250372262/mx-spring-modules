@@ -2,11 +2,11 @@ package com.mx.spring.log.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckPermission;
-import com.mx.spring.dev.annotation.FormatRequest;
-import com.mx.spring.dev.core.M;
-import com.mx.spring.dev.page.Pages;
-import com.mx.spring.dev.core.R;
-import com.mx.spring.dev.page.PageDTO;
+import com.mx.spring.dev.support.formatRequest.annotation.FormatRequest;
+import com.mx.spring.dev.result.M;
+import com.mx.spring.dev.support.page.Pages;
+import com.mx.spring.dev.result.R;
+import com.mx.spring.dev.support.page.PageDTO;
 import com.mx.spring.dev.enums.OperationType;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.dev.support.log.LPConfig;

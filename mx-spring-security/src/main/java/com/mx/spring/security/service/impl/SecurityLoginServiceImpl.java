@@ -7,17 +7,17 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.mx.spring.dev.constants.Constants;
-import com.mx.spring.dev.core.M;
-import com.mx.spring.dev.core.R;
+import com.mx.spring.dev.result.M;
+import com.mx.spring.dev.result.R;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.dev.support.mybatisplus.MMP;
 import com.mx.spring.dev.support.redis.api.IRedisService;
 import com.mx.spring.dev.support.security.SaUtils;
 import com.mx.spring.dev.support.security.model.SecurityUser;
-import com.mx.spring.dev.util.BeanUtils;
+import com.mx.spring.dev.util.BeanUtil;
 import com.mx.spring.dev.util.ListUtils;
-import com.mx.spring.dev.util.TimeHelper;
-import com.mx.spring.dev.util.WebUtils;
+import com.mx.spring.dev.util.TimeUtil;
+import com.mx.spring.dev.util.WebUtil;
 import com.mx.spring.security.bean.LoginResult;
 import com.mx.spring.security.bean.SecurityLoginInfoBean;
 import com.mx.spring.security.config.MxSecurityConfig;
@@ -67,7 +67,7 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
     @Override
     public M<LoginResult> login(String userName, String password) throws MxException {
         Map<String, Object> attrs = new HashMap<>();
-        Map<String, String> params = ServletUtil.getParamMap(WebUtils.request());
+        Map<String, String> params = ServletUtil.getParamMap(WebUtil.request());
         ILoginHandler loginHandler = Handler.loginHandler();
         R r = loginHandler.loginBefore(params);
         if (Handler.check(r)) {
@@ -80,7 +80,7 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
         //锁住了
         if (Objects.equals(Constants.BOOL_TRUE, securityUser.getLoginLockStatus()) && System.currentTimeMillis() < securityUser.getLoginLockEndTime()) {
             String msg = SECURITY_LOGIN_USER_LOCKED.getMsg();
-            msg = StrUtil.format(msg, TimeHelper.formatTime(securityUser.getLoginLockEndTime()));
+            msg = StrUtil.format(msg, TimeUtil.formatTime(securityUser.getLoginLockEndTime()));
             return M.fail(SECURITY_LOGIN_USER_LOCKED.getCode(), msg);
         } else if (Objects.equals(Constants.BOOL_TRUE, securityUser.getLoginLockStatus()) && System.currentTimeMillis() > securityUser.getLoginLockEndTime()) {
             securityUser.setLoginLockStatus(Constants.BOOL_FALSE);
@@ -100,7 +100,7 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
             if (securityUser.getLoginErrorCount() >= 5) {
                 securityUser.setLoginLockStatus(Constants.BOOL_TRUE);
                 securityUser.setLoginLockStartTime(System.currentTimeMillis());
-                securityUser.setLoginLockEndTime(System.currentTimeMillis() + TimeHelper.DAY);
+                securityUser.setLoginLockEndTime(System.currentTimeMillis() + TimeUtil.DAY);
             }
             iSecurityUserMapper.updateById(securityUser);
             return M.fail(SECURITY_LOGIN_USER_NAME_OR_PASSWORD_ERROR.getCode(), SECURITY_LOGIN_USER_NAME_OR_PASSWORD_ERROR.getMsg());
@@ -123,7 +123,7 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
         StpUtil.getTokenSessionByToken(saTokenInfo.getTokenValue()).set(USER_INFO + securityUser.getId(), securityUser);
         //设置权限到redis
         setLoginSecurityUserPermissionToRedis(securityUser.getId(), saTokenInfo.getTokenValue());
-        LoginResult loginResult = BeanUtils.copy(saTokenInfo, LoginResult::new);
+        LoginResult loginResult = BeanUtil.copy(saTokenInfo, LoginResult::new);
         if (r != null) {
             loginResult.setAttrs(r.attrs());
         }
@@ -132,7 +132,7 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
 
     @Override
     public R logout() throws MxException {
-        Map<String, String> params = ServletUtil.getParamMap(WebUtils.request());
+        Map<String, String> params = ServletUtil.getParamMap(WebUtil.request());
         ILoginHandler loginHandler = Handler.loginHandler();
         R r = loginHandler.logoutBefore(params);
         if (Handler.check(r)) {
@@ -161,8 +161,8 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
     @Override
     public SecurityLoginVO info() throws MxException {
         SecurityUser securityUser = iSecurityUserMapper.selectOne(MMP.lqw(bean).eq(SecurityUser::getId, saUtils.loginId()));
-        SecurityLoginVO securityUserVO = BeanUtils.copy(securityUser, SecurityLoginVO::new);
-        return BeanUtils.copy(securityUserVO, SecurityLoginVO::new);
+        SecurityLoginVO securityUserVO = BeanUtil.copy(securityUser, SecurityLoginVO::new);
+        return BeanUtil.copy(securityUserVO, SecurityLoginVO::new);
     }
 
     @Override
@@ -171,7 +171,7 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
         if (securityUser == null) {
             return R.noData();
         }
-        securityUser = BeanUtils.duplicate(securityLoginInfoBean, securityUser);
+        securityUser = BeanUtil.duplicate(securityLoginInfoBean, securityUser);
         int result = iSecurityUserMapper.updateById(securityUser);
         return R.result(result);
     }

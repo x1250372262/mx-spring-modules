@@ -1,7 +1,7 @@
 package com.mx.spring.security.dto;
 
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.util.BeanUtils;
+import com.mx.spring.dev.util.BeanUtil;
 import com.mx.spring.security.bean.SecurityLoginInfoBean;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -46,7 +46,7 @@ public class SecurityLoginInfoDTO implements Serializable {
     private Integer gender;
 
     public SecurityLoginInfoBean toBean() throws MxException {
-        return BeanUtils.copy(this, SecurityLoginInfoBean::new);
+        return BeanUtil.copy(this, SecurityLoginInfoBean::new);
     }
 
 

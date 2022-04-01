@@ -1,7 +1,7 @@
 package com.mx.spring.log.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.mx.spring.dev.annotation.FieldInfo;
+import com.mx.spring.dev.support.generator.annotation.FieldInfo;
 
 import java.io.Serializable;
 

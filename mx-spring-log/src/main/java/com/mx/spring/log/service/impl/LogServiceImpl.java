@@ -1,17 +1,17 @@
 package com.mx.spring.log.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.mx.spring.dev.page.PageBean;
-import com.mx.spring.dev.core.M;
-import com.mx.spring.dev.page.Pages;
-import com.mx.spring.dev.core.R;
+import com.mx.spring.dev.support.page.PageBean;
+import com.mx.spring.dev.result.M;
+import com.mx.spring.dev.support.page.Pages;
+import com.mx.spring.dev.result.R;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.dev.support.log.mapper.ISecurityLogMapper;
 import com.mx.spring.dev.support.log.model.SecurityLog;
 import com.mx.spring.dev.support.log.service.ILogService;
 import com.mx.spring.dev.support.log.vo.LogVO;
 import com.mx.spring.dev.support.mybatisplus.MMP;
-import com.mx.spring.dev.util.BeanUtils;
+import com.mx.spring.dev.util.BeanUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,7 +37,7 @@ public class LogServiceImpl implements ILogService {
                 .ge(Objects.nonNull(startTime), SecurityLog::getCreateTime, startTime)
                 .le(Objects.nonNull(endTime), SecurityLog::getCreateTime, endTime)
                 .orderByDesc(SecurityLog::getCreateTime);
-        return M.list(BeanUtils.copyPage(iSecurityLogMapper.selectPage(pageBean.toPage(), queryWrapper), LogVO::new));
+        return M.list(BeanUtil.copyPage(iSecurityLogMapper.selectPage(pageBean.toPage(), queryWrapper), LogVO::new));
     }
 
     @Override

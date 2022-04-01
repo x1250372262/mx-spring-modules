@@ -17,6 +17,11 @@ public class MxConfig {
      */
     private boolean printRestUrl;
 
+    /**
+     * 是否格式化请求
+     */
+    private boolean formatRequest;
+
 
     public boolean isPrintRestUrl() {
         return printRestUrl;
@@ -26,4 +31,11 @@ public class MxConfig {
         this.printRestUrl = printRestUrl;
     }
 
+    public boolean isFormatRequest() {
+        return formatRequest;
+    }
+
+    public void setFormatRequest(boolean formatRequest) {
+        this.formatRequest = formatRequest;
+    }
 }

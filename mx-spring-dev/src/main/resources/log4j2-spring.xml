@@ -13,7 +13,13 @@
         <console name="Console" target="SYSTEM_OUT">
             <!--输出日志的格式 -->
             <PatternLayout
-                    pattern="%highlight{%d{yyyy-MM-dd HH:mm:ss.SSS} [%t][%X{logId}] %-5level %logger{3} - %msg%n}"/>
+                    pattern="%highlight{%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{3}[%L] - %msg%n}"/>
+        </console>
+
+        <!--这个输出控制台的配置 -->
+        <console name="MXConsole" target="SYSTEM_OUT">
+            <PatternLayout
+                    pattern="%highlight{%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %m %n}"/>
         </console>
 
         <!-- 这个会打印出所有的info及以下级别的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行存档 -->
@@ -21,7 +27,18 @@
                      fileName="${logPath}/default.log"
                      filePattern="${logPath}/$${date:yyyyMMdd}/default-%d{yyMMddHH}-%i.log">
             <PatternLayout
-                    pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t][%X{logId}] %-5level %logger{3} - %msg%n"/>
+                    pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{3}[%L] - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="MXfileInfo"
+                     fileName="${logPath}/default.log"
+                     filePattern="${logPath}/$${date:yyyyMMdd}/default-%d{yyMMddHH}-%i.log">
+            <PatternLayout
+                    pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %m %n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy/>
                 <SizeBasedTriggeringPolicy size="10MB"/>
@@ -36,17 +53,45 @@
                 <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
             </Filters>
             <PatternLayout
-                    pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t][%X{logId}] %-5level %logger{3} - %msg%n"/>
+                    pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{3}[%L] - %msg%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy/>
                 <SizeBasedTriggeringPolicy size="10MB"/>
             </Policies>
         </RollingFile>
+
+        <RollingFile name="MXfileError"
+                     ffileName="${logPath}/default.log"
+                     filePattern="${logPath}/$${date:yyyyMMdd}/default-%d{yyMMddHH}-%i.log">
+            <Filters>
+                <ThresholdFilter level="fatal" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout
+                    pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %m %n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+        </RollingFile>
+
+
         <RollingFile name="fileSql"
                      fileName="${logPath}/default.log"
                      filePattern="${logPath}/$${date:yyyyMMdd}/default-%d{yyMMddHH}-%i.log">
             <PatternLayout
-                    pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t][%X{logId}] %-5level %logger{3} - %msg%n"/>
+                    pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{3}[%L] - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="MXfileSql"
+                     fileName="${logPath}/default.log"
+                     filePattern="${logPath}/$${date:yyyyMMdd}/default-%d{yyMMddHH}-%i.log">
+            <PatternLayout
+                    pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %m %n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy/>
                 <SizeBasedTriggeringPolicy size="10MB"/>
@@ -62,13 +107,20 @@
             <appender-ref ref="Console"/>  <!-- 控制台输出 -->
             <appender-ref ref="fileInfo" /> <!-- 输出到info.log文件 -->
         </Logger>
+        <!--需要把用到mxlog的包配置到对应的格式-->
         <Logger name="com.mx" level="All" additivity="false">
-            <appender-ref ref="Console"/>
-            <appender-ref ref="fileInfo" />
+            <appender-ref ref="MXConsole"/>
+            <appender-ref ref="MXfileError"/>
+            <appender-ref ref="MXfileInfo"/>
         </Logger>
-        <Logger name="com.mx.dao.mapper" level="All" additivity="false">
-            <appender-ref ref="Console"/>
-            <appender-ref ref="fileSql"/>
+        <Logger name="demo" level="All" additivity="false">
+            <appender-ref ref="MXConsole"/>
+            <appender-ref ref="MXfileError"/>
+            <appender-ref ref="MXfileInfo"/>
+        </Logger>
+        <Logger name="demo.mapper" level="All" additivity="false">
+            <appender-ref ref="MXConsole"/>
+            <appender-ref ref="MXfileSql"/>
         </Logger>
         <root level="all">
             <appender-ref ref="fileError"/>

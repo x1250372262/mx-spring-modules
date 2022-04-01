@@ -5,14 +5,14 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import cn.hutool.http.useragent.UserAgentUtil;
 import com.alibaba.fastjson.JSONObject;
-import com.mx.spring.dev.core.M;
-import com.mx.spring.dev.core.R;
+import com.mx.spring.dev.result.M;
+import com.mx.spring.dev.result.R;
 import com.mx.spring.dev.enums.OperationType;
 import com.mx.spring.dev.support.log.event.OperationLogEvent;
 import com.mx.spring.dev.support.log.model.SecurityLog;
 import com.mx.spring.dev.support.security.SaUtils;
 import com.mx.spring.dev.support.security.model.SecurityUser;
-import com.mx.spring.dev.util.WebUtils;
+import com.mx.spring.dev.util.WebUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -95,7 +95,7 @@ public class LogAspect {
                 code = -50;
                 msg = e.getMessage();
             }
-            HttpServletRequest request = WebUtils.request();
+            HttpServletRequest request = WebUtil.request();
             String userAgentStr = request.getHeader("user-agent");
             // *========数据库日志=========*//
             SecurityLog operationLog = SecurityLog.builder()

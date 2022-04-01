@@ -3,18 +3,18 @@ package com.mx.spring.security.service.impl;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.extra.servlet.ServletUtil;
-import com.mx.spring.dev.page.PageBean;
+import com.mx.spring.dev.support.page.PageBean;
 import com.mx.spring.dev.constants.Constants;
-import com.mx.spring.dev.core.M;
-import com.mx.spring.dev.page.Pages;
-import com.mx.spring.dev.core.R;
+import com.mx.spring.dev.result.M;
+import com.mx.spring.dev.support.page.Pages;
+import com.mx.spring.dev.result.R;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.dev.support.mybatisplus.MMP;
 import com.mx.spring.dev.support.security.SaUtils;
 import com.mx.spring.dev.support.security.model.SecurityUser;
 import com.mx.spring.dev.support.security.model.SecurityUserRole;
-import com.mx.spring.dev.util.BeanUtils;
-import com.mx.spring.dev.util.WebUtils;
+import com.mx.spring.dev.util.BeanUtil;
+import com.mx.spring.dev.util.WebUtil;
 import com.mx.spring.security.bean.SecurityUserBean;
 import com.mx.spring.security.config.MxSecurityConfig;
 import com.mx.spring.security.handler.Handler;
@@ -68,7 +68,7 @@ public class SecurityUserServiceImpl implements ISecurityUserService {
     @Override
     @Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = {MxException.class, Exception.class})
     public R create(String password, SecurityUserBean userBean) throws MxException {
-        Map<String,String> params = ServletUtil.getParamMap(WebUtils.request());
+        Map<String,String> params = ServletUtil.getParamMap(WebUtil.request());
         IUserHandler userHandler = Handler.userHandler();
         R r = userHandler.createBefore(params);
         if (Handler.check(r)) {
@@ -81,7 +81,7 @@ public class SecurityUserServiceImpl implements ISecurityUserService {
         String salt = RandomUtil.randomString(6);
         password = DigestUtils.md5DigestAsHex(Base64.encodeBase64((password + salt).getBytes(StandardCharsets.UTF_8)));
         String finalPassword = password;
-        securityUser = BeanUtils.copy(userBean, SecurityUser::new, (s, t) -> {
+        securityUser = BeanUtil.copy(userBean, SecurityUser::new, (s, t) -> {
             t.bind()
                     .id(IdUtil.fastSimpleUUID())
                     .client(config.getClient())
@@ -102,7 +102,7 @@ public class SecurityUserServiceImpl implements ISecurityUserService {
 
     @Override
     public M<SecurityUserVO> detail(String id) throws MxException {
-        return M.ok(BeanUtils.copy(iSecurityUserMapper.selectById(id), SecurityUserVO::new));
+        return M.ok(BeanUtil.copy(iSecurityUserMapper.selectById(id), SecurityUserVO::new));
     }
 
     @Override

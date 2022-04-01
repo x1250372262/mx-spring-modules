@@ -1,0 +1,70 @@
+#mx:
+#  #文件上传配置
+#  upload:
+#    #上传文件大小最大值(M) 默认10M
+#    max-size:
+#    #允许上传的contentType列表  用|分割 默认不限制
+#    content-type:
+#    #文件上传处理类
+#    #默认com.mx.spring.upload.handler.impl.LocalUploadHandler基于本地
+#    #QiniuUploadHandler基于七牛云
+#    #MinIOUploadHandler基于Minio
+#    #TxUploadHandler基于腾讯云
+#    #AliUploadHandler基于阿里云
+#    handler-class:
+#    #本地文件配置
+#    local:
+#      # 文件存储位置 文件上传处理类=LocalUploadHandler时不能为空
+#      file-storage-path:
+#      #请求域名 文件上传处理类=LocalUploadHandler时不能为空
+#      url:
+#    #Minio文件配置
+#    minio:
+#      #地址 文件上传处理类=MinIOUploadHandler时不能为空
+#      url:
+#      #公钥 文件上传处理类=MinIOUploadHandler时不能为空
+#      access-key:
+#      #私钥 文件上传处理类=MinIOUploadHandler时不能为空
+#      secret-key:
+#      #桶 文件上传处理类=MinIOUploadHandler时不能为空
+#      bucket:
+#    #七牛文件配置
+#    qiniu:
+#      #外链地址 文件上传处理类=QiniuUploadHandler时不能为空
+#      url:
+#      #公钥ak 文件上传处理类=QiniuUploadHandler时不能为空
+#      access-key:
+#      #私钥sk 文件上传处理类=QiniuUploadHandler时不能为空
+#      secret-key:
+#      #空间名称 文件上传处理类=QiniuUploadHandler时不能为空
+#      bucket:
+#      #地域 不配置会自动判断区域，使用相应域名处理。
+#      #如果可以明确 区域 的话，最好指定固定区域，这样可以少一步网络请求，少一步出错的可能。
+#      #https://developer.qiniu.com/kodo/1671/region-endpoint-fq  具体配置参考这个网址  新增的配置可联系作者添加
+#      region:
+#    #腾讯文件配置
+#    tx:
+#      #地址 文件上传处理类=TxUploadHandler时不能为空
+#      url:
+#      #secretId 文件上传处理类=TxUploadHandler时不能为空
+#      secret-id:
+#      #secretKey 文件上传处理类=TxUploadHandler时不能为空
+#      secret-key:
+#      #存储桶 文件上传处理类=TxUploadHandler时不能为空
+#      bucket:
+#      #地域 文件上传处理类=TxUploadHandler时不能为空
+#      region:
+#    #阿里文件配置
+#    ali:
+#      #文件预览地址 https://bucket.endpoint 文件上传处理类=TxUploadHandler时不能为空
+#      url:
+#      #地址 文件上传处理类=AliUploadHandler时不能为空
+#      endpoint:
+#      #accessKeyId 文件上传处理类=AliUploadHandler时不能为空
+#      access-key-id:
+#      #accessKeySecret 文件上传处理类=AliUploadHandler时不能为空
+#      access-key-secret:
+#      #存储桶 文件上传处理类=AliUploadHandler时不能为空
+#      bucket:
+#
+#

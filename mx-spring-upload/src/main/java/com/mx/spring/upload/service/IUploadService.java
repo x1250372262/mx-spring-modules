@@ -1,8 +1,8 @@
 package com.mx.spring.upload.service;
 
-import com.mx.spring.dev.core.M;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.support.upload.bean.Upload;
+import com.mx.spring.dev.result.M;
+import com.mx.spring.upload.bean.Upload;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
