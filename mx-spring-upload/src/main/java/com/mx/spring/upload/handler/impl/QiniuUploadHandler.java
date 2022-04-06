@@ -24,7 +24,7 @@ import java.io.IOException;
 import static com.mx.spring.upload.code.UploadCode.*;
 
 /**
- * @Author: 徐建鹏.
+ * @Author: mengxiang.
  * @create: 2022-03-30 11:41
  * @Description: 基于七牛云文件存储
  */

@@ -10,11 +10,9 @@
     <version>1.0.0</version>
     <modules>
         <module>mx-spring-dev</module>
-        <module>mx-spring-security</module>
         <module>mx-spring-maven-plugin</module>
         <module>mx-spring-redis</module>
         <module>mx-spring-jdbc-mybatis-plus</module>
-        <module>mx-spring-log</module>
         <module>mx-spring-upload</module>
     </modules>
 
@@ -23,21 +21,14 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <spring.boot.version>2.6.5</spring.boot.version>
-        <spring.cloud.version>Hoxton.SR8</spring.cloud.version>
-        <spring.cloud.alibaba.version>2.2.1.RELEASE</spring.cloud.alibaba.version>
-        <spring.boot.admin.version>2.2.3</spring.boot.admin.version>
         <knife4j.spring.boot.version>3.0.3</knife4j.spring.boot.version>
         <mybatis.plus.boot.version>3.5.1</mybatis.plus.boot.version>
         <commons.lang3.version>3.12.0</commons.lang3.version>
         <hutool.all.version>5.7.22</hutool.all.version>
         <fastjson.version>1.2.79</fastjson.version>
-        <mybatis.spring.version>2.0.4</mybatis.spring.version>
         <redisson.spring.boot.version>3.17.0</redisson.spring.boot.version>
         <sa.token.spring.boot.version>1.29.1.trial</sa.token.spring.boot.version>
-        <sa.token.dao.redis.jackson.version>1.26.0</sa.token.dao.redis.jackson.version>
         <mysql.connector.java.version>8.0.28</mysql.connector.java.version>
-        <commons.pool2.version>2.10.0</commons.pool2.version>
-        <druid.spring.boot.version>1.1.23</druid.spring.boot.version>
     </properties>
 
     <dependencyManagement>
@@ -51,34 +42,6 @@
                 <scope>import</scope>
             </dependency>
 
-            <!--https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies/Hoxton.SR8-->
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring.cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!--https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-alibaba-dependencies/2.2.1.RELEASE-->
-            <dependency>
-                <groupId>com.alibaba.cloud</groupId>
-                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-                <version>${spring.cloud.alibaba.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <!--集成SpringBoot Admin监控-->
-            <dependency>
-                <groupId>de.codecentric</groupId>
-                <artifactId>spring-boot-admin-starter-server</artifactId>
-                <version>${spring.boot.admin.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>de.codecentric</groupId>
-                <artifactId>spring-boot-admin-starter-client</artifactId>
-                <version>${spring.boot.admin.version}</version>
-            </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
@@ -95,12 +58,6 @@
                 <version>${fastjson.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.mybatis</groupId>
-                <artifactId>mybatis-spring</artifactId>
-                <scope>provided</scope>
-                <version>${mybatis.spring.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-spring-boot-starter</artifactId>
                 <version>${knife4j.spring.boot.version}</version>
@@ -115,11 +72,6 @@
                 <artifactId>sa-token-spring-boot-starter</artifactId>
                 <version>${sa.token.spring.boot.version}</version>
             </dependency>
-            <dependency>
-                <groupId>cn.dev33</groupId>
-                <artifactId>sa-token-dao-redis-jackson</artifactId>
-                <version>${sa.token.dao.redis.jackson.version}</version>
-            </dependency>
             <!-- redis分布式锁框架 -->
             <dependency>
                 <groupId>org.redisson</groupId>
@@ -130,16 +82,6 @@
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql.connector.java.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-pool2</artifactId>
-                <version>${commons.pool2.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>druid-spring-boot-starter</artifactId>
-                <version>${druid.spring.boot.version}</version>
             </dependency>
             <!--minio文件存储-->
             <dependency>

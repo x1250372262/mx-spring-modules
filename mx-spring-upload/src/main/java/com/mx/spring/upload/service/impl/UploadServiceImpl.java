@@ -47,15 +47,6 @@ public class UploadServiceImpl implements IUploadService {
         return contentTypeList.contains(contentType);
     }
 
-    private String getFilePath(String type, String hash, String extension) {
-        //路径格式 例如 image/20210/01/01/hash.png
-        long time = System.currentTimeMillis();
-        String year = TimeUtil.formatTime(time, "yyyy");
-        String month = TimeUtil.formatTime(time, "MM");
-        String day = TimeUtil.formatTime(time, "dd");
-        return StrUtil.format("{}/{}/{}/{}/{}.{}", type, year, month, day, hash, extension);
-    }
-
 
     @Override
     public M<Upload> upload(MultipartFile file) throws MxException {

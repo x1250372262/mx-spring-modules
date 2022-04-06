@@ -25,7 +25,7 @@ import java.nio.file.Files;
 import static com.mx.spring.upload.code.UploadCode.*;
 
 /**
- * @Author: 徐建鹏.
+ * @Author: mengxiang.
  * @create: 2022-03-30 11:41
  * @Description: 基于腾讯云云文件存储
  */

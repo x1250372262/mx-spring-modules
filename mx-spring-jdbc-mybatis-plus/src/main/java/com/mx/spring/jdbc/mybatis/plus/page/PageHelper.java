@@ -9,7 +9,7 @@ import com.mx.spring.jdbc.mybatis.plus.util.MPBeanUtils;
 import java.util.function.Supplier;
 
 /**
- * @Author: 徐建鹏.
+ * @Author: mengxiang.
  * @create: 2022-03-26 17:02
  * @Description:
  */

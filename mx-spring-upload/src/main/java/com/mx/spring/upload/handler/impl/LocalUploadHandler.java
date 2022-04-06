@@ -18,7 +18,7 @@ import static com.mx.spring.upload.code.UploadCode.UPLOAD_LOCAL_FILE_STORAGE_PAT
 import static com.mx.spring.upload.code.UploadCode.UPLOAD_LOCAL_URL_ERROR;
 
 /**
- * @Author: 徐建鹏.
+ * @Author: mengxiang.
  * @create: 2022-03-30 11:41
  * @Description: 基于本地文件存储
  */

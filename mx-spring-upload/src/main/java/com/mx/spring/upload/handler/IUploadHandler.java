@@ -8,7 +8,7 @@ import com.mx.spring.upload.bean.Upload;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * @Author: 徐建鹏.
+ * @Author: mengxiang.
  * @create: 2022-03-30 11:40
  * @Description:
  */

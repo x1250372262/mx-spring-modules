@@ -1,7 +1,7 @@
 package com.mx.spring.dev.support.resturl;
 
 /**
- * @Author: 徐建鹏.
+ * @Author: mengxiang.
  * @create: 2022-03-25 20:54
  * @Description:
  */
