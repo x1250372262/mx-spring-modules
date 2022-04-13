@@ -1,4 +1,6 @@
 #mx:
 #  config:
-#    format-request: false
+#    # 是否输出接口信息
 #    print-rest-url: false
+#    # 是否格式化请求
+#    format-request: false

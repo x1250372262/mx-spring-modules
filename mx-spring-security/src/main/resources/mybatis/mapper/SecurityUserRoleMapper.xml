@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mx.spring.security.mapper.ISecurityUserRoleMapper">
+
+    <resultMap id="BaseResultMap" type="com.mx.spring.security.base.model.SecurityUserRole">
+        <id property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="userId" column="user_id" jdbcType="VARCHAR"/>
+        <result property="roleId" column="role_id" jdbcType="VARCHAR"/>
+        <result property="createUser" column="create_user" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="BIGINT"/>
+        <result property="lastModifyUser" column="last_modify_user" jdbcType="VARCHAR"/>
+        <result property="lastModifyTime" column="last_modify_time" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, user_id, role_id, create_user, create_time, last_modify_user, last_modify_time
+    </sql>
+
+    <select id="roleList" resultType="com.mx.spring.security.base.vo.SecurityUserRoleVO" parameterType="java.lang.String">
+        SELECT sur.id, sur.user_id, sur.role_id, sur.create_time, sr.name role_name
+        FROM mx_security_user_role sur
+        INNER JOIN mx_security_role sr ON sur.role_id = sr.id
+        WHERE sur.user_id = #{userId}
+    </select>
+
+    <select id="permissionList" resultType="com.mx.spring.security.base.vo.SecurityUserPermissionVO" parameterType="java.lang.String">
+        SELECT sp.id permission_id, sp.permission_code, sp.permission_name, sur.role_id
+        FROM mx_security_role_permission srp
+        INNER JOIN mx_security_permission sp ON srp.permisson_id = sp.id
+        INNER JOIN mx_security_user_role sur ON sur.role_id = srp.role_id
+        WHERE sur.user_id = #{userId}
+    </select>
+
+
+</mapper>

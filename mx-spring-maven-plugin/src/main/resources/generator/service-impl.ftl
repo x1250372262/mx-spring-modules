@@ -8,7 +8,7 @@ import com.mx.spring.dev.core.M;
 import com.mx.spring.dev.core.Pages;
 import com.mx.spring.dev.core.R;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.support.mybatisplus.MMP;
+import com.mx.spring.dev.support.mybatisplus.MP;
 import com.mx.spring.dev.util.BeanUtils;
 import com.mx.spring.security.SaUtils;
 import ${beanPackageName}.${modelName}ListBean;
@@ -42,7 +42,7 @@ public class ${modelName}ServiceImpl implements I${modelName}Service {
 
     @Override
     public M<Pages${left}${modelName}ListVO${right}> list(${modelName}ListBean ${modelName?uncap_first}ListBean, PageBean<${modelName}> pageBean) throws MxException {
-        LambdaQueryWrapper<${modelName}> queryWrapper = MMP.lqw(find${modelName});
+        LambdaQueryWrapper<${modelName}> queryWrapper = MP.lqw(find${modelName});
         <#list listParamsList as field>
         <#if (field.varType?contains('String'))>
         queryWrapper.eq(StringUtils.isNotBlank(${modelName?uncap_first}ListBean.get${field.varName?cap_first}()),${modelName}::get${field.varName?cap_first},${modelName?uncap_first}ListBean.get${field.varName?cap_first}());
@@ -57,7 +57,7 @@ public class ${modelName}ServiceImpl implements I${modelName}Service {
     @Override
     public R create(${modelName}Bean ${modelName?uncap_first}Bean) throws MxException {
         <#if (notSameField!='我的相同字段')>
-        ${modelName} ${modelName?uncap_first} = i${modelName}Mapper.selectOne(MMP.lqw(find${modelName})
+        ${modelName} ${modelName?uncap_first} = i${modelName}Mapper.selectOne(MP.lqw(find${modelName})
                     .eq(${modelName}::get${notSameField?cap_first}, ${modelName?uncap_first}Bean.get${notSameField?cap_first}()));
         if (${modelName?uncap_first} != null) {
             <#if (notSameField=='name' && notSameText=='名称')>
@@ -90,7 +90,7 @@ public class ${modelName}ServiceImpl implements I${modelName}Service {
     @Override
     public R update(String id, <#if (isCheckVersion)>Long lastModifyTime,</#if> ${modelName}Bean ${modelName?uncap_first}Bean) throws MxException {
         <#if (notSameField!='我的相同字段')>
-        ${modelName} ${modelName?uncap_first} = i${modelName}Mapper.selectOne(MMP.lqw(find${modelName})
+        ${modelName} ${modelName?uncap_first} = i${modelName}Mapper.selectOne(MP.lqw(find${modelName})
                     .eq(${modelName}::get${notSameField?cap_first}, ${modelName?uncap_first}Bean.get${notSameField?cap_first}())
                     .ne(${modelName}::getId,id));
         if (${modelName?uncap_first} != null) {

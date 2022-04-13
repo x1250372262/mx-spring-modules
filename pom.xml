@@ -10,6 +10,7 @@
     <version>1.0.0</version>
     <modules>
         <module>mx-spring-dev</module>
+        <module>mx-spring-security</module>
         <module>mx-spring-maven-plugin</module>
         <module>mx-spring-redis</module>
         <module>mx-spring-jdbc-mybatis-plus</module>
@@ -28,6 +29,8 @@
         <fastjson.version>1.2.79</fastjson.version>
         <redisson.spring.boot.version>3.17.0</redisson.spring.boot.version>
         <sa.token.spring.boot.version>1.29.1.trial</sa.token.spring.boot.version>
+        <sa.token.dao.redis.jackson.version>1.29.1.trial</sa.token.dao.redis.jackson.version>
+        <commons.pool2.version>2.10.0</commons.pool2.version>
         <mysql.connector.java.version>8.0.28</mysql.connector.java.version>
     </properties>
 
@@ -71,6 +74,16 @@
                 <groupId>cn.dev33</groupId>
                 <artifactId>sa-token-spring-boot-starter</artifactId>
                 <version>${sa.token.spring.boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-dao-redis-jackson</artifactId>
+                <version>${sa.token.dao.redis.jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-pool2</artifactId>
+                <version>${commons.pool2.version}</version>
             </dependency>
             <!-- redis分布式锁框架 -->
             <dependency>

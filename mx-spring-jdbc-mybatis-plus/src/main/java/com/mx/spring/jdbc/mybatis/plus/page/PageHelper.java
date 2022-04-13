@@ -13,7 +13,7 @@ import java.util.function.Supplier;
  * @create: 2022-03-26 17:02
  * @Description:
  */
-public class PageHelper<T> {
+public class PageHelper {
 
     public static <T> Page<T> in(PageBean<T> pageBean) throws MxException {
         return new Page<>(pageBean.getPage(), pageBean.getPageSize());

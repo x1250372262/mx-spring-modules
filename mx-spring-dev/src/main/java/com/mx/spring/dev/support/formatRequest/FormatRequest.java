@@ -1,4 +1,4 @@
-package com.mx.spring.dev.support.formatRequest.annotation;
+package com.mx.spring.dev.support.formatRequest;
 
 import java.lang.annotation.*;
 

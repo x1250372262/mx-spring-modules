@@ -3,7 +3,7 @@ package com.mx.spring.upload.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.dev.result.M;
-import com.mx.spring.dev.support.formatRequest.annotation.FormatRequest;
+import com.mx.spring.dev.support.formatRequest.FormatRequest;
 import com.mx.spring.upload.bean.Upload;
 import com.mx.spring.upload.service.IUploadService;
 import io.swagger.annotations.*;
@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @Description:
  */
 @RestController
-@RequestMapping("upload")
+@RequestMapping("mx/upload")
 @Api(value = "文件上传模块", tags = "文件上传模块")
 public class UploadController {
 

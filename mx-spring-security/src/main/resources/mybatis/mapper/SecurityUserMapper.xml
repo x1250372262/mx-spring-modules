@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mx.spring.security.mapper.ISecurityUserMapper">
+
+    <resultMap id="BaseResultMap" type="com.mx.spring.security.base.model.SecurityUser">
+         <id property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="client" column="client" jdbcType="VARCHAR"/>
+        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="realName" column="real_name" jdbcType="VARCHAR"/>
+        <result property="photoUri" column="photo_uri" jdbcType="LONGVARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="mobile" column="mobile" jdbcType="VARCHAR"/>
+        <result property="gender" column="gender" jdbcType="SMALLINT"/>
+        <result property="createUser" column="create_user" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="BIGINT"/>
+        <result property="lastModifyTime" column="last_modify_time" jdbcType="BIGINT"/>
+        <result property="lastModifyUser" column="last_modify_user" jdbcType="VARCHAR"/>
+        <result property="salt" column="salt" jdbcType="VARCHAR"/>
+        <result property="disableStatus" column="disable_status" jdbcType="SMALLINT"/>
+        <result property="founder" column="founder" jdbcType="SMALLINT"/>
+        <result property="loginErrorCount" column="login_error_count" jdbcType="INTEGER"/>
+        <result property="loginLockStatus" column="login_lock_status" jdbcType="SMALLINT"/>
+        <result property="loginLockStartTime" column="login_lock_start_time" jdbcType="BIGINT"/>
+        <result property="loginLockEndTime" column="login_lock_end_time" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, user_name, real_name, photo_uri, password, mobile, gender, create_user, create_time, last_modify_time, last_modify_user, salt, disable_status, founder, login_error_count, login_lock_status, login_lock_start_time, login_lock_end_time
+    </sql>
+
+    <select id="findAll" resultType="com.mx.spring.security.base.vo.SecurityUserListVO">
+        SELECT
+        su.id,su.user_name,su.real_name,su.photo_uri,su.create_time,su.last_modify_time,su.disable_status,
+        su.login_lock_status,su.gender,GROUP_CONCAT(sr.name)
+        roleName
+        FROM mx_security_user su
+        LEFT JOIN mx_security_user_role sur on sur.user_id = su.id
+        LEFT JOIN mx_security_role sr on sr.id = sur.role_id
+        WHERE su.founder = 0 AND su.client = #{client}
+        <if test="userName!=null and userName!=''">
+            AND su.user_name like concat('%',#{userName},'%')
+        </if>
+        <if test="realName!=null and realName!=''">
+            AND su.real_name like concat('%',#{realName},'%')
+        </if>
+        <if test="disableStatus!=null">
+            AND su.disable_status = #{disableStatus}
+        </if>
+        GROUP BY su.id ORDER BY su.create_time DESC
+    </select>
+
+</mapper>

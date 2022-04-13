@@ -1,4 +1,4 @@
-package com.mx.spring.dev.support.formatRequest.aspect;
+package com.mx.spring.dev.support.formatRequest;
 
 import com.alibaba.fastjson.JSONObject;
 import com.mx.spring.dev.config.MxConfig;
@@ -6,7 +6,10 @@ import com.mx.spring.dev.support.log.MxLog;
 import com.mx.spring.dev.util.WebUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,7 +27,7 @@ public class FormatRequestAspect {
     @Autowired
     private MxConfig mxConfig;
 
-    @Pointcut(value = "@annotation(com.mx.spring.dev.support.formatRequest.annotation.FormatRequest)")
+    @Pointcut(value = "@annotation(com.mx.spring.dev.support.formatRequest.FormatRequest)")
     public void formatRequest() {
     }
 
