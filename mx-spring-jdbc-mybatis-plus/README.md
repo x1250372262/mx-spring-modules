@@ -34,3 +34,12 @@ mybatis-plus:
 
 ```
 
+## 多数据增加依赖
+```xml
+ <dependency>
+    <groupId>com.baomidou</groupId>
+    <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+</dependency>
+```
+配置参考mx-spring-jdbc-clickhouse项目
+

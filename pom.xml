@@ -15,6 +15,7 @@
         <module>mx-spring-redis</module>
         <module>mx-spring-jdbc-mybatis-plus</module>
         <module>mx-spring-upload</module>
+        <module>mx-spring-jdbc-clickhouse</module>
     </modules>
 
 
@@ -24,6 +25,7 @@
         <spring.boot.version>2.6.5</spring.boot.version>
         <knife4j.spring.boot.version>3.0.3</knife4j.spring.boot.version>
         <mybatis.plus.boot.version>3.5.1</mybatis.plus.boot.version>
+        <dynamic-datasource.version>3.5.1</dynamic-datasource.version>
         <commons.lang3.version>3.12.0</commons.lang3.version>
         <hutool.all.version>5.7.22</hutool.all.version>
         <fastjson.version>1.2.79</fastjson.version>
@@ -32,6 +34,9 @@
         <sa.token.dao.redis.jackson.version>1.29.1.trial</sa.token.dao.redis.jackson.version>
         <commons.pool2.version>2.10.0</commons.pool2.version>
         <mysql.connector.java.version>8.0.28</mysql.connector.java.version>
+        <clickhouse-jdbc.version>0.3.2</clickhouse-jdbc.version>
+        <druid.version>1.2.8</druid.version>
+
     </properties>
 
     <dependencyManagement>
@@ -69,6 +74,11 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis.plus.boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+                <version>${dynamic-datasource.version}</version>
             </dependency>
             <dependency>
                 <groupId>cn.dev33</groupId>
@@ -126,7 +136,18 @@
                 <artifactId>gson</artifactId>
                 <version>2.9.0</version>
             </dependency>
-
+            <!--clickhouse-jdbc-->
+            <dependency>
+                <groupId>ru.yandex.clickhouse</groupId>
+                <artifactId>clickhouse-jdbc</artifactId>
+                <version>${clickhouse-jdbc.version}</version>
+            </dependency>
+            <!--druid-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>
