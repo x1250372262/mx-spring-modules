@@ -20,7 +20,7 @@ import java.util.List;
  * @Description:
  */
 @Service
-public class SecurityUserRoleService implements ISecurityUserRoleService {
+public class SecurityUserRoleServiceImpl implements ISecurityUserRoleService {
 
     @Autowired
     private ISecurityUserRoleMapper iSecurityUserRoleMapper;

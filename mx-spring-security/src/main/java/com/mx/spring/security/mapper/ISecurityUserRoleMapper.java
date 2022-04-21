@@ -20,7 +20,22 @@ import java.util.List;
 @Mapper
 public interface ISecurityUserRoleMapper extends MxBaseMapper<SecurityUserRole> {
 
+    /**
+     * 获取用户角色列表
+     *
+     * @param userId
+     * @param page
+     * @return
+     * @throws MxException
+     */
     Page<SecurityUserRoleVO> roleList(@Param("userId") String userId, Page<SecurityUserRoleVO> page) throws MxException;
 
+    /**
+     * 获取用户权限列表
+     *
+     * @param userId
+     * @return
+     * @throws MxException
+     */
     List<SecurityUserPermissionVO> permissionList(@Param("userId") String userId) throws MxException;
 }

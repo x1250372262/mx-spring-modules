@@ -3,8 +3,6 @@ package com.mx.spring.security.base.vo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import java.io.Serializable;
-
 /**
  * @Author: mengxiang.
  * @create: 2021-09-24 16:00
@@ -100,5 +98,10 @@ public class SecurityOperationLogVO extends SecurityOperationLogListVO {
 
     public void setBrowser(String browser) {
         this.browser = browser;
+    }
+
+    @Override
+    public String toString() {
+        return "SecurityOperationLogVO{" + "requestParam='" + requestParam + '\'' + ", returnCode='" + returnCode + '\'' + ", returnMessage='" + returnMessage + '\'' + ", returnResult='" + returnResult + '\'' + ", className='" + className + '\'' + ", methodName='" + methodName + '\'' + ", os='" + os + '\'' + ", browser='" + browser + '\'' + '}';
     }
 }

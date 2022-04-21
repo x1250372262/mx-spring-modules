@@ -1,5 +1,10 @@
 package com.mx.spring.security.base.enums;
 
+/**
+ * @Author: mengxiang.
+ * @create: 2022-04-20 00:00
+ * @Description: 菜单类型枚举
+ */
 public enum MenuType
 {
     /**

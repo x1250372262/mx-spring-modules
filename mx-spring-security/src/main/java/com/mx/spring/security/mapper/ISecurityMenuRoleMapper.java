@@ -16,6 +16,13 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface ISecurityMenuRoleMapper extends MxBaseMapper<SecurityMenuRole> {
 
+    /**
+     * 获取菜单角色
+     * @param menuId
+     * @param name
+     * @param page
+     * @return
+     */
     Page<SecurityMenuRoleVO> findAll(@Param("menuId") String menuId, @Param("name") String name, Page<SecurityMenuRoleVO> page);
 
 }

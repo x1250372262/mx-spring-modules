@@ -5,6 +5,11 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 
+/**
+ * @Author: mengxiang.
+ * @create: 2022-04-20 00:00
+ * @Description: 菜单角色信息
+ */
 @ApiModel(value = "菜单角色信息", description = "菜单角色信息")
 public class SecurityMenuRoleVO implements Serializable {
 
@@ -39,5 +44,11 @@ public class SecurityMenuRoleVO implements Serializable {
 
     public void setCreateTime(Long createTime) {
         this.createTime = createTime;
+    }
+
+
+    @Override
+    public String toString() {
+        return "SecurityMenuRoleVO{" + "id='" + id + '\'' + ", name='" + name + '\'' + ", createTime=" + createTime + '}';
     }
 }

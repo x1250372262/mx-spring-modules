@@ -22,6 +22,7 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.*;
 
+import static com.mx.maven.constant.FileNameConstants.JAVA_FILE_SUFFIX;
 import static org.fusesource.jansi.Ansi.Color.YELLOW;
 
 /**
@@ -127,7 +128,12 @@ public class CurdGeneratorMojo extends BaseGeneratorMojo {
         }
     }
 
-    //输出vo
+    /**
+     * 输出vo
+     * @param propMap
+     * @param attrMap
+     * @param modelName
+     */
     private void outVO(Map<String, Object> propMap, Map<String, Attr> attrMap, String modelName) {
         if (StringUtils.isBlank(curdConfig.getVoProjectPath()) || StringUtils.isBlank(curdConfig.getVoName()) || StringUtils.isBlank(curdConfig.getDetailReturns())) {
             throw new RuntimeException("请检查vo设置");
@@ -142,7 +148,12 @@ public class CurdGeneratorMojo extends BaseGeneratorMojo {
         outFile(curdConfig.getVoProjectPath(), modelName + "VO.java", "/generator/VO.ftl", propMap, curdConfig.getVoName());
     }
 
-    //输出listvo
+    /**
+     * 输出listvo
+     * @param propMap
+     * @param attrMap
+     * @param modelName
+     */
     private void outListVO(Map<String, Object> propMap, Map<String, Attr> attrMap, String modelName) {
         if (StringUtils.isBlank(curdConfig.getVoProjectPath()) || StringUtils.isBlank(curdConfig.getVoName()) || StringUtils.isBlank(curdConfig.getListReturns())) {
             throw new RuntimeException("请检查vo设置");
@@ -157,7 +168,12 @@ public class CurdGeneratorMojo extends BaseGeneratorMojo {
         outFile(curdConfig.getVoProjectPath(), modelName + "ListVO.java", "/generator/VO.ftl", propMap, curdConfig.getVoName());
     }
 
-    //输出dto和bean
+    /**
+     * 输出dto和bean
+     * @param propMap
+     * @param attrMap
+     * @param modelName
+     */
     private void outDTO(Map<String, Object> propMap, Map<String, Attr> attrMap, String modelName) {
         if (StringUtils.isBlank(curdConfig.getDtoProjectPath()) || StringUtils.isBlank(curdConfig.getDtoName()) || StringUtils.isBlank(curdConfig.getBeanProjectPath()) || StringUtils.isBlank(curdConfig.getBeanName()) || StringUtils.isBlank(curdConfig.getOptionParams())) {
             throw new RuntimeException("请检查dto和bean设置");
@@ -173,7 +189,12 @@ public class CurdGeneratorMojo extends BaseGeneratorMojo {
         outFile(curdConfig.getDtoProjectPath(), modelName + "Bean.java", "/generator/Bean.ftl", propMap, curdConfig.getBeanName());
     }
 
-    //输出listDto和bean
+    /**
+     * 输出listDto和bean
+     * @param propMap
+     * @param attrMap
+     * @param modelName
+     */
     private void outListDTO(Map<String, Object> propMap, Map<String, Attr> attrMap, String modelName) {
         if (StringUtils.isBlank(curdConfig.getDtoProjectPath()) || StringUtils.isBlank(curdConfig.getDtoName()) || StringUtils.isBlank(curdConfig.getBeanProjectPath()) || StringUtils.isBlank(curdConfig.getBeanName()) || StringUtils.isBlank(curdConfig.getListParams())) {
             throw new RuntimeException("请检查dto和bean设置");
@@ -189,7 +210,12 @@ public class CurdGeneratorMojo extends BaseGeneratorMojo {
         outFile(curdConfig.getBeanProjectPath(), modelName + "ListBean.java", "/generator/Bean.ftl", propMap, curdConfig.getBeanName());
     }
 
-    //输出service和impl
+    /**
+     * 输出service和impl
+     * @param propMap
+     * @param attrMap
+     * @param modelName
+     */
     private void outService(Map<String, Object> propMap, Map<String, Attr> attrMap, String modelName) {
         if (StringUtils.isBlank(curdConfig.getServiceProjectPath()) || StringUtils.isBlank(curdConfig.getServiceName())) {
             throw new RuntimeException("请检查service设置");
@@ -204,7 +230,11 @@ public class CurdGeneratorMojo extends BaseGeneratorMojo {
         outFile(curdConfig.getServiceProjectPath(), "impl" + File.separator + modelName + "ServiceImpl.java", "/generator/service-impl.ftl", propMap, curdConfig.getServiceName());
     }
 
-    //输出controller
+    /**
+     * 输出controller
+     * @param propMap
+     * @param modelName
+     */
     private void outController(Map<String, Object> propMap, String modelName) {
         if (StringUtils.isBlank(curdConfig.getControllerName()) || StringUtils.isBlank(curdConfig.getControllerProjectPath())) {
             throw new RuntimeException("请检查controller设置");
@@ -212,7 +242,12 @@ public class CurdGeneratorMojo extends BaseGeneratorMojo {
         outFile(curdConfig.getControllerProjectPath(), modelName + "Controller.java", "/generator/controller.ftl", propMap, curdConfig.getControllerName());
     }
 
-    //输出页面
+    /**
+     * 输出页面
+     * @param propMap
+     * @param attrMap
+     * @param modelName
+     */
     private void outPage(Map<String, Object> propMap, Map<String, Attr> attrMap, String modelName) {
         if (StringUtils.isBlank(curdConfig.getPageProjectPath())) {
             throw new RuntimeException("请检查page设置");
@@ -264,7 +299,7 @@ public class CurdGeneratorMojo extends BaseGeneratorMojo {
         try {
             String outPath = projectPath + File.separator + "src" + File.separator + "main" + File.separator + "java";
             File outputFile;
-            if (targetFileName.endsWith(".java")) {
+            if (targetFileName.endsWith(JAVA_FILE_SUFFIX)) {
                 outputFile = new File(outPath, new File(packageName.replace('.', '/'), targetFileName).getPath());
             } else {
                 outputFile = new File(projectPath, targetFileName);

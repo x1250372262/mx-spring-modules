@@ -1,6 +1,7 @@
 package com.mx.spring.upload.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.dev.result.M;
@@ -21,6 +22,7 @@ import java.util.Locale;
 
 import static com.mx.spring.upload.code.UploadCode.UPLOAD_CONTENT_TYPE_NOT_ALLOW;
 import static com.mx.spring.upload.code.UploadCode.UPLOAD_SIZE_ERROR;
+import static com.mx.spring.upload.constant.UploadConstants.B;
 
 
 /**
@@ -56,7 +58,7 @@ public class UploadServiceImpl implements IUploadService {
             return M.fail(UPLOAD_CONTENT_TYPE_NOT_ALLOW.getCode(), UPLOAD_CONTENT_TYPE_NOT_ALLOW.getMsg());
         }
         //大小不合适
-        if (file.getSize() > uploadConfig.getMaxSize() * 1024 * 1024) {
+        if (file.getSize() > uploadConfig.getMaxSize() * B) {
             return M.fail(UPLOAD_SIZE_ERROR.getCode(), StrUtil.format(UPLOAD_SIZE_ERROR.getMsg(), uploadConfig.getMaxSize()));
         }
 

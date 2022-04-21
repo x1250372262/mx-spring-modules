@@ -30,7 +30,7 @@ public class SecurityStpImpl implements StpInterface {
     @Autowired
     private ISecurityUserRoleService iSecurityUserRoleService;
     @Autowired
-    private IRedisApi IRedisApi;
+    private IRedisApi iRedisApi;
     @Autowired
     private SaUtils saUtils;
     @Autowired
@@ -41,14 +41,14 @@ public class SecurityStpImpl implements StpInterface {
         List<String> permissionList = new ArrayList<>();
         try {
             String permissionKey = StrUtil.format(PERMISSION_LIST, mxSecurityConfig.getClient(), saUtils.getToken(), StpUtil.getLoginType(), saUtils.loginId());
-            List<Object> redisPermissionList = JSONObject.parseArray(Convert.toStr(IRedisApi.strGet(permissionKey)));
+            List<Object> redisPermissionList = JSONObject.parseArray(Convert.toStr(iRedisApi.strGet(permissionKey)));
             if (CollUtil.isNotEmpty(redisPermissionList)) {
                 for (Object redisRole : redisPermissionList) {
                     permissionList.add(Convert.toStr(redisRole));
                 }
             } else {
                 permissionList = iSecurityUserRoleService.securityUserPermissionList((String) loginId, null);
-                IRedisApi.strSet(permissionKey, JSONObject.toJSONString(permissionList));
+                iRedisApi.strSet(permissionKey, JSONObject.toJSONString(permissionList));
             }
         } catch (MxException e) {
             e.printStackTrace();

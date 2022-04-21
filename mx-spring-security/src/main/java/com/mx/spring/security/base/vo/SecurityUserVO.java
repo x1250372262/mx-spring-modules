@@ -112,4 +112,9 @@ public class SecurityUserVO implements Serializable {
     public void setLastModifyTime(Long lastModifyTime) {
         this.lastModifyTime = lastModifyTime;
     }
+
+    @Override
+    public String toString() {
+        return "SecurityUserVO{" + "id='" + id + '\'' + ", userName='" + userName + '\'' + ", photoUri='" + photoUri + '\'' + ", realName='" + realName + '\'' + ", gender=" + gender + ", lastModifyTime=" + lastModifyTime + ", loginErrorCount=" + loginErrorCount + ", loginLockStartTime=" + loginLockStartTime + ", loginLockEndTime=" + loginLockEndTime + '}';
+    }
 }

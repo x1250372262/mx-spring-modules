@@ -1,5 +1,6 @@
 package com.mx.spring.security.base.config;
 
+import cn.hutool.core.util.ObjectUtil;
 import com.mx.spring.security.handler.ILoginHandler;
 import com.mx.spring.security.handler.IUserHandler;
 import org.apache.commons.lang3.StringUtils;
@@ -35,6 +36,11 @@ public class MxSecurityConfig {
      */
     private boolean cross;
 
+    /**
+     * 验证错误N次后锁定账户  默认不锁定  -1不锁定
+     */
+    private Integer errorCount;
+
 
     public String getClient() {
         return StringUtils.defaultIfBlank(client, "default");
@@ -66,5 +72,13 @@ public class MxSecurityConfig {
 
     public void setCross(boolean cross) {
         this.cross = cross;
+    }
+
+    public Integer getErrorCount() {
+        return ObjectUtil.defaultIfNull(this.errorCount, 0);
+    }
+
+    public void setErrorCount(Integer errorCount) {
+        this.errorCount = errorCount;
     }
 }

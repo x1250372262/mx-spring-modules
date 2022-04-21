@@ -32,11 +32,8 @@ import static com.mx.spring.upload.code.UploadCode.*;
 public class TxUploadHandler implements IUploadHandler {
 
     private final TxUploadConfig txUploadConfig = SpringUtil.getBean(TxUploadConfig.class);
-    // 1 初始化用户身份信息(secretId, secretKey)
     COSCredentials cred = new BasicCOSCredentials(txUploadConfig.getSecretId(), txUploadConfig.getSecretKey());
-    // 2 设置bucket的区域, COS地域的简称请参照 https://cloud.tencent.com/document/product/436/6224
     ClientConfig clientConfig = new ClientConfig(new Region(txUploadConfig.getRegion()));
-    // 3 生成cos客户端
     COSClient cosclient = new COSClient(cred, clientConfig);
 
 

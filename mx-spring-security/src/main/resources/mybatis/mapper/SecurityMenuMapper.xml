@@ -3,7 +3,7 @@
 <mapper namespace="com.mx.spring.security.mapper.ISecurityMenuMapper">
 
     <resultMap id="BaseResultMap" type="com.mx.spring.security.base.model.SecurityMenu">
-         <id property="id" column="id" jdbcType="VARCHAR"/>
+         <id property="id" column="id" jdbcType="BIT"/>
         <result property="client" column="client" jdbcType="VARCHAR"/>
         <result property="type" column="type" jdbcType="SMALLINT"/>
         <result property="parentId" column="parent_id" jdbcType="VARCHAR"/>

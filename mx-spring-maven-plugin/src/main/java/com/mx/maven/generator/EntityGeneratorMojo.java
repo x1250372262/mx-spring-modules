@@ -13,6 +13,7 @@ import com.mx.maven.conf.MxConfig;
 import com.mx.maven.util.DbUtils;
 import com.mx.maven.util.ModelUtils;
 import com.mx.maven.util.PropUtils;
+import com.mx.spring.dev.support.log.MxLog;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
@@ -25,6 +26,7 @@ import java.io.*;
 import java.sql.*;
 import java.util.*;
 
+import static com.mx.maven.constant.FileNameConstants.XML_FILE_SUFFIX;
 import static org.fusesource.jansi.Ansi.Color.*;
 
 /**
@@ -67,10 +69,10 @@ public class EntityGeneratorMojo extends BaseGeneratorMojo {
             try {
                 tableList = DbUtils.getTableNames();
             } catch (Exception e) {
-                throw new RuntimeException("check database",e);
+                throw new RuntimeException("check database", e);
             }
         }
-        if(tableList == null){
+        if (tableList == null) {
             return;
         }
         for (String tableName : tableList) {
@@ -93,7 +95,6 @@ public class EntityGeneratorMojo extends BaseGeneratorMojo {
         TableMeta meta = new TableMeta(pkFields, tableFields);
         try {
             connection = DbUtils.connection();
-
             DatabaseMetaData dbMetaData = connection.getMetaData();
             out(YELLOW, "数据库名称:" + entityConfig.getDbName());
             out(YELLOW, "数据库用户名:" + mxConfig.getUserName());
@@ -111,11 +112,7 @@ public class EntityGeneratorMojo extends BaseGeneratorMojo {
                     return null;
                 }
             }
-            out(GREEN, ">>> " + "列名称 / " +
-                    "列类型 / " +
-                    "是否是主键 / " +
-                    "备注 / " +
-                    "是否为空");
+            out(GREEN, ">>> " + "列名称 / " + "列类型 / " + "是否是主键 / " + "备注 / " + "是否为空");
             statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             resultSet = statement.executeQuery("SELECT * FROM " + tableName + " ");
             ResultSetMetaData rsMetaData = resultSet.getMetaData();
@@ -123,49 +120,47 @@ public class EntityGeneratorMojo extends BaseGeneratorMojo {
                 // 获取字段元数据对象
                 ResultSet column = dbMetaData.getColumns(entityConfig.getDbName(), dbMetaData.getUserName(), tableName, rsMetaData.getColumnName(idx));
                 if (column.next()) {
-                    boolean nullable = ResultSetMetaData.columnNullable ==rsMetaData.isNullable(idx);
+                    boolean nullable = ResultSetMetaData.columnNullable == rsMetaData.isNullable(idx);
                     // 提取字段定义及字段默认值
-                    tableFields.put(rsMetaData.getColumnName(idx).toLowerCase(), new ColumnInfo(
-                            rsMetaData.getColumnName(idx).toLowerCase(),
-                            rsMetaData.getColumnClassName(idx),column.getString("TYPE_NAME")
-                            ,column.getString("REMARKS"),nullable));
-                    out(GREEN, "--> " + rsMetaData.getColumnName(idx).toLowerCase() + "\t" +
-                            rsMetaData.getColumnClassName(idx) + "\t" +
-                            pkFields.contains(rsMetaData.getColumnName(idx).toLowerCase()) + "\t" +
-                            column.getString("REMARKS") + "\t" +
-                            nullable);
+                    tableFields.put(rsMetaData.getColumnName(idx).toLowerCase(), new ColumnInfo(rsMetaData.getColumnName(idx).toLowerCase(), rsMetaData.getColumnClassName(idx), column.getString("TYPE_NAME"), column.getString("REMARKS"), nullable));
+                    out(GREEN, "--> " + rsMetaData.getColumnName(idx).toLowerCase() + "\t" + rsMetaData.getColumnClassName(idx) + "\t" + pkFields.contains(rsMetaData.getColumnName(idx).toLowerCase()) + "\t" + column.getString("REMARKS") + "\t" + nullable);
                 }
                 column.close();
             }
         } catch (Exception e) {
-            if (e instanceof RuntimeException) {
-                throw (RuntimeException) e;
-            }
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            MxLog.error("代码生成异常",e);
         } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    log.warn("", e);
-                }
-            }
-            if (resultSet != null) {
-                try {
-                    resultSet.close();
-                } catch (SQLException e) {
-                    log.warn("", e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    log.warn("", e);
-                }
-            }
+            close(statement, resultSet, connection);
         }
         return meta;
+    }
+
+    /**
+     * 关闭数据库信息
+     */
+    private void close(Statement statement, ResultSet resultSet, Connection connection) {
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (SQLException e) {
+                log.warn("", e);
+            }
+        }
+        if (resultSet != null) {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                log.warn("", e);
+            }
+        }
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                log.warn("", e);
+            }
+        }
     }
 
 
@@ -239,19 +234,17 @@ public class EntityGeneratorMojo extends BaseGeneratorMojo {
                     ColumnInfo ci = tableMeta.getFieldMap().get(key);
                     Attr attr = ci.toAttr();
                     fieldList.add(attr);
-                    fieldConstantList.add(new Attr("String",
-                            ci.getColumnName().toUpperCase(),
-                            ci.getColumnName(),ci.getJdbcType(),ci.getComment(),ci.isNullable()));
+                    fieldConstantList.add(new Attr("String", ci.getColumnName().toUpperCase(), ci.getColumnName(), ci.getJdbcType(), ci.getComment(), ci.isNullable()));
                 }
             }
             propMap.put("fieldList", fieldList);
             // 为必免构造方法重复，构造参数数量相同则清空
             propMap.put("fieldConstantList", fieldConstantList);
             //
-            outFile(entityConfig.getProjectPath(),modelName + ".java", "/generator/Entity.ftl", propMap, entityConfig.getPackageName());
+            outFile(entityConfig.getProjectPath(), modelName + ".java", "/generator/Entity.ftl", propMap, entityConfig.getPackageName());
             if (mapperConfig.isCreateMapper()) {
-                outFile(mapperConfig.getMapperProjectPath(),"I" + StringUtils.capitalize(modelName) + "Mapper.java", "/generator/mapper.ftl", propMap, mapperConfig.getPackageName());
-                outFile(StringUtils.defaultIfBlank(mapperConfig.getXmlProjectPath(),mapperConfig.getMapperProjectPath()),modelName + "Mapper.xml", "/generator/mapperXml.ftl", propMap, mapperConfig.getXmlPath());
+                outFile(mapperConfig.getMapperProjectPath(), "I" + StringUtils.capitalize(modelName) + "Mapper.java", "/generator/mapper.ftl", propMap, mapperConfig.getPackageName());
+                outFile(StringUtils.defaultIfBlank(mapperConfig.getXmlProjectPath(), mapperConfig.getMapperProjectPath()), modelName + "Mapper.xml", "/generator/mapperXml.ftl", propMap, mapperConfig.getXmlPath());
             }
 
         }
@@ -264,14 +257,14 @@ public class EntityGeneratorMojo extends BaseGeneratorMojo {
      * @param tmplFile
      * @param propMap
      */
-    private void outFile(String projectPath,String targetFileName, String tmplFile, Map<String, Object> propMap, String packageName) {
+    private void outFile(String projectPath, String targetFileName, String tmplFile, Map<String, Object> propMap, String packageName) {
         Writer outWriter = null;
         try {
             String outPath = "${root}";
             if (entityConfig.isCoverModel()) {
-                if(StringUtils.isNotBlank(projectPath)){
+                if (StringUtils.isNotBlank(projectPath)) {
                     outPath = projectPath + File.separator + "src" + File.separator + "main" + File.separator + "java";
-                }else{
+                } else {
                     outPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "java";
                 }
             } else {
@@ -281,9 +274,9 @@ public class EntityGeneratorMojo extends BaseGeneratorMojo {
 
             }
             File outputFile = new File(outPath, new File(packageName.replace('.', '/'), targetFileName).getPath());
-            if (targetFileName.endsWith(".xml")) {
+            if (targetFileName.endsWith(XML_FILE_SUFFIX)) {
                 String xmlProjectPath = projectPath;
-                if(StringUtils.isBlank(xmlProjectPath)){
+                if (StringUtils.isBlank(xmlProjectPath)) {
                     xmlProjectPath = System.getProperty("user.dir");
                 }
                 outputFile = new File(xmlProjectPath, "src" + File.separator + "main" + File.separator + "resources");

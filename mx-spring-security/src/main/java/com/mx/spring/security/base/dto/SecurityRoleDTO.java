@@ -9,6 +9,11 @@ import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
+/**
+ * @Author: mengxiang.
+ * @create: 2022-04-20 00:00
+ * @Description: 角色信息
+ */
 @ApiModel(value = "角色信息", description = "角色信息")
 public class SecurityRoleDTO implements Serializable {
 
@@ -38,5 +43,10 @@ public class SecurityRoleDTO implements Serializable {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    @Override
+    public String toString() {
+        return "SecurityRoleDTO{" + "name='" + name + '\'' + ", remark='" + remark + '\'' + '}';
     }
 }

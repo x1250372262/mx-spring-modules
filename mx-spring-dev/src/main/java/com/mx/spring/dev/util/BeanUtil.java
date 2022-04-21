@@ -122,10 +122,10 @@ public class BeanUtil {
     public interface BeanUtilCallBack<S, T> {
 
         /**
-         * 定义默认回调方法
-         *
+         * 回调方法
          * @param s
          * @param t
+         * @throws MxException
          */
         void callBack(S s, T t) throws MxException;
     }

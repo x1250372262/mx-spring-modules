@@ -36,7 +36,7 @@ public abstract class BaseGeneratorMojo extends AbstractMojo {
      * @return
      */
     public Map<String, Object> baseProp() {
-        Map<String, Object> propMap = new HashMap<String, Object>();
+        Map<String, Object> propMap = new HashMap<>();
         //创建时间
         propMap.put("createTime", new Date());
         return propMap;

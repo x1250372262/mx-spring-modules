@@ -1,4 +1,4 @@
-package com.mx.spring.dev.support.formatRequest;
+package com.mx.spring.dev.support.format;
 
 import com.alibaba.fastjson.JSONObject;
 import com.mx.spring.dev.config.MxConfig;
@@ -27,7 +27,7 @@ public class FormatRequestAspect {
     @Autowired
     private MxConfig mxConfig;
 
-    @Pointcut(value = "@annotation(com.mx.spring.dev.support.formatRequest.FormatRequest)")
+    @Pointcut(value = "@annotation(com.mx.spring.dev.support.format.FormatRequest)")
     public void formatRequest() {
     }
 

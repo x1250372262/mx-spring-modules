@@ -5,7 +5,7 @@ import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.dev.result.M;
 import com.mx.spring.dev.result.R;
-import com.mx.spring.dev.support.formatRequest.FormatRequest;
+import com.mx.spring.dev.support.format.FormatRequest;
 import com.mx.spring.dev.support.page.PageDTO;
 import com.mx.spring.dev.support.page.Pages;
 import com.mx.spring.security.annotation.OperationLog;

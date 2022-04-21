@@ -1,11 +1,13 @@
 package com.mx.spring.security.base.vo;
 
+import java.io.Serializable;
+
 /**
  * @Author: mengxiang.
  * @create: 2021-09-04 15:45
  * @Description:
  */
-public class SecurityUserPermissionVO {
+public class SecurityUserPermissionVO implements Serializable {
 
     private String permissionId;
 
@@ -45,5 +47,10 @@ public class SecurityUserPermissionVO {
 
     public void setPermissionCode(String permissionCode) {
         this.permissionCode = permissionCode;
+    }
+
+    @Override
+    public String toString() {
+        return "SecurityUserPermissionVO{" + "permissionId='" + permissionId + '\'' + ", userId='" + userId + '\'' + ", permissionName='" + permissionName + '\'' + ", permissionCode='" + permissionCode + '\'' + '}';
     }
 }

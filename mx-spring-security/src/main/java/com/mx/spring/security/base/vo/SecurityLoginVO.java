@@ -111,4 +111,9 @@ public class SecurityLoginVO implements Serializable {
     public void setFounder(Integer founder) {
         this.founder = founder;
     }
+
+    @Override
+    public String toString() {
+        return "SecurityLoginVO{" + "id='" + id + '\'' + ", userName='" + userName + '\'' + ", realName='" + realName + '\'' + ", photoUri='" + photoUri + '\'' + ", mobile='" + mobile + '\'' + ", gender=" + gender + ", founder=" + founder + '}';
+    }
 }

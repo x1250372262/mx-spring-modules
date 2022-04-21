@@ -77,11 +77,10 @@ public interface ISecurityRoleService {
 
     /**
      * 角色权限绑定
-     *
      * @param id
      * @param permissions
      * @return
-     * @throws Exception
+     * @throws MxException
      */
     R permissionBind(String id, String[] permissions) throws MxException;
 }

@@ -37,9 +37,8 @@ public interface ISecurityLoginService {
 
     /**
      * 获取登录人信息
-     *
      * @return
-     * @throws Exception
+     * @throws MxException
      */
     SecurityLoginVO info() throws MxException;
 

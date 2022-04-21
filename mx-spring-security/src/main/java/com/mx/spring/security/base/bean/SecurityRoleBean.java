@@ -2,6 +2,11 @@ package com.mx.spring.security.base.bean;
 
 import java.io.Serializable;
 
+/**
+ * @Author: mengxiang.
+ * @create: 2022-04-20 00:00
+ * @Description: 角色bean
+ */
 public class SecurityRoleBean implements Serializable {
 
 
@@ -24,5 +29,10 @@ public class SecurityRoleBean implements Serializable {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    @Override
+    public String toString() {
+        return "SecurityRoleBean{" + "name='" + name + '\'' + ", remark='" + remark + '\'' + '}';
     }
 }

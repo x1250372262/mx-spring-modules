@@ -6,6 +6,11 @@ import com.mx.spring.security.base.enums.OperationType;
 
 import java.lang.annotation.*;
 
+/**
+ * @Author: mengxiang.
+ * @create: 2022-04-20 00:00
+ * @Description: 操作日志注解
+ */
 @Documented
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)

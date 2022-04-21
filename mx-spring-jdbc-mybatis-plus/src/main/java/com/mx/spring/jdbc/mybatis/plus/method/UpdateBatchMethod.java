@@ -13,6 +13,18 @@ import org.apache.ibatis.mapping.SqlSource;
  */
 public class UpdateBatchMethod extends AbstractMethod {
 
+    public UpdateBatchMethod() {
+        super("updateBatch");
+    }
+
+    /**
+     * @param name 方法名
+     * @since 3.5.0
+     */
+    public UpdateBatchMethod(String name) {
+        super(name);
+    }
+
     @Override
     public MappedStatement injectMappedStatement(Class<?> mapperClass, Class<?> modelClass, TableInfo tableInfo) {
         String sqlTemp = "<script>UPDATE %s %s WHERE %s in %s</script>";

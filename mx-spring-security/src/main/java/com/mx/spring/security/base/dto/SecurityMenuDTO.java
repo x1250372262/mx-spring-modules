@@ -10,6 +10,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
+/**
+ * @Author: mengxiang.
+ * @create: 2022-04-20 00:00
+ * @Description: 菜单信息
+ */
 @ApiModel(value = "菜单信息", description = "菜单信息")
 public class SecurityMenuDTO implements Serializable {
 
@@ -97,5 +102,10 @@ public class SecurityMenuDTO implements Serializable {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "SecurityMenuDTO{" + "parentId='" + parentId + '\'' + ", name='" + name + '\'' + ", icon='" + icon + '\'' + ", path='" + path + '\'' + ", url='" + url + '\'' + ", sort=" + sort + ", type=" + type + '}';
     }
 }

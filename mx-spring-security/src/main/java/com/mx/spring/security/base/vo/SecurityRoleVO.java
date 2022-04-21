@@ -56,4 +56,9 @@ public class SecurityRoleVO implements Serializable {
     public void setLastModifyTime(Long lastModifyTime) {
         this.lastModifyTime = lastModifyTime;
     }
+
+    @Override
+    public String toString() {
+        return "SecurityRoleVO{" + "id='" + id + '\'' + ", name='" + name + '\'' + ", remark='" + remark + '\'' + ", lastModifyTime=" + lastModifyTime + '}';
+    }
 }

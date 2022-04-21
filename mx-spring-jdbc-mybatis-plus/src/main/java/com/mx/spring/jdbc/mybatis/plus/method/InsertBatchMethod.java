@@ -1,8 +1,10 @@
 package com.mx.spring.jdbc.mybatis.plus.method;
 
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.enums.SqlMethod;
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.executor.keygen.NoKeyGenerator;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.SqlSource;
@@ -13,6 +15,19 @@ import org.apache.ibatis.mapping.SqlSource;
  * @Description:
  */
 public class InsertBatchMethod extends AbstractMethod {
+
+    public InsertBatchMethod() {
+        super("insertBatch");
+    }
+
+    /**
+     * @param name 方法名
+     * @since 3.5.0
+     */
+    public InsertBatchMethod(String name) {
+        super(name);
+    }
+
     @Override
     public MappedStatement injectMappedStatement(Class<?> mapperClass, Class<?> modelClass, TableInfo tableInfo) {
         String sql = "<script>INSERT INTO {} ({}) VALUES {}</script>";
@@ -25,7 +40,9 @@ public class InsertBatchMethod extends AbstractMethod {
 
     private String createFieldSql(TableInfo tableInfo) {
         StringBuilder fieldSql = new StringBuilder();
-        fieldSql.append(tableInfo.getKeyColumn()).append(",");
+        if(StringUtils.isNotBlank(tableInfo.getKeyColumn())){
+            fieldSql.append(tableInfo.getKeyColumn()).append(",");
+        }
         tableInfo.getFieldList().forEach(t -> fieldSql.append(t.getColumn()).append(","));
         fieldSql.delete(fieldSql.length() - 1, fieldSql.length());
         return fieldSql.toString();
@@ -34,7 +51,9 @@ public class InsertBatchMethod extends AbstractMethod {
     private String createValueSql(TableInfo tableInfo) {
         final StringBuilder valueSql = new StringBuilder();
         valueSql.append("<foreach collection=\"list\" item=\"item\" index=\"index\" open=\"(\" separator=\"),(\" close=\")\">");
-        valueSql.append("#{item.").append(tableInfo.getKeyProperty()).append("},");
+        if(StringUtils.isNotBlank(tableInfo.getKeyProperty())){
+            valueSql.append("#{item.").append(tableInfo.getKeyProperty()).append("},");
+        }
         tableInfo.getFieldList().forEach(x -> valueSql.append("#{item.").append(x.getProperty()).append("},"));
         valueSql.delete(valueSql.length() - 1, valueSql.length());
         valueSql.append("</foreach>");

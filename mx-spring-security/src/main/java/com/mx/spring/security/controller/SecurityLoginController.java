@@ -4,7 +4,7 @@ import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.dev.result.M;
 import com.mx.spring.dev.result.R;
-import com.mx.spring.dev.support.formatRequest.FormatRequest;
+import com.mx.spring.dev.support.format.FormatRequest;
 import com.mx.spring.security.annotation.OperationLog;
 import com.mx.spring.security.base.bean.LoginResult;
 import com.mx.spring.security.base.dto.SecurityLoginInfoDTO;

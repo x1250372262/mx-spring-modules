@@ -2,6 +2,11 @@ package com.mx.spring.security.base.bean;
 
 import java.io.Serializable;
 
+/**
+ * @Author: mengxiang.
+ * @create: 2022-04-20 00:00
+ * @Description: 菜单bean
+ */
 public class SecurityMenuBean implements Serializable {
 
     private String parentId;
@@ -73,5 +78,10 @@ public class SecurityMenuBean implements Serializable {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "SecurityMenuBean{" + "parentId='" + parentId + '\'' + ", name='" + name + '\'' + ", icon='" + icon + '\'' + ", path='" + path + '\'' + ", url='" + url + '\'' + ", sort=" + sort + ", type=" + type + '}';
     }
 }

@@ -3,8 +3,9 @@ package com.mx.spring.upload.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.dev.result.M;
-import com.mx.spring.dev.support.formatRequest.FormatRequest;
+import com.mx.spring.dev.support.format.FormatRequest;
 import com.mx.spring.upload.bean.Upload;
+import com.mx.spring.upload.enums.FileUploadType;
 import com.mx.spring.upload.service.IUploadService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,10 +54,10 @@ public class UploadController {
     @PostMapping("/fwb")
     @ApiOperation(value = "文件上传")
     @FormatRequest
-    public JSONObject uploadBD(@ApiParam(value = "文件", required = true) MultipartFile file, String type) throws MxException {
+    public JSONObject uploadFwb(@ApiParam(value = "文件", required = true) MultipartFile file, String type) throws MxException {
         Upload upload = iUploadService.upload(file).getData();
         JSONObject jsonObject = new JSONObject();
-        if ("wang".equals(type)) {
+        if (FileUploadType.WANG.value().equals(type)) {
             jsonObject.put("state", "SUCCESS");
             jsonObject.put("title", upload.getName());
             jsonObject.put("size", upload.getSize());

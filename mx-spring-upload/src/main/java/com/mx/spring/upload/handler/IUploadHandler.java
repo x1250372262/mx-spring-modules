@@ -24,6 +24,13 @@ public interface IUploadHandler {
     M<Upload> handle(MultipartFile file) throws MxException;
 
 
+    /**
+     * 获取文件存储路径
+     * @param type
+     * @param hash
+     * @param extension
+     * @return
+     */
     default String getFilePath(String type, String hash, String extension) {
         //路径格式 例如 image/20210/01/01/hash.png
         long time = System.currentTimeMillis();
@@ -33,9 +40,14 @@ public interface IUploadHandler {
         return StrUtil.format("{}/{}/{}/{}/{}.{}", type, year, month, day, hash, extension);
     }
 
+    /**
+     * 获取文件访问url
+     * @param url
+     * @return
+     */
     default String getUrl(String url) {
-        if (!url.endsWith("/")) {
-            url = url + "/";
+        if (!url.endsWith(StrUtil.SLASH)) {
+            url = url + StrUtil.SLASH;
         }
         return url;
     }

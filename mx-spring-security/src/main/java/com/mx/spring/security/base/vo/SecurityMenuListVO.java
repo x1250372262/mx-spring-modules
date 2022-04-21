@@ -9,6 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @Author: mengxiang.
+ * @create: 2022-04-20 00:00
+ * @Description: 菜单信息
+ */
 @ApiModel(value = "菜单信息", description = "菜单信息")
 public class SecurityMenuListVO implements Serializable {
 
@@ -29,7 +34,7 @@ public class SecurityMenuListVO implements Serializable {
     private Map<Object, Object> attr;
 
     @ApiModelProperty(value = "子菜单数据")
-    private List<SecurityMenuListVO> children = new ArrayList<>();
+    private List<SecurityMenuListVO> children;
 
     public String getText() {
         return text;
@@ -56,7 +61,7 @@ public class SecurityMenuListVO implements Serializable {
     }
 
     public List<SecurityMenuListVO> getChildren() {
-        return children;
+        return children != null ? children : new ArrayList<>();
     }
 
     public void setChildren(List<SecurityMenuListVO> children) {
@@ -77,5 +82,10 @@ public class SecurityMenuListVO implements Serializable {
 
     public void setAttr(Map<Object, Object> attr) {
         this.attr = attr;
+    }
+
+    @Override
+    public String toString() {
+        return "SecurityMenuListVO{" + "text='" + text + '\'' + ", state='" + state + '\'' + ", icon='" + icon + '\'' + ", sort=" + sort + ", attr=" + attr + ", children=" + children + '}';
     }
 }

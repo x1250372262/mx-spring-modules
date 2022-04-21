@@ -2,12 +2,14 @@ package com.mx.spring.security.base.vo;
 
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
+
 /**
  * @Author: mengxiang.
  * @create: 2021-09-04 15:45
  * @Description:
  */
-public class SecurityUserRoleVO {
+public class SecurityUserRoleVO implements Serializable {
 
     @ApiModelProperty(value = "ID", required = true)
     private String id;
@@ -63,5 +65,10 @@ public class SecurityUserRoleVO {
 
     public void setCreateTime(Long createTime) {
         this.createTime = createTime;
+    }
+
+    @Override
+    public String toString() {
+        return "SecurityUserRoleVO{" + "id='" + id + '\'' + ", userId='" + userId + '\'' + ", roleId='" + roleId + '\'' + ", roleName='" + roleName + '\'' + ", createTime=" + createTime + '}';
     }
 }

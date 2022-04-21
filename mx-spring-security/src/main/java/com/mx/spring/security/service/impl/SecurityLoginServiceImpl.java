@@ -97,8 +97,8 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
             }
             //次数+1 到数之后直接冻结
             securityUser.setLoginErrorCount(securityUser.getLoginErrorCount() + 1);
-            //冻结了
-            if (securityUser.getLoginErrorCount() >= 5) {
+            //冻结了 配置设置了错误次数 并且实际错误次数大于等于设置的错误次数
+            if(config.getErrorCount() > 0 && securityUser.getLoginErrorCount() >= config.getErrorCount()){
                 securityUser.setLoginLockStatus(Constants.BOOL_TRUE);
                 securityUser.setLoginLockStartTime(System.currentTimeMillis());
                 securityUser.setLoginLockEndTime(System.currentTimeMillis() + TimeUtil.DAY);
@@ -123,10 +123,6 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
 
         //设置用户到缓存
         cacheUser(securityUser, saTokenInfo);
-//        //设置用户信息到redis
-//        StpUtil.getTokenSessionByToken(saTokenInfo.getTokenValue()).set(USER_INFO + securityUser.getId(), securityUser);
-//        //设置权限到redis
-//        setLoginSecurityUserPermissionToRedis(securityUser.getId(), saTokenInfo.getTokenValue());
         LoginResult loginResult = BeanUtil.copy(saTokenInfo, LoginResult::new);
         if (r != null) {
             loginResult.setAttrs(r.attrs());

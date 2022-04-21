@@ -32,4 +32,9 @@ public class SecurityPermissionSelectVO implements Serializable {
     public void setPermissionVOList(List<SecurityPermissionVO> permissionVOList) {
         this.permissionVOList = permissionVOList;
     }
+
+    @Override
+    public String toString() {
+        return "SecurityPermissionSelectVO{" + "groupName='" + groupName + '\'' + ", permissionVOList=" + permissionVOList + '}';
+    }
 }

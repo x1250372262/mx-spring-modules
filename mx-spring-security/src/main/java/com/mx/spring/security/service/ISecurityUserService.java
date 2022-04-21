@@ -74,11 +74,10 @@ public interface ISecurityUserService {
 
     /**
      * 重置密码
-     *
      * @param id
      * @param lastModifyTime
      * @return
-     * @throws Exception
+     * @throws MxException
      */
     R resetPassword(String id, Long lastModifyTime) throws MxException;
 

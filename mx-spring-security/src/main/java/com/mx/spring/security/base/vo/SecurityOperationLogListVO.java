@@ -100,4 +100,9 @@ public class SecurityOperationLogListVO implements Serializable {
     public void setLocation(String location) {
         this.location = location;
     }
+
+    @Override
+    public String toString() {
+        return "SecurityOperationLogListVO{" + "id='" + id + '\'' + ", title='" + title + '\'' + ", typeName='" + typeName + '\'' + ", userName='" + userName + '\'' + ", createTime=" + createTime + ", requestUrl='" + requestUrl + '\'' + ", ip='" + ip + '\'' + ", location='" + location + '\'' + '}';
+    }
 }

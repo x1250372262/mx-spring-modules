@@ -1,7 +1,16 @@
-##安全模块配置
-#mx-security:
-#  #客户端名称 默认default
-#  client:
+#mx:
+#  #安全模块配置
+#  security:
+#    #客户端名称 默认default
+#    client:
+#    #登录前后处理实现类
+#    login-handler-class:
+#    #用户操作前后处理实现类
+#    user-handler-class:
+#    #是否执行跨域
+#    cross: true
+#    #验证错误N次后锁定账户  默认不锁定  0不锁定
+#    error-count:
 #
 #sa-token:
 #  # token名称 (同时也是cookie名称)

@@ -33,7 +33,6 @@ public class QiniuUploadHandler implements IUploadHandler {
     private final QiniuUploadConfig qiniuUploadConfig = SpringUtil.getBean(QiniuUploadConfig.class);
     private final Auth auth = Auth.create(qiniuUploadConfig.getAccessKey(), qiniuUploadConfig.getSecretKey());
 
-    // 构造一个带指定Zone对象的配置类, 注意这里的Zone.zone0需要根据主机选择
     private final Configuration cfg = new Configuration(getRegion());
     private final UploadManager uploadManager = new UploadManager(cfg);
 

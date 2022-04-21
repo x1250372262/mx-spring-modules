@@ -13,6 +13,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @Author: mengxiang.
+ * @create: 2022-04-20 00:00
+ * @Description: redisapi实现类
+ */
 @Component
 public class RedisApiImpl implements IRedisApi {
 

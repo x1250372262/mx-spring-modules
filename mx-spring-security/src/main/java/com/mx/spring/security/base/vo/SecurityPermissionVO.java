@@ -41,4 +41,9 @@ public class SecurityPermissionVO implements Serializable {
     public void setGroupName(String groupName) {
         this.groupName = groupName;
     }
+
+    @Override
+    public String toString() {
+        return "SecurityPermissionVO{" + "name='" + name + '\'' + ", code='" + code + '\'' + ", groupName='" + groupName + '\'' + '}';
+    }
 }

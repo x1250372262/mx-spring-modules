@@ -95,4 +95,9 @@ public class SecurityUserDTO implements Serializable {
     public void setGender(Integer gender) {
         this.gender = gender;
     }
+
+    @Override
+    public String toString() {
+        return "SecurityUserDTO{" + "userName='" + userName + '\'' + ", realName='" + realName + '\'' + ", photoUri='" + photoUri + '\'' + ", mobile='" + mobile + '\'' + ", gender=" + gender + '}';
+    }
 }

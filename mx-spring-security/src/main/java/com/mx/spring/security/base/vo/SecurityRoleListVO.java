@@ -23,4 +23,9 @@ public class SecurityRoleListVO extends SecurityRoleVO implements Serializable {
     public void setCreateTime(Long createTime) {
         this.createTime = createTime;
     }
+
+    @Override
+    public String toString() {
+        return "SecurityRoleListVO{" + "createTime=" + createTime + "} " + super.toString();
+    }
 }

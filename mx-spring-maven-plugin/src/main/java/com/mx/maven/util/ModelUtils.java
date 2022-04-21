@@ -1,5 +1,6 @@
 package com.mx.maven.util;
 
+import cn.hutool.core.util.StrUtil;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -18,8 +19,8 @@ public class ModelUtils {
      * @return 符合JavaBean属性格式串
      */
     public static String propertyNameToFieldName(String propertyName) {
-        if (StringUtils.contains(propertyName, '_')) {
-            String[] wordArray = StringUtils.split(propertyName, '_');
+        if (StringUtils.contains(propertyName, StrUtil.UNDERLINE)) {
+            String[] wordArray = StringUtils.split(propertyName, StrUtil.UNDERLINE);
             if (wordArray != null) {
                 if (wordArray.length > 1) {
                     StringBuilder returnBuilder = new StringBuilder();

@@ -6,6 +6,11 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @Author: mengxiang.
+ * @create: 2022-04-20 00:00
+ * @Description: 登录结果
+ */
 @ApiModel(value = "登录成功返回信息", description = "登录成功返回信息")
 public class LoginResult {
 
