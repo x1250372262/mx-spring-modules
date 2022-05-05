@@ -85,16 +85,7 @@ public class SecurityUserServiceImpl implements ISecurityUserService {
         password = DigestUtils.md5DigestAsHex(Base64.encodeBase64((password + salt).getBytes(StandardCharsets.UTF_8)));
         String finalPassword = password;
         securityUser = BeanUtil.copy(userBean, SecurityUser::new, (s, t) -> {
-            t.bind()
-                    .id(IdUtil.fastSimpleUUID())
-                    .client(config.getClient())
-                    .password(finalPassword)
-                    .createUser(saUtils.loginId())
-                    .createTime(System.currentTimeMillis())
-                    .lastModifyTime(System.currentTimeMillis())
-                    .lastModifyUser(saUtils.loginId())
-                    .salt(salt)
-                    .build();
+            t.bind().id(IdUtil.fastSimpleUUID()).client(config.getClient()).password(finalPassword).createUser(saUtils.loginId()).createTime(System.currentTimeMillis()).lastModifyTime(System.currentTimeMillis()).lastModifyUser(saUtils.loginId()).salt(salt).build();
         });
         r = userHandler.createAfter(params);
         if (Handler.check(r)) {
@@ -172,21 +163,11 @@ public class SecurityUserServiceImpl implements ISecurityUserService {
 
     @Override
     public R roleCreate(String userId, String roleId) throws MxException {
-        SecurityUserRole adminRole = iSecurityUserRoleMapper.selectOne(MP.lqw(SecurityUserRole.init()).eq(SecurityUserRole::getUserId, userId)
-                .eq(SecurityUserRole::getRoleId, roleId));
+        SecurityUserRole adminRole = iSecurityUserRoleMapper.selectOne(MP.lqw(SecurityUserRole.init()).eq(SecurityUserRole::getUserId, userId).eq(SecurityUserRole::getRoleId, roleId).eq(SecurityUserRole::getClient, config.getClient()));
         if (adminRole != null) {
-            return R.create(SECURITY_USER_ROLE_EXISTS.getCode())
-                    .msg(SECURITY_USER_ROLE_EXISTS.getMsg());
+            return R.create(SECURITY_USER_ROLE_EXISTS.getCode()).msg(SECURITY_USER_ROLE_EXISTS.getMsg());
         }
-        adminRole = SecurityUserRole.builder()
-                .id(IdUtil.fastSimpleUUID())
-                .userId(userId)
-                .roleId(roleId)
-                .createUser(saUtils.loginId())
-                .createTime(System.currentTimeMillis())
-                .lastModifyUser(saUtils.loginId())
-                .lastModifyTime(System.currentTimeMillis())
-                .build();
+        adminRole = SecurityUserRole.builder().id(IdUtil.fastSimpleUUID()).userId(userId).roleId(roleId).client(config.getClient()).createUser(saUtils.loginId()).createTime(System.currentTimeMillis()).lastModifyUser(saUtils.loginId()).lastModifyTime(System.currentTimeMillis()).build();
         return R.result(iSecurityUserRoleMapper.insert(adminRole));
     }
 

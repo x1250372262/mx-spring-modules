@@ -1,5 +1,8 @@
 package com.mx.spring.security.base.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.mx.spring.dev.support.generator.annotation.FieldInfo;
 
@@ -7,11 +10,11 @@ import java.io.Serializable;
 
 /**
  * @Author: mx-maven-plugin.
- * @Date: 2021/10/22.
- * @Time: 15:14:06.
- * @Description: 2021/10/22 15:14:06 生成 SecurityRole
+ * @Date: 2022/05/05.
+ * @Time: 14:45:23.
+ * @Description: 2022/05/05 14:45:23 生成 SecurityRole
  */
-@TableName("mx_security_role")
+@TableName(SecurityRole.TABLE_NAME)
 public class SecurityRole implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -21,48 +24,56 @@ public class SecurityRole implements Serializable {
 	/**
 	* id
 	*/
+	@TableId(value = FIELDS.ID, type = IdType.INPUT)
 	@FieldInfo(comment = "id", nullable = false)
 	private String id;
 
 	/**
-	* client
+	* 客户端
 	*/
-	@FieldInfo(comment = "client", nullable = false)
+	@TableField(value = FIELDS.CLIENT)
+	@FieldInfo(comment = "客户端", nullable = false)
 	private String client;
 
 	/**
 	* 名称
 	*/
+	@TableField(value = FIELDS.NAME)
 	@FieldInfo(comment = "名称", nullable = false)
 	private String name;
 
 	/**
 	* 备注
 	*/
+	@TableField(value = FIELDS.REMARK)
 	@FieldInfo(comment = "备注")
 	private String remark;
 
 	/**
 	* 创建人
 	*/
+	@TableField(value = FIELDS.CREATE_USER)
 	@FieldInfo(comment = "创建人", nullable = false)
 	private String createUser;
 
 	/**
 	* 创建时间
 	*/
+	@TableField(value = FIELDS.CREATE_TIME)
 	@FieldInfo(comment = "创建时间", nullable = false)
 	private Long createTime;
 
 	/**
 	* 最后更新人
 	*/
+	@TableField(value = FIELDS.LAST_MODIFY_USER)
 	@FieldInfo(comment = "最后更新人", nullable = false)
 	private String lastModifyUser;
 
 	/**
 	* 最后更新时间
 	*/
+	@TableField(value = FIELDS.LAST_MODIFY_TIME)
 	@FieldInfo(comment = "最后更新时间", nullable = false)
 	private Long lastModifyTime;
 
@@ -102,7 +113,6 @@ public class SecurityRole implements Serializable {
 		this.lastModifyTime = lastModifyTime;
 	}
 
-
 	public String getId() {
 		return id;
 	}
@@ -110,6 +120,7 @@ public class SecurityRole implements Serializable {
 	public void setId(String id) {
 		this.id = id;
 	}
+
 
 	public String getClient() {
 		return client;
@@ -198,17 +209,14 @@ public class SecurityRole implements Serializable {
 			return modelTarget.getId();
 		}
 
-
 		public SecurityRoleBuilder id(String id) {
 			modelTarget.setId(id);
 			return this;
 		}
 
-
 		public String client() {
 			return modelTarget.getClient();
 		}
-
 
 		public SecurityRoleBuilder client(String client) {
 			modelTarget.setClient(client);

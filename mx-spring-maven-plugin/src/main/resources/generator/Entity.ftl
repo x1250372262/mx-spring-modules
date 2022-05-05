@@ -1,6 +1,7 @@
 package ${modelPackageName};
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.mx.spring.dev.support.generator.annotation.FieldInfo;
@@ -12,7 +13,7 @@ import java.io.Serializable;
  * @Time: ${createTime?string("HH:mm:ss")}.
  * @Description: ${createTime?string("yyyy/MM/dd HH:mm:ss")} 生成 ${modelName?cap_first}
  */
-@TableName("${tableName}")
+@TableName(${modelName?cap_first}.TABLE_NAME)
 public class ${modelName?cap_first} implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -24,7 +25,10 @@ public class ${modelName?cap_first} implements Serializable {
 	* ${field.comment}
 	*/
 	<#if field.varName == primaryKeyName>
-	@TableId(value = "id", type = IdType.INPUT)
+	@TableId(value = FIELDS.${field.columnName?upper_case}, type = IdType.INPUT)
+	</#if>
+	<#if field.varName != primaryKeyName>
+	@TableField(value = FIELDS.${field.columnName?upper_case})
 	</#if>
 	@FieldInfo(comment = "${field.comment}"<#if (!field.nullable)>, nullable = false</#if>)
 	private ${field.varType} ${field.varName};

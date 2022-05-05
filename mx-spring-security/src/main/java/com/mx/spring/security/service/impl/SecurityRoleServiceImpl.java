@@ -126,7 +126,9 @@ public class SecurityRoleServiceImpl implements ISecurityRoleService {
         if (role == null) {
             return R.noData();
         }
-        List<SecurityRolePermission> rolePermissionList = iRolePermissionMapper.selectList(MP.lqw(SecurityRolePermission.init()).eq(SecurityRolePermission::getRoleId, id));
+        List<SecurityRolePermission> rolePermissionList = iRolePermissionMapper.selectList(MP.lqw(SecurityRolePermission.init())
+                .eq(SecurityRolePermission::getClient, config.getClient())
+                .eq(SecurityRolePermission::getRoleId, id));
         if (CollUtil.isNotEmpty(rolePermissionList)) {
             String[] selectRoles = new String[rolePermissionList.size()];
             for (int i = 0; i < rolePermissionList.size(); i++) {
@@ -145,7 +147,9 @@ public class SecurityRoleServiceImpl implements ISecurityRoleService {
             return R.noData();
         }
 
-        iRolePermissionMapper.delete(MP.lqw(SecurityRolePermission.init()).eq(SecurityRolePermission::getRoleId, id));
+        iRolePermissionMapper.delete(MP.lqw(SecurityRolePermission.init())
+                .eq(SecurityRolePermission::getClient, config.getClient())
+                .eq(SecurityRolePermission::getRoleId, id));
         List<SecurityPermission> permissionList = iPermissionMapper.selectList(null);
         if (permissions != null && permissions.length > 0) {
             List<SecurityRolePermission> rolePermissions = new ArrayList<>();
@@ -154,6 +158,7 @@ public class SecurityRoleServiceImpl implements ISecurityRoleService {
                 SecurityRolePermission rolePermission = SecurityRolePermission.builder()
                         .id(IdUtil.fastSimpleUUID())
                         .roleId(id)
+                        .client(config.getClient())
                         .permissonId(permission.getId())
                         .createTime(System.currentTimeMillis())
                         .groupName(permission.getGroupName())

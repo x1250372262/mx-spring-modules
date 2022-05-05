@@ -1,5 +1,8 @@
 package com.mx.spring.security.base.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.mx.spring.dev.support.generator.annotation.FieldInfo;
 
@@ -7,11 +10,11 @@ import java.io.Serializable;
 
 /**
  * @Author: mx-maven-plugin.
- * @Date: 2021/10/22.
- * @Time: 15:14:05.
- * @Description: 2021/10/22 15:14:05 生成 SecurityMenuRole
+ * @Date: 2022/05/05.
+ * @Time: 14:45:23.
+ * @Description: 2022/05/05 14:45:23 生成 SecurityMenuRole
  */
-@TableName("mx_security_menu_role")
+@TableName(SecurityMenuRole.TABLE_NAME)
 public class SecurityMenuRole implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -21,30 +24,42 @@ public class SecurityMenuRole implements Serializable {
 	/**
 	* id
 	*/
+	@TableId(value = FIELDS.ID, type = IdType.INPUT)
 	@FieldInfo(comment = "id", nullable = false)
 	private String id;
 
 	/**
+	* 客户端
+	*/
+	@TableField(value = FIELDS.CLIENT)
+	@FieldInfo(comment = "客户端", nullable = false)
+	private String client;
+
+	/**
 	* 菜单id
 	*/
+	@TableField(value = FIELDS.MENU_ID)
 	@FieldInfo(comment = "菜单id", nullable = false)
 	private String menuId;
 
 	/**
 	* 角色id
 	*/
+	@TableField(value = FIELDS.ROLE_ID)
 	@FieldInfo(comment = "角色id", nullable = false)
 	private String roleId;
 
 	/**
 	* 创建人
 	*/
+	@TableField(value = FIELDS.CREATE_USER)
 	@FieldInfo(comment = "创建人", nullable = false)
 	private String createUser;
 
 	/**
 	* 创建时间
 	*/
+	@TableField(value = FIELDS.CREATE_TIME)
 	@FieldInfo(comment = "创建时间", nullable = false)
 	private Long createTime;
 
@@ -65,13 +80,15 @@ public class SecurityMenuRole implements Serializable {
 	/**
 	 * 构造器
 	 *	@param id
+	 *	@param client
 	 *	@param menuId
 	 *	@param roleId
 	 *	@param createUser
 	 *	@param createTime
 	 */
-	public SecurityMenuRole(String id, String menuId, String roleId, String createUser, Long createTime) {
+	public SecurityMenuRole(String id, String client, String menuId, String roleId, String createUser, Long createTime) {
 		this.id = id;
+		this.client = client;
 		this.menuId = menuId;
 		this.roleId = roleId;
 		this.createUser = createUser;
@@ -86,6 +103,14 @@ public class SecurityMenuRole implements Serializable {
 		this.id = id;
 	}
 
+
+	public String getClient() {
+		return client;
+	}
+
+	public void setClient(String client) {
+		this.client = client;
+	}
 
 	public String getMenuId() {
 		return menuId;
@@ -155,6 +180,15 @@ public class SecurityMenuRole implements Serializable {
 			return this;
 		}
 
+		public String client() {
+			return modelTarget.getClient();
+		}
+
+		public SecurityMenuRoleBuilder client(String client) {
+			modelTarget.setClient(client);
+			return this;
+		}
+
 		public String menuId() {
 			return modelTarget.getMenuId();
 		}
@@ -198,6 +232,7 @@ public class SecurityMenuRole implements Serializable {
 	 */
 	public static class FIELDS {
 		public static final String ID = "id";
+		public static final String CLIENT = "client";
 		public static final String MENU_ID = "menu_id";
 		public static final String ROLE_ID = "role_id";
 		public static final String CREATE_USER = "create_user";

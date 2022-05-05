@@ -1,5 +1,8 @@
 package com.mx.spring.security.base.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.mx.spring.dev.support.generator.annotation.FieldInfo;
 
@@ -7,11 +10,11 @@ import java.io.Serializable;
 
 /**
  * @Author: mx-maven-plugin.
- * @Date: 2021/10/22.
- * @Time: 15:14:05.
- * @Description: 2021/10/22 15:14:05 生成 SecurityUser
+ * @Date: 2022/05/05.
+ * @Time: 14:45:23.
+ * @Description: 2022/05/05 14:45:23 生成 SecurityUser
  */
-@TableName("mx_security_user")
+@TableName(SecurityUser.TABLE_NAME)
 public class SecurityUser implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -21,114 +24,133 @@ public class SecurityUser implements Serializable {
 	/**
 	* id
 	*/
+	@TableId(value = FIELDS.ID, type = IdType.INPUT)
 	@FieldInfo(comment = "id", nullable = false)
 	private String id;
 
 	/**
-	 * client
-	 */
-	@FieldInfo(comment = "client", nullable = false)
+	* 客户端
+	*/
+	@TableField(value = FIELDS.CLIENT)
+	@FieldInfo(comment = "客户端", nullable = false)
 	private String client;
 
 	/**
 	* 用户名
 	*/
+	@TableField(value = FIELDS.USER_NAME)
 	@FieldInfo(comment = "用户名", nullable = false)
 	private String userName;
 
 	/**
 	* 真实姓名
 	*/
+	@TableField(value = FIELDS.REAL_NAME)
 	@FieldInfo(comment = "真实姓名")
 	private String realName;
 
 	/**
 	* 头像
 	*/
+	@TableField(value = FIELDS.PHOTO_URI)
 	@FieldInfo(comment = "头像")
 	private String photoUri;
 
 	/**
 	* 密码
 	*/
+	@TableField(value = FIELDS.PASSWORD)
 	@FieldInfo(comment = "密码", nullable = false)
 	private String password;
 
 	/**
 	* 手机号
 	*/
+	@TableField(value = FIELDS.MOBILE)
 	@FieldInfo(comment = "手机号")
 	private String mobile;
 
 	/**
 	* 性别
 	*/
+	@TableField(value = FIELDS.GENDER)
 	@FieldInfo(comment = "性别")
 	private Integer gender;
 
 	/**
 	* 创建人
 	*/
+	@TableField(value = FIELDS.CREATE_USER)
 	@FieldInfo(comment = "创建人", nullable = false)
 	private String createUser;
 
 	/**
 	* 创建时间
 	*/
+	@TableField(value = FIELDS.CREATE_TIME)
 	@FieldInfo(comment = "创建时间", nullable = false)
 	private Long createTime;
 
 	/**
 	* 最后修改时间
 	*/
+	@TableField(value = FIELDS.LAST_MODIFY_TIME)
 	@FieldInfo(comment = "最后修改时间", nullable = false)
 	private Long lastModifyTime;
 
 	/**
 	* 最后修改人
 	*/
+	@TableField(value = FIELDS.LAST_MODIFY_USER)
 	@FieldInfo(comment = "最后修改人", nullable = false)
 	private String lastModifyUser;
 
 	/**
 	* 密码加密字符串
 	*/
+	@TableField(value = FIELDS.SALT)
 	@FieldInfo(comment = "密码加密字符串", nullable = false)
 	private String salt;
 
 	/**
 	* 禁用状态
 	*/
+	@TableField(value = FIELDS.DISABLE_STATUS)
 	@FieldInfo(comment = "禁用状态", nullable = false)
 	private Integer disableStatus;
 
 	/**
 	* 是否是总管理员
 	*/
+	@TableField(value = FIELDS.FOUNDER)
 	@FieldInfo(comment = "是否是总管理员", nullable = false)
 	private Integer founder;
 
 	/**
 	* 登录错误次数
 	*/
+	@TableField(value = FIELDS.LOGIN_ERROR_COUNT)
 	@FieldInfo(comment = "登录错误次数")
 	private Integer loginErrorCount;
 
 	/**
 	* 锁定状态
 	*/
+	@TableField(value = FIELDS.LOGIN_LOCK_STATUS)
 	@FieldInfo(comment = "锁定状态")
 	private Integer loginLockStatus;
 
 	/**
 	* 锁定开始时间
 	*/
+	@TableField(value = FIELDS.LOGIN_LOCK_START_TIME)
 	@FieldInfo(comment = "锁定开始时间")
 	private Long loginLockStartTime;
 
 	/**
 	* 锁定结束时间
 	*/
+	@TableField(value = FIELDS.LOGIN_LOCK_END_TIME)
 	@FieldInfo(comment = "锁定结束时间")
 	private Long loginLockEndTime;
 

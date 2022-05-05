@@ -153,11 +153,21 @@ public class SecurityMenuServiceImpl implements ISecurityMenuService {
 
     @Override
     public R roleCreate(String menuId, String roleId) throws MxException {
-        SecurityMenuRole menuRole = iMenuRoleMapper.selectOne(MP.lqw(SecurityMenuRole.init()).eq(SecurityMenuRole::getMenuId, menuId).eq(SecurityMenuRole::getRoleId, roleId));
+        SecurityMenuRole menuRole = iMenuRoleMapper.selectOne(MP.lqw(SecurityMenuRole.init())
+                .eq(SecurityMenuRole::getMenuId, menuId)
+                .eq(SecurityMenuRole::getRoleId, roleId)
+                .eq(SecurityMenuRole::getClient,config.getClient()));
         if (menuRole != null) {
             return R.create(SECURITY_MENU_ROLE_EXISTS.getCode()).msg(SECURITY_MENU_ROLE_EXISTS.getMsg());
         }
-        menuRole = SecurityMenuRole.builder().id(IdUtil.fastSimpleUUID()).menuId(menuId).roleId(roleId).createUser(saUtils.loginId()).createTime(System.currentTimeMillis()).build();
+        menuRole = SecurityMenuRole.builder()
+                .id(IdUtil.fastSimpleUUID())
+                .menuId(menuId)
+                .roleId(roleId)
+                .client(config.getClient())
+                .createUser(saUtils.loginId())
+                .createTime(System.currentTimeMillis())
+                .build();
         return R.result(iMenuRoleMapper.insert(menuRole));
     }
 

@@ -1,5 +1,8 @@
 package com.mx.spring.security.base.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.mx.spring.dev.support.generator.annotation.FieldInfo;
 
@@ -7,11 +10,11 @@ import java.io.Serializable;
 
 /**
  * @Author: mx-maven-plugin.
- * @Date: 2021/10/22.
- * @Time: 15:14:05.
- * @Description: 2021/10/22 15:14:05 生成 OperationLog
+ * @Date: 2022/05/05.
+ * @Time: 14:45:23.
+ * @Description: 2022/05/05 14:45:23 生成 SecurityOperationLog
  */
-@TableName("mx_security_operation_log")
+@TableName(SecurityOperationLog.TABLE_NAME)
 public class SecurityOperationLog implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -21,108 +24,133 @@ public class SecurityOperationLog implements Serializable {
 	/**
 	* id
 	*/
+	@TableId(value = FIELDS.ID, type = IdType.INPUT)
 	@FieldInfo(comment = "id", nullable = false)
 	private String id;
 
 	/**
+	* 客户端
+	*/
+	@TableField(value = FIELDS.CLIENT)
+	@FieldInfo(comment = "客户端", nullable = false)
+	private String client;
+
+	/**
 	* 标题
 	*/
+	@TableField(value = FIELDS.TITLE)
 	@FieldInfo(comment = "标题", nullable = false)
 	private String title;
 
 	/**
 	* 类型具体看配置
 	*/
+	@TableField(value = FIELDS.TYPE)
 	@FieldInfo(comment = "类型具体看配置", nullable = false)
 	private String type;
 
 	/**
 	* 类型名称
 	*/
+	@TableField(value = FIELDS.TYPE_NAME)
 	@FieldInfo(comment = "类型名称", nullable = false)
 	private String typeName;
 
 	/**
 	* 操作人
 	*/
+	@TableField(value = FIELDS.USER_ID)
 	@FieldInfo(comment = "操作人", nullable = false)
 	private String userId;
 
 	/**
 	* 操作人名称
 	*/
+	@TableField(value = FIELDS.USER_NAME)
 	@FieldInfo(comment = "操作人名称", nullable = false)
 	private String userName;
 
 	/**
 	* 创建时间
 	*/
+	@TableField(value = FIELDS.CREATE_TIME)
 	@FieldInfo(comment = "创建时间", nullable = false)
 	private Long createTime;
 
 	/**
 	* 请求路径
 	*/
+	@TableField(value = FIELDS.REQUEST_URL)
 	@FieldInfo(comment = "请求路径", nullable = false)
 	private String requestUrl;
 
 	/**
 	* 请求参数
 	*/
+	@TableField(value = FIELDS.REQUEST_PARAM)
 	@FieldInfo(comment = "请求参数")
 	private String requestParam;
 
 	/**
 	* 返回错误码
 	*/
+	@TableField(value = FIELDS.RETURN_CODE)
 	@FieldInfo(comment = "返回错误码", nullable = false)
 	private String returnCode;
 
 	/**
 	* 返回错误信息
 	*/
+	@TableField(value = FIELDS.RETURN_MESSAGE)
 	@FieldInfo(comment = "返回错误信息", nullable = false)
 	private String returnMessage;
 
 	/**
 	* 返回结果
 	*/
+	@TableField(value = FIELDS.RETURN_RESULT)
 	@FieldInfo(comment = "返回结果", nullable = false)
 	private String returnResult;
 
 	/**
 	* 类名称
 	*/
+	@TableField(value = FIELDS.CLASS_NAME)
 	@FieldInfo(comment = "类名称", nullable = false)
 	private String className;
 
 	/**
 	* 方法名
 	*/
+	@TableField(value = FIELDS.METHOD_NAME)
 	@FieldInfo(comment = "方法名", nullable = false)
 	private String methodName;
 
 	/**
 	* ip地址
 	*/
+	@TableField(value = FIELDS.IP)
 	@FieldInfo(comment = "ip地址", nullable = false)
 	private String ip;
 
 	/**
 	* 位置
 	*/
+	@TableField(value = FIELDS.LOCATION)
 	@FieldInfo(comment = "位置", nullable = false)
 	private String location;
 
 	/**
 	* 操作系统
 	*/
+	@TableField(value = FIELDS.OS)
 	@FieldInfo(comment = "操作系统", nullable = false)
 	private String os;
 
 	/**
 	* 浏览器
 	*/
+	@TableField(value = FIELDS.BROWSER)
 	@FieldInfo(comment = "浏览器", nullable = false)
 	private String browser;
 
@@ -143,6 +171,7 @@ public class SecurityOperationLog implements Serializable {
 	/**
 	 * 构造器
 	 *	@param id
+	 *	@param client
 	 *	@param title
 	 *	@param type
 	 *	@param typeName
@@ -161,8 +190,9 @@ public class SecurityOperationLog implements Serializable {
 	 *	@param os
 	 *	@param browser
 	 */
-	public SecurityOperationLog(String id, String title, String type, String typeName, String userId, String userName, Long createTime, String requestUrl, String requestParam, String returnCode, String returnMessage, String returnResult, String className, String methodName, String ip, String location, String os, String browser) {
+	public SecurityOperationLog(String id, String client, String title, String type, String typeName, String userId, String userName, Long createTime, String requestUrl, String requestParam, String returnCode, String returnMessage, String returnResult, String className, String methodName, String ip, String location, String os, String browser) {
 		this.id = id;
+		this.client = client;
 		this.title = title;
 		this.type = type;
 		this.typeName = typeName;
@@ -190,6 +220,14 @@ public class SecurityOperationLog implements Serializable {
 		this.id = id;
 	}
 
+
+	public String getClient() {
+		return client;
+	}
+
+	public void setClient(String client) {
+		this.client = client;
+	}
 
 	public String getTitle() {
 		return title;
@@ -330,23 +368,23 @@ public class SecurityOperationLog implements Serializable {
 
 
 
-	public static OperationLogBuilder builder() {
-		return new OperationLogBuilder();
+	public static SecurityOperationLogBuilder builder() {
+		return new SecurityOperationLogBuilder();
 	}
 
-	public OperationLogBuilder bind() {
-    	return new OperationLogBuilder(this);
+	public SecurityOperationLogBuilder bind() {
+    	return new SecurityOperationLogBuilder(this);
     }
 
-	public static class OperationLogBuilder {
+	public static class SecurityOperationLogBuilder {
 
 		private final SecurityOperationLog modelTarget;
 
-		public OperationLogBuilder() {
+		public SecurityOperationLogBuilder() {
 			modelTarget = new SecurityOperationLog();
 		}
 
-		public OperationLogBuilder(SecurityOperationLog model) {
+		public SecurityOperationLogBuilder(SecurityOperationLog model) {
 			modelTarget = model;
 		}
 
@@ -358,8 +396,17 @@ public class SecurityOperationLog implements Serializable {
 			return modelTarget.getId();
 		}
 
-		public OperationLogBuilder id(String id) {
+		public SecurityOperationLogBuilder id(String id) {
 			modelTarget.setId(id);
+			return this;
+		}
+
+		public String client() {
+			return modelTarget.getClient();
+		}
+
+		public SecurityOperationLogBuilder client(String client) {
+			modelTarget.setClient(client);
 			return this;
 		}
 
@@ -367,7 +414,7 @@ public class SecurityOperationLog implements Serializable {
 			return modelTarget.getTitle();
 		}
 
-		public OperationLogBuilder title(String title) {
+		public SecurityOperationLogBuilder title(String title) {
 			modelTarget.setTitle(title);
 			return this;
 		}
@@ -376,7 +423,7 @@ public class SecurityOperationLog implements Serializable {
 			return modelTarget.getType();
 		}
 
-		public OperationLogBuilder type(String type) {
+		public SecurityOperationLogBuilder type(String type) {
 			modelTarget.setType(type);
 			return this;
 		}
@@ -385,7 +432,7 @@ public class SecurityOperationLog implements Serializable {
 			return modelTarget.getTypeName();
 		}
 
-		public OperationLogBuilder typeName(String typeName) {
+		public SecurityOperationLogBuilder typeName(String typeName) {
 			modelTarget.setTypeName(typeName);
 			return this;
 		}
@@ -394,7 +441,7 @@ public class SecurityOperationLog implements Serializable {
 			return modelTarget.getUserId();
 		}
 
-		public OperationLogBuilder userId(String userId) {
+		public SecurityOperationLogBuilder userId(String userId) {
 			modelTarget.setUserId(userId);
 			return this;
 		}
@@ -403,7 +450,7 @@ public class SecurityOperationLog implements Serializable {
 			return modelTarget.getUserName();
 		}
 
-		public OperationLogBuilder userName(String userName) {
+		public SecurityOperationLogBuilder userName(String userName) {
 			modelTarget.setUserName(userName);
 			return this;
 		}
@@ -412,7 +459,7 @@ public class SecurityOperationLog implements Serializable {
 			return modelTarget.getCreateTime();
 		}
 
-		public OperationLogBuilder createTime(Long createTime) {
+		public SecurityOperationLogBuilder createTime(Long createTime) {
 			modelTarget.setCreateTime(createTime);
 			return this;
 		}
@@ -421,7 +468,7 @@ public class SecurityOperationLog implements Serializable {
 			return modelTarget.getRequestUrl();
 		}
 
-		public OperationLogBuilder requestUrl(String requestUrl) {
+		public SecurityOperationLogBuilder requestUrl(String requestUrl) {
 			modelTarget.setRequestUrl(requestUrl);
 			return this;
 		}
@@ -430,7 +477,7 @@ public class SecurityOperationLog implements Serializable {
 			return modelTarget.getRequestParam();
 		}
 
-		public OperationLogBuilder requestParam(String requestParam) {
+		public SecurityOperationLogBuilder requestParam(String requestParam) {
 			modelTarget.setRequestParam(requestParam);
 			return this;
 		}
@@ -439,7 +486,7 @@ public class SecurityOperationLog implements Serializable {
 			return modelTarget.getReturnCode();
 		}
 
-		public OperationLogBuilder returnCode(String returnCode) {
+		public SecurityOperationLogBuilder returnCode(String returnCode) {
 			modelTarget.setReturnCode(returnCode);
 			return this;
 		}
@@ -448,7 +495,7 @@ public class SecurityOperationLog implements Serializable {
 			return modelTarget.getReturnMessage();
 		}
 
-		public OperationLogBuilder returnMessage(String returnMessage) {
+		public SecurityOperationLogBuilder returnMessage(String returnMessage) {
 			modelTarget.setReturnMessage(returnMessage);
 			return this;
 		}
@@ -457,7 +504,7 @@ public class SecurityOperationLog implements Serializable {
 			return modelTarget.getReturnResult();
 		}
 
-		public OperationLogBuilder returnResult(String returnResult) {
+		public SecurityOperationLogBuilder returnResult(String returnResult) {
 			modelTarget.setReturnResult(returnResult);
 			return this;
 		}
@@ -466,7 +513,7 @@ public class SecurityOperationLog implements Serializable {
 			return modelTarget.getClassName();
 		}
 
-		public OperationLogBuilder className(String className) {
+		public SecurityOperationLogBuilder className(String className) {
 			modelTarget.setClassName(className);
 			return this;
 		}
@@ -475,7 +522,7 @@ public class SecurityOperationLog implements Serializable {
 			return modelTarget.getMethodName();
 		}
 
-		public OperationLogBuilder methodName(String methodName) {
+		public SecurityOperationLogBuilder methodName(String methodName) {
 			modelTarget.setMethodName(methodName);
 			return this;
 		}
@@ -484,7 +531,7 @@ public class SecurityOperationLog implements Serializable {
 			return modelTarget.getIp();
 		}
 
-		public OperationLogBuilder ip(String ip) {
+		public SecurityOperationLogBuilder ip(String ip) {
 			modelTarget.setIp(ip);
 			return this;
 		}
@@ -493,7 +540,7 @@ public class SecurityOperationLog implements Serializable {
 			return modelTarget.getLocation();
 		}
 
-		public OperationLogBuilder location(String location) {
+		public SecurityOperationLogBuilder location(String location) {
 			modelTarget.setLocation(location);
 			return this;
 		}
@@ -502,7 +549,7 @@ public class SecurityOperationLog implements Serializable {
 			return modelTarget.getOs();
 		}
 
-		public OperationLogBuilder os(String os) {
+		public SecurityOperationLogBuilder os(String os) {
 			modelTarget.setOs(os);
 			return this;
 		}
@@ -511,7 +558,7 @@ public class SecurityOperationLog implements Serializable {
 			return modelTarget.getBrowser();
 		}
 
-		public OperationLogBuilder browser(String browser) {
+		public SecurityOperationLogBuilder browser(String browser) {
 			modelTarget.setBrowser(browser);
 			return this;
 		}
@@ -519,10 +566,11 @@ public class SecurityOperationLog implements Serializable {
 	}
 
 	/**
-	 * OperationLog 字段常量表
+	 * SecurityOperationLog 字段常量表
 	 */
 	public static class FIELDS {
 		public static final String ID = "id";
+		public static final String CLIENT = "client";
 		public static final String TITLE = "title";
 		public static final String TYPE = "type";
 		public static final String TYPE_NAME = "type_name";

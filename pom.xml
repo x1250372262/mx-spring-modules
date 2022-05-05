@@ -17,6 +17,7 @@
         <module>mx-spring-upload</module>
         <module>mx-spring-jdbc-clickhouse</module>
         <module>mx-spring-netty</module>
+        <module>mx-spring-jdbc-jdbctemplate</module>
     </modules>
 
 

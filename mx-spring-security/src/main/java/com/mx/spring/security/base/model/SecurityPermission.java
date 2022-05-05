@@ -1,5 +1,8 @@
 package com.mx.spring.security.base.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.mx.spring.dev.support.generator.annotation.FieldInfo;
 
@@ -7,11 +10,11 @@ import java.io.Serializable;
 
 /**
  * @Author: mx-maven-plugin.
- * @Date: 2021/10/22.
- * @Time: 15:15:28.
- * @Description: 2021/10/22 15:15:28 生成 SecurityPermission
+ * @Date: 2022/05/05.
+ * @Time: 14:45:23.
+ * @Description: 2022/05/05 14:45:23 生成 SecurityPermission
  */
-@TableName("mx_security_permission")
+@TableName(SecurityPermission.TABLE_NAME)
 public class SecurityPermission implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -21,54 +24,63 @@ public class SecurityPermission implements Serializable {
 	/**
 	* id
 	*/
+	@TableId(value = FIELDS.ID, type = IdType.INPUT)
 	@FieldInfo(comment = "id", nullable = false)
 	private String id;
 
 	/**
-	* client
+	* 客户端
 	*/
-	@FieldInfo(comment = "client", nullable = false)
+	@TableField(value = FIELDS.CLIENT)
+	@FieldInfo(comment = "客户端", nullable = false)
 	private String client;
 
 	/**
 	* 权限组名称
 	*/
+	@TableField(value = FIELDS.GROUP_NAME)
 	@FieldInfo(comment = "权限组名称", nullable = false)
 	private String groupName;
 
 	/**
 	* 权限名称
 	*/
+	@TableField(value = FIELDS.PERMISSION_NAME)
 	@FieldInfo(comment = "权限名称", nullable = false)
 	private String permissionName;
 
 	/**
 	* 权限码
 	*/
+	@TableField(value = FIELDS.PERMISSION_CODE)
 	@FieldInfo(comment = "权限码", nullable = false)
 	private String permissionCode;
 
 	/**
 	* 创建人
 	*/
+	@TableField(value = FIELDS.CREATE_USER)
 	@FieldInfo(comment = "创建人", nullable = false)
 	private String createUser;
 
 	/**
 	* 创建时间
 	*/
+	@TableField(value = FIELDS.CREATE_TIME)
 	@FieldInfo(comment = "创建时间", nullable = false)
 	private Long createTime;
 
 	/**
 	* 最后更新人
 	*/
+	@TableField(value = FIELDS.LAST_MODIFY_USER)
 	@FieldInfo(comment = "最后更新人", nullable = false)
 	private String lastModifyUser;
 
 	/**
 	* 最后更新时间
 	*/
+	@TableField(value = FIELDS.LAST_MODIFY_TIME)
 	@FieldInfo(comment = "最后更新时间", nullable = false)
 	private Long lastModifyTime;
 
@@ -110,7 +122,6 @@ public class SecurityPermission implements Serializable {
 		this.lastModifyTime = lastModifyTime;
 	}
 
-
 	public String getId() {
 		return id;
 	}
@@ -118,6 +129,7 @@ public class SecurityPermission implements Serializable {
 	public void setId(String id) {
 		this.id = id;
 	}
+
 
 	public String getClient() {
 		return client;

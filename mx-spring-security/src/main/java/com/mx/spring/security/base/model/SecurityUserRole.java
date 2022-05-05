@@ -1,5 +1,8 @@
 package com.mx.spring.security.base.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.mx.spring.dev.support.generator.annotation.FieldInfo;
 
@@ -7,11 +10,11 @@ import java.io.Serializable;
 
 /**
  * @Author: mx-maven-plugin.
- * @Date: 2021/10/22.
- * @Time: 15:14:05.
- * @Description: 2021/10/22 15:14:05 生成 SecurityUserRole
+ * @Date: 2022/05/05.
+ * @Time: 14:45:23.
+ * @Description: 2022/05/05 14:45:23 生成 SecurityUserRole
  */
-@TableName("mx_security_user_role")
+@TableName(SecurityUserRole.TABLE_NAME)
 public class SecurityUserRole implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -21,42 +24,56 @@ public class SecurityUserRole implements Serializable {
 	/**
 	* id
 	*/
+	@TableId(value = FIELDS.ID, type = IdType.INPUT)
 	@FieldInfo(comment = "id", nullable = false)
 	private String id;
 
 	/**
+	* 客户端
+	*/
+	@TableField(value = FIELDS.CLIENT)
+	@FieldInfo(comment = "客户端", nullable = false)
+	private String client;
+
+	/**
 	* 管理员id
 	*/
+	@TableField(value = FIELDS.USER_ID)
 	@FieldInfo(comment = "管理员id", nullable = false)
 	private String userId;
 
 	/**
 	* 角色id
 	*/
+	@TableField(value = FIELDS.ROLE_ID)
 	@FieldInfo(comment = "角色id", nullable = false)
 	private String roleId;
 
 	/**
 	* 创建人
 	*/
+	@TableField(value = FIELDS.CREATE_USER)
 	@FieldInfo(comment = "创建人", nullable = false)
 	private String createUser;
 
 	/**
 	* 创建时间
 	*/
+	@TableField(value = FIELDS.CREATE_TIME)
 	@FieldInfo(comment = "创建时间", nullable = false)
 	private Long createTime;
 
 	/**
 	* 最后更新人
 	*/
+	@TableField(value = FIELDS.LAST_MODIFY_USER)
 	@FieldInfo(comment = "最后更新人", nullable = false)
 	private String lastModifyUser;
 
 	/**
 	* 最后更新时间
 	*/
+	@TableField(value = FIELDS.LAST_MODIFY_TIME)
 	@FieldInfo(comment = "最后更新时间", nullable = false)
 	private Long lastModifyTime;
 
@@ -77,6 +94,7 @@ public class SecurityUserRole implements Serializable {
 	/**
 	 * 构造器
 	 *	@param id
+	 *	@param client
 	 *	@param userId
 	 *	@param roleId
 	 *	@param createUser
@@ -84,8 +102,9 @@ public class SecurityUserRole implements Serializable {
 	 *	@param lastModifyUser
 	 *	@param lastModifyTime
 	 */
-	public SecurityUserRole(String id, String userId, String roleId, String createUser, Long createTime, String lastModifyUser, Long lastModifyTime) {
+	public SecurityUserRole(String id, String client, String userId, String roleId, String createUser, Long createTime, String lastModifyUser, Long lastModifyTime) {
 		this.id = id;
+		this.client = client;
 		this.userId = userId;
 		this.roleId = roleId;
 		this.createUser = createUser;
@@ -102,6 +121,14 @@ public class SecurityUserRole implements Serializable {
 		this.id = id;
 	}
 
+
+	public String getClient() {
+		return client;
+	}
+
+	public void setClient(String client) {
+		this.client = client;
+	}
 
 	public String getUserId() {
 		return userId;
@@ -187,6 +214,15 @@ public class SecurityUserRole implements Serializable {
 			return this;
 		}
 
+		public String client() {
+			return modelTarget.getClient();
+		}
+
+		public SecurityUserRoleBuilder client(String client) {
+			modelTarget.setClient(client);
+			return this;
+		}
+
 		public String userId() {
 			return modelTarget.getUserId();
 		}
@@ -248,6 +284,7 @@ public class SecurityUserRole implements Serializable {
 	 */
 	public static class FIELDS {
 		public static final String ID = "id";
+		public static final String CLIENT = "client";
 		public static final String USER_ID = "user_id";
 		public static final String ROLE_ID = "role_id";
 		public static final String CREATE_USER = "create_user";

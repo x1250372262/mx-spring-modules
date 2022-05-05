@@ -10,6 +10,7 @@ import com.mx.spring.dev.util.BeanUtil;
 import com.mx.spring.jdbc.mybatis.plus.MP;
 import com.mx.spring.jdbc.mybatis.plus.page.PageHelper;
 import com.mx.spring.jdbc.mybatis.plus.util.MPBeanUtils;
+import com.mx.spring.security.base.config.MxSecurityConfig;
 import com.mx.spring.security.base.model.SecurityOperationLog;
 import com.mx.spring.security.base.vo.SecurityOperationLogListVO;
 import com.mx.spring.security.base.vo.SecurityOperationLogVO;
@@ -33,9 +34,17 @@ public class SecurityOperationLogServiceImpl implements ISecurityOperationLogSer
     @Autowired
     private ISecurityOperationLogMapper iSecurityOperationLogMapper;
 
+    @Autowired
+    private MxSecurityConfig config;
+
     @Override
     public M<Pages<SecurityOperationLogListVO>> list(String title, Long startTime, Long endTime, PageBean<SecurityOperationLog> pageBean) throws MxException {
-        LambdaQueryWrapper<SecurityOperationLog> queryWrapper = MP.lqw(SecurityOperationLog.init()).like(StringUtils.isNotBlank(title), SecurityOperationLog::getTitle, title).ge(Objects.nonNull(startTime), SecurityOperationLog::getCreateTime, startTime).le(Objects.nonNull(endTime), SecurityOperationLog::getCreateTime, endTime).orderByDesc(SecurityOperationLog::getCreateTime);
+        LambdaQueryWrapper<SecurityOperationLog> queryWrapper = MP.lqw(SecurityOperationLog.init())
+                .eq(SecurityOperationLog::getClient,config.getClient())
+                .like(StringUtils.isNotBlank(title), SecurityOperationLog::getTitle, title)
+                .ge(Objects.nonNull(startTime), SecurityOperationLog::getCreateTime, startTime)
+                .le(Objects.nonNull(endTime), SecurityOperationLog::getCreateTime, endTime)
+                .orderByDesc(SecurityOperationLog::getCreateTime);
         return M.list(MPBeanUtils.copyPage(iSecurityOperationLogMapper.selectPage(PageHelper.in(pageBean), queryWrapper), SecurityOperationLogListVO::new));
     }
 

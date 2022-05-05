@@ -10,6 +10,7 @@ import com.mx.spring.dev.result.R;
 import com.mx.spring.dev.support.log.MxLog;
 import com.mx.spring.dev.util.WebUtil;
 import com.mx.spring.security.SaUtils;
+import com.mx.spring.security.base.config.MxSecurityConfig;
 import com.mx.spring.security.base.enums.OperationType;
 import com.mx.spring.security.base.model.SecurityOperationLog;
 import com.mx.spring.security.base.model.SecurityUser;
@@ -42,6 +43,9 @@ public class OperationLogAspect {
     private ApplicationContext applicationContext;
     @Autowired
     private SaUtils saUtils;
+
+    @Autowired
+    private MxSecurityConfig config;
 
     @Pointcut(value = "@annotation(com.mx.spring.security.annotation.OperationLog)")
     public void operationLog() {
@@ -115,6 +119,7 @@ public class OperationLogAspect {
                     .location("")
                     .os(UserAgentUtil.parse(userAgentStr).getOs().toString())
                     .browser(UserAgentUtil.parse(userAgentStr).getBrowser().toString())
+                    .client(config.getClient())
                     .build();
             // 保存数据库
             applicationContext.publishEvent(new OperationLogEvent(securityOperationLog));

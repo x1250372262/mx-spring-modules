@@ -1,5 +1,8 @@
 package com.mx.spring.security.base.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.mx.spring.dev.support.generator.annotation.FieldInfo;
 
@@ -7,11 +10,11 @@ import java.io.Serializable;
 
 /**
  * @Author: mx-maven-plugin.
- * @Date: 2021/10/22.
- * @Time: 15:14:06.
- * @Description: 2021/10/22 15:14:06 生成 SecurityRolePermission
+ * @Date: 2022/05/05.
+ * @Time: 14:45:23.
+ * @Description: 2022/05/05 14:45:23 生成 SecurityRolePermission
  */
-@TableName("mx_security_role_permission")
+@TableName(SecurityRolePermission.TABLE_NAME)
 public class SecurityRolePermission implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -21,42 +24,56 @@ public class SecurityRolePermission implements Serializable {
 	/**
 	* id
 	*/
+	@TableId(value = FIELDS.ID, type = IdType.INPUT)
 	@FieldInfo(comment = "id", nullable = false)
 	private String id;
 
 	/**
+	* 客户端
+	*/
+	@TableField(value = FIELDS.CLIENT)
+	@FieldInfo(comment = "客户端", nullable = false)
+	private String client;
+
+	/**
 	* 角色id
 	*/
+	@TableField(value = FIELDS.ROLE_ID)
 	@FieldInfo(comment = "角色id", nullable = false)
 	private String roleId;
 
 	/**
 	* 权限id
 	*/
+	@TableField(value = FIELDS.PERMISSON_ID)
 	@FieldInfo(comment = "权限id", nullable = false)
 	private String permissonId;
 
 	/**
 	* 创建时间
 	*/
+	@TableField(value = FIELDS.CREATE_TIME)
 	@FieldInfo(comment = "创建时间", nullable = false)
 	private Long createTime;
 
 	/**
 	* 权限组名称
 	*/
+	@TableField(value = FIELDS.GROUP_NAME)
 	@FieldInfo(comment = "权限组名称", nullable = false)
 	private String groupName;
 
 	/**
 	* 权限名称
 	*/
+	@TableField(value = FIELDS.PERMISSION_NAME)
 	@FieldInfo(comment = "权限名称", nullable = false)
 	private String permissionName;
 
 	/**
 	* 权限码
 	*/
+	@TableField(value = FIELDS.PERMISSION_CODE)
 	@FieldInfo(comment = "权限码", nullable = false)
 	private String permissionCode;
 
@@ -77,6 +94,7 @@ public class SecurityRolePermission implements Serializable {
 	/**
 	 * 构造器
 	 *	@param id
+	 *	@param client
 	 *	@param roleId
 	 *	@param permissonId
 	 *	@param createTime
@@ -84,8 +102,9 @@ public class SecurityRolePermission implements Serializable {
 	 *	@param permissionName
 	 *	@param permissionCode
 	 */
-	public SecurityRolePermission(String id, String roleId, String permissonId, Long createTime, String groupName, String permissionName, String permissionCode) {
+	public SecurityRolePermission(String id, String client, String roleId, String permissonId, Long createTime, String groupName, String permissionName, String permissionCode) {
 		this.id = id;
+		this.client = client;
 		this.roleId = roleId;
 		this.permissonId = permissonId;
 		this.createTime = createTime;
@@ -102,6 +121,14 @@ public class SecurityRolePermission implements Serializable {
 		this.id = id;
 	}
 
+
+	public String getClient() {
+		return client;
+	}
+
+	public void setClient(String client) {
+		this.client = client;
+	}
 
 	public String getRoleId() {
 		return roleId;
@@ -187,6 +214,15 @@ public class SecurityRolePermission implements Serializable {
 			return this;
 		}
 
+		public String client() {
+			return modelTarget.getClient();
+		}
+
+		public SecurityRolePermissionBuilder client(String client) {
+			modelTarget.setClient(client);
+			return this;
+		}
+
 		public String roleId() {
 			return modelTarget.getRoleId();
 		}
@@ -248,6 +284,7 @@ public class SecurityRolePermission implements Serializable {
 	 */
 	public static class FIELDS {
 		public static final String ID = "id";
+		public static final String CLIENT = "client";
 		public static final String ROLE_ID = "role_id";
 		public static final String PERMISSON_ID = "permisson_id";
 		public static final String CREATE_TIME = "create_time";

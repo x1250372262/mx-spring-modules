@@ -1,5 +1,8 @@
 package com.mx.spring.security.base.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.mx.spring.dev.support.generator.annotation.FieldInfo;
 
@@ -7,11 +10,11 @@ import java.io.Serializable;
 
 /**
  * @Author: mx-maven-plugin.
- * @Date: 2021/10/22.
- * @Time: 15:14:05.
- * @Description: 2021/10/22 15:14:05 生成 SecurityMenu
+ * @Date: 2022/05/05.
+ * @Time: 14:45:23.
+ * @Description: 2022/05/05 14:45:23 生成 SecurityMenu
  */
-@TableName("mx_security_menu")
+@TableName(SecurityMenu.TABLE_NAME)
 public class SecurityMenu implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -21,54 +24,63 @@ public class SecurityMenu implements Serializable {
 	/**
 	* id
 	*/
+	@TableId(value = FIELDS.ID, type = IdType.INPUT)
 	@FieldInfo(comment = "id", nullable = false)
 	private String id;
 
 	/**
 	* 客户端
 	*/
-	@FieldInfo(comment = "client", nullable = false)
+	@TableField(value = FIELDS.CLIENT)
+	@FieldInfo(comment = "客户端", nullable = false)
 	private String client;
 
 	/**
 	* 菜单类型 0默认 1公开 2拥有者可看
 	*/
+	@TableField(value = FIELDS.TYPE)
 	@FieldInfo(comment = "菜单类型 0默认 1公开 2拥有者可看", nullable = false)
 	private Integer type;
 
 	/**
 	* 父id
 	*/
+	@TableField(value = FIELDS.PARENT_ID)
 	@FieldInfo(comment = "父id", nullable = false)
 	private String parentId;
 
 	/**
 	* 菜单名称
 	*/
+	@TableField(value = FIELDS.NAME)
 	@FieldInfo(comment = "菜单名称", nullable = false)
 	private String name;
 
 	/**
 	* 图标
 	*/
+	@TableField(value = FIELDS.ICON)
 	@FieldInfo(comment = "图标")
 	private String icon;
 
 	/**
 	* 路径
 	*/
+	@TableField(value = FIELDS.PATH)
 	@FieldInfo(comment = "路径")
 	private String path;
 
 	/**
 	* 地址
 	*/
+	@TableField(value = FIELDS.URL)
 	@FieldInfo(comment = "地址")
 	private String url;
 
 	/**
 	* 排序
 	*/
+	@TableField(value = FIELDS.SORT)
 	@FieldInfo(comment = "排序", nullable = false)
 	private Integer sort;
 
@@ -117,6 +129,7 @@ public class SecurityMenu implements Serializable {
 	public void setId(String id) {
 		this.id = id;
 	}
+
 
 	public String getClient() {
 		return client;
