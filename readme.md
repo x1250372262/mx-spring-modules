@@ -9,6 +9,7 @@
 - [mx-spring-redis](mx-spring-redis) 整合redis和Redisson  提供便利的api操作。
 - [mx-spring-security](mx-spring-security) 基于sa-token 权限验证 需要数据库的支持，支持扩展自己的用户体系。
 - [mx-spring-upload](mx-spring-upload) 上传文件模块，支持本地、七牛、minio、腾讯、阿里。也可以自己扩展。
+- [mx-spring-netty](mx-spring-netty) netty模块 内置心跳检测，可同时当服务端和客户端
 
 
 
