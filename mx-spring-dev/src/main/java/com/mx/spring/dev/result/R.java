@@ -59,7 +59,7 @@ public class R implements Serializable {
      * 根据参数返回成功还是失败
      */
     public static R result(int result) {
-        if (result >= 0) {
+        if (result >= 1) {
             return R.ok();
         }
         return R.fail();

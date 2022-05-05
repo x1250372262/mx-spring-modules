@@ -4,3 +4,11 @@
 #    print-rest-url: false
 #    # 是否格式化请求
 #    format-request: false
+#
+### logging logback
+#logging:
+#  config: classpath:log4j2-spring.xml
+#  level:
+#    org.springframework.web: WARN
+#    druid.sql: ERROR
+#    client.handler: ERROR

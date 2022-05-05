@@ -16,6 +16,7 @@
         <module>mx-spring-jdbc-mybatis-plus</module>
         <module>mx-spring-upload</module>
         <module>mx-spring-jdbc-clickhouse</module>
+        <module>mx-spring-netty</module>
     </modules>
 
 
@@ -27,15 +28,16 @@
         <mybatis.plus.boot.version>3.5.1</mybatis.plus.boot.version>
         <dynamic-datasource.version>3.5.1</dynamic-datasource.version>
         <commons.lang3.version>3.12.0</commons.lang3.version>
-        <hutool.all.version>5.7.22</hutool.all.version>
-        <fastjson.version>1.2.79</fastjson.version>
+        <hutool.all.version>5.8.0.M3</hutool.all.version>
+        <fastjson.version>2.0.1</fastjson.version>
         <redisson.spring.boot.version>3.17.0</redisson.spring.boot.version>
         <sa.token.spring.boot.version>1.29.1.trial</sa.token.spring.boot.version>
         <sa.token.dao.redis.jackson.version>1.29.1.trial</sa.token.dao.redis.jackson.version>
         <commons.pool2.version>2.10.0</commons.pool2.version>
         <mysql.connector.java.version>8.0.28</mysql.connector.java.version>
         <clickhouse-jdbc.version>0.3.2</clickhouse-jdbc.version>
-        <druid.version>1.2.8</druid.version>
+        <druid-spring-boot-starter.version>1.2.9</druid-spring-boot-starter.version>
+        <netty-all.version>4.1.76.Final</netty-all.version>
 
     </properties>
 
@@ -70,6 +72,13 @@
                 <artifactId>knife4j-spring-boot-starter</artifactId>
                 <version>${knife4j.spring.boot.version}</version>
             </dependency>
+            <!--druid-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid-spring-boot-starter.version}</version>
+            </dependency>
+            <!--mybatis-->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
@@ -80,6 +89,7 @@
                 <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
                 <version>${dynamic-datasource.version}</version>
             </dependency>
+            <!--sa-token-->
             <dependency>
                 <groupId>cn.dev33</groupId>
                 <artifactId>sa-token-spring-boot-starter</artifactId>
@@ -100,11 +110,6 @@
                 <groupId>org.redisson</groupId>
                 <artifactId>redisson-spring-boot-starter</artifactId>
                 <version>${redisson.spring.boot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>${mysql.connector.java.version}</version>
             </dependency>
             <!--minio文件存储-->
             <dependency>
@@ -142,11 +147,11 @@
                 <artifactId>clickhouse-jdbc</artifactId>
                 <version>${clickhouse-jdbc.version}</version>
             </dependency>
-            <!--druid-->
+            <!--netty-->
             <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>druid</artifactId>
-                <version>${druid.version}</version>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>${netty-all.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

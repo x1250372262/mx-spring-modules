@@ -1,6 +1,9 @@
 package com.mx.spring.dev.support.format;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson2.JSONWriter;
 import com.mx.spring.dev.config.MxConfig;
 import com.mx.spring.dev.support.log.MxLog;
 import com.mx.spring.dev.util.WebUtil;
@@ -38,7 +41,7 @@ public class FormatRequestAspect {
         Object result = pj.proceed();
         if(mxConfig.isFormatRequest()){
             //打印出参
-            MxLog.info("返回参数: {}", JSONObject.toJSONString(result, true));
+            MxLog.info("返回参数: {}", JSONObject.toJSONString(result, SerializerFeature.PrettyFormat));
             //执行耗时
             MxLog.info("执行耗时: {} ms", System.currentTimeMillis() - startTime);
             //结束打印日志
@@ -66,7 +69,7 @@ public class FormatRequestAspect {
             // 打印请求的 IP
             MxLog.info("请求 IP: {}", request.getRemoteAddr());
             // 打印请求入参
-            MxLog.info("请求参数: {}", JSONObject.toJSONString(request.getParameterMap(), true));
+            MxLog.info("请求参数: {}", JSONObject.toJSONString(request.getParameterMap(), SerializerFeature.PrettyFormat));
         }
     }
 

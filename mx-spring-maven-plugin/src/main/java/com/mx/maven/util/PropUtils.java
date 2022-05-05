@@ -61,6 +61,20 @@ public class PropUtils {
     public static final String CURD_DETAIL_RETURNS = "mx.curd.detailReturns";
     public static final String CURD_OPTION_PARAMS = "mx.curd.optionParams";
 
+    public static final String MTD_DB_NAME = "mx.mtd.dbName";
+
+    public static final String MTD_DB_CHARSET = "mx.mtd.charset";
+
+    public static final String MTD_DB_COLLATE = "mx.mtd.collate";
+
+    public static final String MTD_MODEL_LIST = "mx.mtd.modelList";
+
+    public static final String MTD_MODEL_EXCLUDE_LIST = "mx.mtd.modelExcludeList";
+
+    public static final String MTD_PACKAGE_NAME = "mx.mtd.packageName";
+
+    public static final String MTD_OUTPUT_PATH = "mx.mtd.outputPath";
+
 
     public static Props getProps() {
         return new Props(new File(System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "mx.properties"));

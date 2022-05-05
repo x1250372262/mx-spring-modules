@@ -1,5 +1,7 @@
 package ${modelPackageName};
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.mx.spring.dev.support.generator.annotation.FieldInfo;
 import java.io.Serializable;
@@ -21,6 +23,9 @@ public class ${modelName?cap_first} implements Serializable {
 	/**
 	* ${field.comment}
 	*/
+	<#if field.varName == primaryKeyName>
+	@TableId(value = "id", type = IdType.INPUT)
+	</#if>
 	@FieldInfo(comment = "${field.comment}"<#if (!field.nullable)>, nullable = false</#if>)
 	private ${field.varType} ${field.varName};
 
