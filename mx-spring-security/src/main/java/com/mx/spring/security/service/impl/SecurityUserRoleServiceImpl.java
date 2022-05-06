@@ -2,7 +2,7 @@ package com.mx.spring.security.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.security.SaUtils;
+import com.mx.spring.security.SaUtil;
 import com.mx.spring.security.base.model.SecurityPermission;
 import com.mx.spring.security.base.vo.SecurityUserPermissionVO;
 import com.mx.spring.security.mapper.ISecurityPermissionMapper;
@@ -27,7 +27,7 @@ public class SecurityUserRoleServiceImpl implements ISecurityUserRoleService {
     @Autowired
     private ISecurityPermissionMapper iSecurityPermissionMapper;
     @Autowired
-    private SaUtils saUtils;
+    private SaUtil saUtils;
 
     @Override
     public List<String> securityUserPermissionList(String securityUserId, String token) throws MxException {

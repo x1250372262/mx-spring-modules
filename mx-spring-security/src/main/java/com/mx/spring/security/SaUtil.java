@@ -20,7 +20,7 @@ import java.util.Objects;
  * @Description:
  */
 @Component
-public class SaUtils {
+public class SaUtil {
 
     /**
      * redis缓存中key user-info:客户端:用户id

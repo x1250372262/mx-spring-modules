@@ -78,6 +78,11 @@
             <artifactId>mx-spring-dev</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.mx.modules</groupId>
+            <artifactId>mx-spring-jdbc-mybatis-plus</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
 </project>

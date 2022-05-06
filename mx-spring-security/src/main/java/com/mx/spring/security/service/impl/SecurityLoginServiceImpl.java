@@ -16,7 +16,7 @@ import com.mx.spring.dev.util.TimeUtil;
 import com.mx.spring.dev.util.WebUtil;
 import com.mx.spring.jdbc.mybatis.plus.Mp;
 import com.mx.spring.redis.api.IRedisApi;
-import com.mx.spring.security.SaUtils;
+import com.mx.spring.security.SaUtil;
 import com.mx.spring.security.base.bean.LoginResult;
 import com.mx.spring.security.base.bean.SecurityLoginInfoBean;
 import com.mx.spring.security.base.config.MxSecurityConfig;
@@ -38,8 +38,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.mx.spring.security.SaUtils.PERMISSION_LIST;
-import static com.mx.spring.security.SaUtils.USER_INFO;
+import static com.mx.spring.security.SaUtil.PERMISSION_LIST;
+import static com.mx.spring.security.SaUtil.USER_INFO;
 import static com.mx.spring.security.base.code.SecurityCode.*;
 
 /**
@@ -59,7 +59,7 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
     @Autowired
     private IRedisApi iRedisApi;
     @Autowired
-    private SaUtils saUtils;
+    private SaUtil saUtils;
     @Autowired
     private MxSecurityConfig config;
 

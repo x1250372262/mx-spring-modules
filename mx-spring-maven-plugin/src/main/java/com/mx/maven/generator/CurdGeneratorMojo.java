@@ -2,6 +2,7 @@ package com.mx.maven.generator;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.setting.dialect.Props;
+import com.alibaba.fastjson.JSONObject;
 import com.mx.maven.bean.Attr;
 import com.mx.maven.conf.CurdConfig;
 import com.mx.maven.util.PropUtils;
@@ -79,12 +80,13 @@ public class CurdGeneratorMojo extends BaseGeneratorMojo {
         if (StringUtils.isBlank(curdConfig.getMapperClass())) {
             throw new NullArgumentException(PropUtils.CURD_MAPPER_CLASS);
         }
+
         Class<?> entityClass = null;
         Class<?> mapperClass = null;
         try {
             entityClass = getClassLoader().loadClass(curdConfig.getEntityClass());
             mapperClass = getClassLoader().loadClass(curdConfig.getMapperClass());
-        } catch (ClassNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         if (entityClass == null || mapperClass == null) {
@@ -101,6 +103,7 @@ public class CurdGeneratorMojo extends BaseGeneratorMojo {
         propMap.put(MAPPER_NAME, mapperClass.getSimpleName());
         Map<String, Attr> attrMap = new HashMap<>();
         Field[] fields = entityClass.getDeclaredFields();
+
         for (Field field : fields) {
             FieldInfo fieldInfo = field.getAnnotation(FieldInfo.class);
             String comment = "";
@@ -144,15 +147,19 @@ public class CurdGeneratorMojo extends BaseGeneratorMojo {
         String voProjectPath = curdConfig.getVoProjectPath();
         String voName = curdConfig.getVoName();
         String detailReturns = curdConfig.getDetailReturns();
-
-        if (StrUtil.hasBlank(voProjectPath, voName, detailReturns)) {
+        if (StrUtil.hasBlank(voProjectPath, voName)) {
             throw new MxException("请检查vo设置");
         }
         String[] voFields = StrUtil.splitToArray(detailReturns, "|");
         List<Attr> fieldsList = new ArrayList<>();
-        for (String field : voFields) {
-            fieldsList.add(attrMap.get(field));
+        if(voFields != null && voFields.length > 0){
+            for (String field : voFields) {
+                fieldsList.add(attrMap.get(field));
+            }
+        }else{
+            fieldsList.addAll(attrMap.values());
         }
+
         propMap.put(FIELDS_LIST, fieldsList);
         propMap.put(LIST, false);
         outFile(voProjectPath, createVoFileName(modelName), VO_JAVA, propMap, voName);
@@ -166,13 +173,20 @@ public class CurdGeneratorMojo extends BaseGeneratorMojo {
      * @param modelName 实体类名称
      */
     private void outListVO(Map<String, Object> propMap, Map<String, Attr> attrMap, String modelName) {
-        if (StringUtils.isBlank(curdConfig.getVoProjectPath()) || StringUtils.isBlank(curdConfig.getVoName()) || StringUtils.isBlank(curdConfig.getListReturns())) {
+        String voProjectPath = curdConfig.getVoProjectPath();
+        String voName = curdConfig.getVoName();
+        String listReturns = curdConfig.getListReturns();
+        if (StrUtil.hasBlank(voProjectPath, voName)) {
             throw new RuntimeException("请检查vo设置");
         }
-        String[] voFields = StrUtil.splitToArray(curdConfig.getListReturns(), "|");
+        String[] voFields = StrUtil.splitToArray(listReturns, "|");
         List<Attr> fieldsList = new ArrayList<>();
-        for (String field : voFields) {
-            fieldsList.add(attrMap.get(field));
+        if(voFields != null && voFields.length > 0){
+            for (String field : voFields) {
+                fieldsList.add(attrMap.get(field));
+            }
+        }else{
+            fieldsList.addAll(attrMap.values());
         }
         propMap.put(FIELDS_LIST, fieldsList);
         propMap.put(LIST, true);
@@ -193,13 +207,17 @@ public class CurdGeneratorMojo extends BaseGeneratorMojo {
         String beanName = curdConfig.getBeanName();
         String optionParams = curdConfig.getOptionParams();
 
-        if (StrUtil.hasBlank(dtoProjectPath, dtoName, beanProjectPath, beanName, optionParams)) {
+        if (StrUtil.hasBlank(dtoProjectPath, dtoName, beanProjectPath, beanName)) {
             throw new MxException("请检查dto和bean设置");
         }
         String[] dtoFields = StrUtil.splitToArray(optionParams, "|");
         List<Attr> fieldsList = new ArrayList<>();
-        for (String field : dtoFields) {
-            fieldsList.add(attrMap.get(field));
+        if(dtoFields != null && dtoFields.length > 0){
+            for (String field : dtoFields) {
+                fieldsList.add(attrMap.get(field));
+            }
+        }else{
+            fieldsList.addAll(attrMap.values());
         }
         propMap.put(FIELDS_LIST, fieldsList);
         propMap.put(LIST, false);
@@ -220,13 +238,17 @@ public class CurdGeneratorMojo extends BaseGeneratorMojo {
         String beanProjectPath = curdConfig.getBeanProjectPath();
         String beanName = curdConfig.getBeanName();
         String listParams = curdConfig.getListParams();
-        if (StrUtil.hasBlank(dtoProjectPath, dtoName, beanName, beanProjectPath, listParams)) {
+        if (StrUtil.hasBlank(dtoProjectPath, dtoName, beanName, beanProjectPath)) {
             throw new MxException("请检查dto和bean设置");
         }
         String[] dtoFields = StrUtil.splitToArray(listParams, "|");
         List<Attr> fieldsList = new ArrayList<>();
-        for (String field : dtoFields) {
-            fieldsList.add(attrMap.get(field));
+        if(dtoFields != null && dtoFields.length > 0){
+            for (String field : dtoFields) {
+                fieldsList.add(attrMap.get(field));
+            }
+        }else{
+            fieldsList.addAll(attrMap.values());
         }
         propMap.put(FIELDS_LIST, fieldsList);
         propMap.put(LIST, true);
@@ -290,15 +312,28 @@ public class CurdGeneratorMojo extends BaseGeneratorMojo {
         List<Attr> listReturnList = new ArrayList<>();
         List<Attr> listParamList = new ArrayList<>();
         List<Attr> operationParamList = new ArrayList<>();
-        for (String field : listReturns) {
-            listReturnList.add(attrMap.get(field));
+        if(listReturns != null && listReturns.length > 0){
+            for (String field : listReturns) {
+                listReturnList.add(attrMap.get(field));
+            }
+        }else{
+            listReturnList.addAll(attrMap.values());
         }
-        for (String field : listParams) {
-            listParamList.add(attrMap.get(field));
+        if(listParams != null && listParams.length > 0){
+            for (String field : listParams) {
+                listParamList.add(attrMap.get(field));
+            }
+        }else{
+            listParamList.addAll(attrMap.values());
         }
-        for (String field : operationParams) {
-            operationParamList.add(attrMap.get(field));
+        if(operationParams != null && operationParams.length > 0){
+            for (String field : operationParams) {
+                operationParamList.add(attrMap.get(field));
+            }
+        }else{
+            operationParamList.addAll(attrMap.values());
         }
+
         String xg = StrUtil.SLASH;
         String xh = StrUtil.UNDERLINE;
         modelName = modelName.substring(0, 1).toLowerCase() + modelName.substring(1);

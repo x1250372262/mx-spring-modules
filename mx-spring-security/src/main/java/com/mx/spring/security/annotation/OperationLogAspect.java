@@ -10,7 +10,7 @@ import com.mx.spring.dev.result.Result;
 import com.mx.spring.dev.result.View;
 import com.mx.spring.dev.support.log.MxLog;
 import com.mx.spring.dev.util.WebUtil;
-import com.mx.spring.security.SaUtils;
+import com.mx.spring.security.SaUtil;
 import com.mx.spring.security.base.code.SecurityCode;
 import com.mx.spring.security.base.config.MxSecurityConfig;
 import com.mx.spring.security.base.enums.OperationType;
@@ -44,7 +44,7 @@ public class OperationLogAspect {
     @Autowired
     private ApplicationContext applicationContext;
     @Autowired
-    private SaUtils saUtils;
+    private SaUtil saUtils;
 
     @Autowired
     private MxSecurityConfig config;

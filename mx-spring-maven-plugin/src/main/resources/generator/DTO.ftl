@@ -1,6 +1,6 @@
 package ${dtoPackageName};
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.util.BeanUtils;
+import com.mx.spring.dev.util.BeanUtil;
 import ${beanPackageName}.${modelName}<#if (list)>ListBean<#else>Bean</#if>;
 <#if (isCreateSwagger)>
 import io.swagger.annotations.ApiModel;
@@ -37,10 +37,11 @@ public class ${modelName}<#if (list)>ListDTO<#else>DTO</#if> implements Serializ
 </#list>
 
     public ${modelName}<#if (list)>ListBean<#else>Bean</#if> toBean() throws MxException {
-        return BeanUtils.copy(this, ${modelName}<#if (list)>ListBean<#else>Bean</#if>::new);
+        return BeanUtil.copy(this, ${modelName}<#if (list)>ListBean<#else>Bean</#if>::new);
     }
 
 <#list fieldsList as field>
+
     public ${field.varType} get${field.varName?cap_first}() {
         return ${field.varName};
     }

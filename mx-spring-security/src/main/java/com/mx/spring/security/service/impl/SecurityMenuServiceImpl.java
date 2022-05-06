@@ -12,7 +12,7 @@ import com.mx.spring.dev.support.page.Pages;
 import com.mx.spring.dev.util.BeanUtil;
 import com.mx.spring.jdbc.mybatis.plus.Mp;
 import com.mx.spring.jdbc.mybatis.plus.page.PageHelper;
-import com.mx.spring.security.SaUtils;
+import com.mx.spring.security.SaUtil;
 import com.mx.spring.security.base.bean.SecurityMenuBean;
 import com.mx.spring.security.base.config.MxSecurityConfig;
 import com.mx.spring.security.base.enums.MenuType;
@@ -51,7 +51,7 @@ public class SecurityMenuServiceImpl implements ISecurityMenuService {
     @Autowired
     private ISecurityMenuRoleMapper iMenuRoleMapper;
     @Autowired
-    private SaUtils saUtils;
+    private SaUtil saUtils;
     @Autowired
     private MxSecurityConfig config;
 

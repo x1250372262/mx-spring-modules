@@ -13,7 +13,7 @@ import com.mx.spring.dev.util.BeanUtil;
 import com.mx.spring.jdbc.mybatis.plus.Mp;
 import com.mx.spring.jdbc.mybatis.plus.page.PageHelper;
 import com.mx.spring.jdbc.mybatis.plus.util.MpBeanUtils;
-import com.mx.spring.security.SaUtils;
+import com.mx.spring.security.SaUtil;
 import com.mx.spring.security.base.bean.SecurityRoleBean;
 import com.mx.spring.security.base.config.MxSecurityConfig;
 import com.mx.spring.security.base.model.SecurityPermission;
@@ -56,7 +56,7 @@ public class SecurityRoleServiceImpl implements ISecurityRoleService {
     @Autowired
     private ISecurityPermissionMapper iPermissionMapper;
     @Autowired
-    private SaUtils saUtils;
+    private SaUtil saUtils;
     @Autowired
     private MxSecurityConfig config;
 

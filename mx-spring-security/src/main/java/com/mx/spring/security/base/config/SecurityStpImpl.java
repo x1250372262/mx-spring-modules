@@ -9,7 +9,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.redis.api.IRedisApi;
-import com.mx.spring.security.SaUtils;
+import com.mx.spring.security.SaUtil;
 import com.mx.spring.security.service.ISecurityUserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.mx.spring.security.SaUtils.PERMISSION_LIST;
+import static com.mx.spring.security.SaUtil.PERMISSION_LIST;
 
 
 /**
@@ -33,7 +33,7 @@ public class SecurityStpImpl implements StpInterface {
     @Autowired
     private IRedisApi iRedisApi;
     @Autowired
-    private SaUtils saUtils;
+    private SaUtil saUtils;
     @Autowired
     private MxSecurityConfig mxSecurityConfig;
 

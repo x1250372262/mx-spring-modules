@@ -26,6 +26,7 @@ public class ${modelName}<#if (list)>ListVO<#else>VO</#if> implements Serializab
 </#list>
 
 <#list fieldsList as field>
+
     public ${field.varType} get${field.varName?cap_first}() {
         return ${field.varName};
     }

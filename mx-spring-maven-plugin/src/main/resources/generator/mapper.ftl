@@ -1,7 +1,7 @@
 package ${mapperPackageName};
 
 import ${modelPackageName}.${modelName};
-import com.mx.spring.dev.support.mybatisplus.MxBaseMapper;
+import com.mx.spring.jdbc.mybatis.plus.MxBaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

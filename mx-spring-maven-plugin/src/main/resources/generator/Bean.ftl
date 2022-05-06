@@ -17,6 +17,7 @@ public class ${modelName}<#if (list)>ListBean<#else>Bean</#if> implements Serial
 </#list>
 
 <#list fieldsList as field>
+
     public ${field.varType} get${field.varName?cap_first}() {
         return ${field.varName};
     }
