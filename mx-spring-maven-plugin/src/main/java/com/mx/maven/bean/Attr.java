@@ -1,11 +1,10 @@
 package com.mx.maven.bean;
 
 /**
- * @program: mx-maven-plugin
- * @description:
- * @author: mengxiang
- * @create: 2021-09-02 14:39
- **/
+ * @Author: mengxiang.
+ * @create: 2021-09-30 09:21
+ * @Description: 属性对象
+ */
 public class Attr {
 
     String varType;
@@ -13,9 +12,9 @@ public class Attr {
     String columnName;
     String columnType;
     String comment;
-     boolean nullable;
+    boolean nullable;
 
-    public Attr(String varType, String varName, String columnName,String columnType,String comment,boolean nullable) {
+    public Attr(String varType, String varName, String columnName, String columnType, String comment, boolean nullable) {
         this.varName = varName;
         this.varType = varType;
         this.columnName = columnName;
