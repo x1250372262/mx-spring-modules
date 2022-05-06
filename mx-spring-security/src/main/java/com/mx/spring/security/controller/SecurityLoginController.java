@@ -2,8 +2,8 @@ package com.mx.spring.security.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.M;
-import com.mx.spring.dev.result.R;
+import com.mx.spring.dev.result.View;
+import com.mx.spring.dev.result.Result;
 import com.mx.spring.dev.support.format.FormatRequest;
 import com.mx.spring.security.annotation.OperationLog;
 import com.mx.spring.security.base.bean.LoginResult;
@@ -49,9 +49,9 @@ public class SecurityLoginController {
     @PostMapping("/login")
     @FormatRequest
     @ApiOperation(value = "管理员登录")
-    public M<LoginResult> login(@ApiParam(name = "userName", value = "用户名", required = true)
+    public View<LoginResult> login(@ApiParam(name = "userName", value = "用户名", required = true)
                                 @NotBlank(message = "用户名不能为空") String userName,
-                                @ApiParam(name = "password", value = "密码(前端需要自行MD5加密一次)", required = true)
+                                   @ApiParam(name = "password", value = "密码(前端需要自行MD5加密一次)", required = true)
                                 @NotBlank(message = "密码不能为空") String password) throws MxException {
         return iSecurityLoginService.login(userName, password);
     }
@@ -65,7 +65,7 @@ public class SecurityLoginController {
     @PostMapping("/logout")
     @FormatRequest
     @ApiOperation(value = "管理员退出")
-    public R logout() throws MxException {
+    public Result logout() throws MxException {
         return iSecurityLoginService.logout();
     }
 
@@ -79,8 +79,8 @@ public class SecurityLoginController {
     @FormatRequest
     @SaCheckLogin
     @ApiOperation(value = "管理员信息")
-    public M<SecurityLoginVO> info() throws MxException {
-        return M.ok(iSecurityLoginService.info());
+    public View<SecurityLoginVO> info() throws MxException {
+        return View.ok(iSecurityLoginService.info());
     }
 
     @SaCheckLogin
@@ -88,7 +88,7 @@ public class SecurityLoginController {
     @PostMapping("/update")
     @ApiOperation(value = "修改管理员信息")
     @OperationLog(operationType = OperationType.UPDATE, title = "修改管理员信息")
-    public R update(@Validated SecurityLoginInfoDTO securityLoginInfoDTO) throws Exception {
+    public Result update(@Validated SecurityLoginInfoDTO securityLoginInfoDTO) throws Exception {
         return iSecurityLoginService.update(securityLoginInfoDTO.toBean());
     }
 
@@ -107,7 +107,7 @@ public class SecurityLoginController {
     @PostMapping("/password")
     @ApiOperation(value = "修改管理员密码")
     @OperationLog(operationType = OperationType.UPDATE, title = "修改管理员密码")
-    public R password(@ApiParam(name = "oldPassword", value = "旧密码(前端需要自行MD5加密一次)", required = true) @NotBlank(message = "旧密码不能为空") String oldPassword, @ApiParam(name = "newPassword", value = "新密码(前端需要自行MD5加密一次)", required = true) @NotBlank(message = "新密码不能为空") String newPassword, @ApiParam(name = "rePassword", value = "确认密码(前端需要自行MD5加密一次)", required = true) @NotBlank(message = "确认密码不能为空") String rePassword) throws Exception {
+    public Result password(@ApiParam(name = "oldPassword", value = "旧密码(前端需要自行MD5加密一次)", required = true) @NotBlank(message = "旧密码不能为空") String oldPassword, @ApiParam(name = "newPassword", value = "新密码(前端需要自行MD5加密一次)", required = true) @NotBlank(message = "新密码不能为空") String newPassword, @ApiParam(name = "rePassword", value = "确认密码(前端需要自行MD5加密一次)", required = true) @NotBlank(message = "确认密码不能为空") String rePassword) throws Exception {
         return iSecurityLoginService.password(oldPassword, newPassword, rePassword);
     }
 

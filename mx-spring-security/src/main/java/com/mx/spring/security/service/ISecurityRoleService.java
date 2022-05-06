@@ -1,8 +1,8 @@
 package com.mx.spring.security.service;
 
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.M;
-import com.mx.spring.dev.result.R;
+import com.mx.spring.dev.result.View;
+import com.mx.spring.dev.result.Result;
 import com.mx.spring.dev.support.page.PageBean;
 import com.mx.spring.dev.support.page.Pages;
 import com.mx.spring.security.base.bean.SecurityRoleBean;
@@ -26,7 +26,7 @@ public interface ISecurityRoleService {
      * @return
      * @throws MxException
      */
-    M<Pages<SecurityRoleListVO>> list(String name, PageBean<SecurityRole> pageBean) throws MxException;
+    View<Pages<SecurityRoleListVO>> list(String name, PageBean<SecurityRole> pageBean) throws MxException;
 
     /**
      * 添加角色
@@ -35,7 +35,7 @@ public interface ISecurityRoleService {
      * @return
      * @throws MxException
      */
-    R create(SecurityRoleBean roleBean) throws MxException;
+    Result create(SecurityRoleBean roleBean) throws MxException;
 
     /**
      * 修改角色
@@ -46,7 +46,7 @@ public interface ISecurityRoleService {
      * @return
      * @throws MxException
      */
-    R update(String id, Long lastModifyTime, SecurityRoleBean roleBean) throws MxException;
+    Result update(String id, Long lastModifyTime, SecurityRoleBean roleBean) throws MxException;
 
     /**
      * 详情
@@ -55,7 +55,7 @@ public interface ISecurityRoleService {
      * @return
      * @throws MxException
      */
-    M<SecurityRoleVO> detail(String id) throws MxException;
+    View<SecurityRoleVO> detail(String id) throws MxException;
 
     /**
      * 删除角色
@@ -64,7 +64,7 @@ public interface ISecurityRoleService {
      * @return
      * @throws MxException
      */
-    R delete(String[] ids) throws MxException;
+    Result delete(String[] ids) throws MxException;
 
     /**
      * 角色权限列表
@@ -73,7 +73,7 @@ public interface ISecurityRoleService {
      * @return
      * @throws MxException
      */
-    R permissionList(String id) throws MxException;
+    Result permissionList(String id) throws MxException;
 
     /**
      * 角色权限绑定
@@ -82,5 +82,5 @@ public interface ISecurityRoleService {
      * @return
      * @throws MxException
      */
-    R permissionBind(String id, String[] permissions) throws MxException;
+    Result permissionBind(String id, String[] permissions) throws MxException;
 }

@@ -3,9 +3,9 @@ package com.mx.spring.upload.handler.impl;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.M;
+import com.mx.spring.dev.result.View;
 import com.mx.spring.upload.bean.Upload;
-import com.mx.spring.upload.config.MinIOUploadConfig;
+import com.mx.spring.upload.config.MinIoUploadConfig;
 import com.mx.spring.upload.handler.IUploadHandler;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
@@ -23,27 +23,27 @@ import static com.mx.spring.upload.code.UploadCode.*;
  * @create: 2022-03-30 11:41
  * @Description: 基于MinIO文件存储
  */
-public class MinIOUploadHandler implements IUploadHandler {
+public class MinIoUploadHandler implements IUploadHandler {
 
-    private final MinIOUploadConfig minIOUploadConfig = SpringUtil.getBean(MinIOUploadConfig.class);
+    private final MinIoUploadConfig minIOUploadConfig = SpringUtil.getBean(MinIoUploadConfig.class);
 
 
     @Override
-    public M<Upload> handle(MultipartFile file) throws MxException {
+    public View<Upload> handle(MultipartFile file) throws MxException {
         if (StringUtils.isBlank(minIOUploadConfig.getUrl())) {
-            return M.fail(UPLOAD_MINIO_URL_ERROR.getCode(), UPLOAD_MINIO_URL_ERROR.getMsg());
+            return View.fail(UPLOAD_MINIO_URL_ERROR.getCode(), UPLOAD_MINIO_URL_ERROR.getMsg());
         }
         if (StringUtils.isBlank(minIOUploadConfig.getAccessKey())) {
-            return M.fail(UPLOAD_MINIO_ACCESS_KEY_ERROR.getCode(), UPLOAD_MINIO_ACCESS_KEY_ERROR.getMsg());
+            return View.fail(UPLOAD_MINIO_ACCESS_KEY_ERROR.getCode(), UPLOAD_MINIO_ACCESS_KEY_ERROR.getMsg());
         }
         if (StringUtils.isBlank(minIOUploadConfig.getSecretKey())) {
-            return M.fail(UPLOAD_MINIO_SECRET_KEY_ERROR.getCode(), UPLOAD_MINIO_SECRET_KEY_ERROR.getMsg());
+            return View.fail(UPLOAD_MINIO_SECRET_KEY_ERROR.getCode(), UPLOAD_MINIO_SECRET_KEY_ERROR.getMsg());
         }
         if (StringUtils.isBlank(minIOUploadConfig.getBucket())) {
-            return M.fail(UPLOAD_MINIO_BUCKET_ERROR.getCode(), UPLOAD_MINIO_BUCKET_ERROR.getMsg());
+            return View.fail(UPLOAD_MINIO_BUCKET_ERROR.getCode(), UPLOAD_MINIO_BUCKET_ERROR.getMsg());
         }
         Upload upload = uploadFile(file);
-        return M.ok(upload);
+        return View.ok(upload);
     }
 
     private Upload uploadFile(MultipartFile multipartFile) throws MxException {

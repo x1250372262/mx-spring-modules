@@ -2,7 +2,7 @@ package com.mx.spring.security.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.M;
+import com.mx.spring.dev.result.View;
 import com.mx.spring.dev.support.format.FormatRequest;
 import com.mx.spring.security.base.vo.SecurityPermissionSelectVO;
 import com.mx.spring.security.service.ISecurityPermissionService;
@@ -42,7 +42,7 @@ public class SecurityPermissionController {
     @FormatRequest
     @SaCheckLogin
     @ApiOperation(value = "权限列表")
-    public M<List<SecurityPermissionSelectVO>> list() throws MxException {
+    public View<List<SecurityPermissionSelectVO>> list() throws MxException {
         return iPermissionService.list();
     }
 

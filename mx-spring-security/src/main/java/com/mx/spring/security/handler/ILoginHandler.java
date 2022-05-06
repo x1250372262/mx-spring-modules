@@ -1,6 +1,6 @@
 package com.mx.spring.security.handler;
 
-import com.mx.spring.dev.result.R;
+import com.mx.spring.dev.result.Result;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.security.base.model.SecurityUser;
 import org.springframework.stereotype.Component;
@@ -21,7 +21,7 @@ public interface ILoginHandler {
      * @return
      * @throws MxException
      */
-    R loginBefore(Map<String, String> params) throws MxException;
+    Result loginBefore(Map<String, String> params) throws MxException;
 
     /**
      * 登录成功
@@ -31,7 +31,7 @@ public interface ILoginHandler {
      * @return
      * @throws MxException
      */
-    R loginSuccess(Map<String, String> params, SecurityUser securityUser) throws MxException;
+    Result loginSuccess(Map<String, String> params, SecurityUser securityUser) throws MxException;
 
     /**
      * 登录失败
@@ -41,7 +41,7 @@ public interface ILoginHandler {
      * @return
      * @throws MxException
      */
-    R loginFail(Map<String, String> params, SecurityUser securityUser) throws MxException;
+    Result loginFail(Map<String, String> params, SecurityUser securityUser) throws MxException;
 
     /**
      * 退出之前
@@ -50,7 +50,7 @@ public interface ILoginHandler {
      * @return
      * @throws MxException
      */
-    R logoutBefore(Map<String, String> params) throws MxException;
+    Result logoutBefore(Map<String, String> params) throws MxException;
 
     /**
      * 退出之后
@@ -59,34 +59,34 @@ public interface ILoginHandler {
      * @return
      * @throws MxException
      */
-    R logoutAfter(Map<String, String> params) throws MxException;
+    Result logoutAfter(Map<String, String> params) throws MxException;
 
 
     @Component
     class DefaultLoginHandler implements ILoginHandler {
 
         @Override
-        public R loginBefore(Map<String, String> params) throws MxException {
+        public Result loginBefore(Map<String, String> params) throws MxException {
             return null;
         }
 
         @Override
-        public R loginSuccess(Map<String, String> params, SecurityUser securityUser) throws MxException {
+        public Result loginSuccess(Map<String, String> params, SecurityUser securityUser) throws MxException {
             return null;
         }
 
         @Override
-        public R loginFail(Map<String, String> params, SecurityUser securityUser) throws MxException {
+        public Result loginFail(Map<String, String> params, SecurityUser securityUser) throws MxException {
             return null;
         }
 
         @Override
-        public R logoutBefore(Map<String, String> params) throws MxException {
+        public Result logoutBefore(Map<String, String> params) throws MxException {
             return null;
         }
 
         @Override
-        public R logoutAfter(Map<String, String> params) throws MxException {
+        public Result logoutAfter(Map<String, String> params) throws MxException {
             return null;
         }
     }

@@ -25,10 +25,10 @@ public class ${modelName?cap_first} implements Serializable {
 	* ${field.comment}
 	*/
 	<#if field.varName == primaryKeyName>
-	@TableId(value = FIELDS.${field.columnName?upper_case}, type = IdType.INPUT)
+	@TableId(value = Fields.${field.columnName?upper_case}, type = IdType.INPUT)
 	</#if>
 	<#if field.varName != primaryKeyName>
-	@TableField(value = FIELDS.${field.columnName?upper_case})
+	@TableField(value = Fields.${field.columnName?upper_case})
 	</#if>
 	@FieldInfo(comment = "${field.comment}"<#if (!field.nullable)>, nullable = false</#if>)
 	private ${field.varType} ${field.varName};
@@ -133,7 +133,7 @@ public class ${modelName?cap_first} implements Serializable {
 	/**
 	 * ${modelName?cap_first} 字段常量表
 	 */
-	public static class FIELDS {
+	public static class Fields {
 	<#list fieldConstantList as field>
 		public static final ${field.varType} ${field.varName} = "${field.columnName}";
 	</#list>

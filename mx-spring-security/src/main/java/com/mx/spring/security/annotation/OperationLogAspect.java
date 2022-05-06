@@ -5,8 +5,8 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import cn.hutool.http.useragent.UserAgentUtil;
 import com.alibaba.fastjson.JSONObject;
-import com.mx.spring.dev.result.M;
-import com.mx.spring.dev.result.R;
+import com.mx.spring.dev.result.View;
+import com.mx.spring.dev.result.Result;
 import com.mx.spring.dev.support.log.MxLog;
 import com.mx.spring.dev.util.WebUtil;
 import com.mx.spring.security.SaUtils;
@@ -86,12 +86,12 @@ public class OperationLogAspect {
             }
             int code = 10000;
             String msg = OperationType.UNKNOWN.name();
-            if (ret instanceof R) {
-                code = ((R) ret).getCode();
-                msg = ((R) ret).getMsg();
-            } else if (ret instanceof M) {
-                code = ((M<?>) ret).getCode();
-                msg = ((M<?>) ret).getMsg();
+            if (ret instanceof Result) {
+                code = ((Result) ret).getCode();
+                msg = ((Result) ret).getMsg();
+            } else if (ret instanceof View) {
+                code = ((View<?>) ret).getCode();
+                msg = ((View<?>) ret).getMsg();
             }
             if (e != null) {
                 code = -50;

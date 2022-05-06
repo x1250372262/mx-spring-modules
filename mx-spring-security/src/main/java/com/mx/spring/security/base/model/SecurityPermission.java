@@ -24,63 +24,63 @@ public class SecurityPermission implements Serializable {
 	/**
 	* id
 	*/
-	@TableId(value = FIELDS.ID, type = IdType.INPUT)
+	@TableId(value = Fields.ID, type = IdType.INPUT)
 	@FieldInfo(comment = "id", nullable = false)
 	private String id;
 
 	/**
 	* 客户端
 	*/
-	@TableField(value = FIELDS.CLIENT)
+	@TableField(value = Fields.CLIENT)
 	@FieldInfo(comment = "客户端", nullable = false)
 	private String client;
 
 	/**
 	* 权限组名称
 	*/
-	@TableField(value = FIELDS.GROUP_NAME)
+	@TableField(value = Fields.GROUP_NAME)
 	@FieldInfo(comment = "权限组名称", nullable = false)
 	private String groupName;
 
 	/**
 	* 权限名称
 	*/
-	@TableField(value = FIELDS.PERMISSION_NAME)
+	@TableField(value = Fields.PERMISSION_NAME)
 	@FieldInfo(comment = "权限名称", nullable = false)
 	private String permissionName;
 
 	/**
 	* 权限码
 	*/
-	@TableField(value = FIELDS.PERMISSION_CODE)
+	@TableField(value = Fields.PERMISSION_CODE)
 	@FieldInfo(comment = "权限码", nullable = false)
 	private String permissionCode;
 
 	/**
 	* 创建人
 	*/
-	@TableField(value = FIELDS.CREATE_USER)
+	@TableField(value = Fields.CREATE_USER)
 	@FieldInfo(comment = "创建人", nullable = false)
 	private String createUser;
 
 	/**
 	* 创建时间
 	*/
-	@TableField(value = FIELDS.CREATE_TIME)
+	@TableField(value = Fields.CREATE_TIME)
 	@FieldInfo(comment = "创建时间", nullable = false)
 	private Long createTime;
 
 	/**
 	* 最后更新人
 	*/
-	@TableField(value = FIELDS.LAST_MODIFY_USER)
+	@TableField(value = Fields.LAST_MODIFY_USER)
 	@FieldInfo(comment = "最后更新人", nullable = false)
 	private String lastModifyUser;
 
 	/**
 	* 最后更新时间
 	*/
-	@TableField(value = FIELDS.LAST_MODIFY_TIME)
+	@TableField(value = Fields.LAST_MODIFY_TIME)
 	@FieldInfo(comment = "最后更新时间", nullable = false)
 	private Long lastModifyTime;
 
@@ -308,7 +308,7 @@ public class SecurityPermission implements Serializable {
 	/**
 	 * SecurityPermission 字段常量表
 	 */
-	public static class FIELDS {
+	public static class Fields {
 		public static final String ID = "id";
 		public static final String CLIENT = "client";
 		public static final String GROUP_NAME = "group_name";

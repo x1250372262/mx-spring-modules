@@ -2,8 +2,8 @@ package com.mx.spring.security.service;
 
 
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.M;
-import com.mx.spring.dev.result.R;
+import com.mx.spring.dev.result.View;
+import com.mx.spring.dev.result.Result;
 import com.mx.spring.security.base.bean.LoginResult;
 import com.mx.spring.security.base.bean.SecurityLoginInfoBean;
 import com.mx.spring.security.base.vo.SecurityLoginVO;
@@ -23,7 +23,7 @@ public interface ISecurityLoginService {
      * @return
      * @throws MxException
      */
-    M<LoginResult> login(String userName, String password) throws MxException;
+    View<LoginResult> login(String userName, String password) throws MxException;
 
 
     /**
@@ -32,7 +32,7 @@ public interface ISecurityLoginService {
      * @return
      * @throws MxException
      */
-    R logout() throws MxException;
+    Result logout() throws MxException;
 
 
     /**
@@ -49,7 +49,7 @@ public interface ISecurityLoginService {
      * @return
      * @throws MxException
      */
-    R update(SecurityLoginInfoBean securityLoginInfoBean) throws MxException;
+    Result update(SecurityLoginInfoBean securityLoginInfoBean) throws MxException;
 
     /**
      * 修改密码
@@ -60,5 +60,5 @@ public interface ISecurityLoginService {
      * @return
      * @throws MxException
      */
-    R password(String oldPassword, String newPassword, String rePassword) throws MxException;
+    Result password(String oldPassword, String newPassword, String rePassword) throws MxException;
 }

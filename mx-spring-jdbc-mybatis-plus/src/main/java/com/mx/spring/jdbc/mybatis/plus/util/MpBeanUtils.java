@@ -13,7 +13,7 @@ import java.util.function.Supplier;
  * @create: 2021-07-02 16:58
  * @Description:
  */
-public class MPBeanUtils extends BeanUtil {
+public class MpBeanUtils extends BeanUtil {
 
     /**
      * 复制Pages

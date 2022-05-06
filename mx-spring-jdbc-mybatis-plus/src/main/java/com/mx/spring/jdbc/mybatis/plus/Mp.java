@@ -10,7 +10,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
  * @create: 2021-09-30 09:21
  * @Description:
  */
-public class MP {
+public class Mp {
 
     public static <T> LambdaQueryWrapper<T> lqw(T obj) {
         return new LambdaQueryWrapper<>(obj);

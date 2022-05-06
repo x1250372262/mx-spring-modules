@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @ConfigurationProperties(prefix = "mx.upload.minio")
-public class MinIOUploadConfig {
+public class MinIoUploadConfig {
 
 
     /**

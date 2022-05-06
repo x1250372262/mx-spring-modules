@@ -2,9 +2,9 @@ package com.mx.spring.security.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.M;
+import com.mx.spring.dev.result.View;
 import com.mx.spring.dev.util.BeanUtil;
-import com.mx.spring.jdbc.mybatis.plus.MP;
+import com.mx.spring.jdbc.mybatis.plus.Mp;
 import com.mx.spring.security.base.config.MxSecurityConfig;
 import com.mx.spring.security.base.model.SecurityPermission;
 import com.mx.spring.security.base.vo.SecurityPermissionSelectVO;
@@ -33,11 +33,11 @@ public class SecurityPermissionServiceImpl implements ISecurityPermissionService
     private MxSecurityConfig config;
 
     @Override
-    public M<List<SecurityPermissionSelectVO>> list() throws MxException {
+    public View<List<SecurityPermissionSelectVO>> list() throws MxException {
         List<SecurityPermissionSelectVO> permissionSelectVOList = new ArrayList<>();
-        List<SecurityPermission> permissionList = iPermissionMapper.selectList(MP.lqw(SecurityPermission.init()).eq(SecurityPermission::getClient, config.getClient()));
+        List<SecurityPermission> permissionList = iPermissionMapper.selectList(Mp.lqw(SecurityPermission.init()).eq(SecurityPermission::getClient, config.getClient()));
         if (CollUtil.isEmpty(permissionList)) {
-            return M.ok(permissionSelectVOList);
+            return View.ok(permissionSelectVOList);
         }
         Map<String, List<SecurityPermission>> permissionMap = permissionList.stream().collect(Collectors.groupingBy(SecurityPermission::getGroupName));
         for (Map.Entry<String, List<SecurityPermission>> entry : permissionMap.entrySet()) {
@@ -50,6 +50,6 @@ public class SecurityPermissionServiceImpl implements ISecurityPermissionService
             permissionGroupVO.setPermissionVOList(permissionVOList);
             permissionSelectVOList.add(permissionGroupVO);
         }
-        return M.ok(permissionSelectVOList);
+        return View.ok(permissionSelectVOList);
     }
 }

@@ -2,8 +2,8 @@ package com.mx.spring.security.service;
 
 
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.M;
-import com.mx.spring.dev.result.R;
+import com.mx.spring.dev.result.View;
+import com.mx.spring.dev.result.Result;
 import com.mx.spring.dev.support.page.PageBean;
 import com.mx.spring.dev.support.page.Pages;
 import com.mx.spring.security.base.model.SecurityOperationLog;
@@ -28,7 +28,7 @@ public interface ISecurityOperationLogService {
      * @return
      * @throws MxException
      */
-    M<Pages<SecurityOperationLogListVO>> list(String title, Long startTime, Long endTime, PageBean<SecurityOperationLog> pageBean) throws MxException;
+    View<Pages<SecurityOperationLogListVO>> list(String title, Long startTime, Long endTime, PageBean<SecurityOperationLog> pageBean) throws MxException;
 
     /**
      * 详情
@@ -37,7 +37,7 @@ public interface ISecurityOperationLogService {
      * @return
      * @throws MxException
      */
-    M<SecurityOperationLogVO> detail(String id) throws MxException;
+    View<SecurityOperationLogVO> detail(String id) throws MxException;
 
     /**
      * 删除日志
@@ -46,5 +46,5 @@ public interface ISecurityOperationLogService {
      * @return
      * @throws MxException
      */
-    R delete(String[] ids) throws MxException;
+    Result delete(String[] ids) throws MxException;
 }

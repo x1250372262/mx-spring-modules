@@ -13,6 +13,11 @@ import java.util.List;
  */
 public interface INetty {
 
+    /**
+     * 获取编码器
+     * @param decoderClassName
+     * @return
+     */
     default ChannelInboundHandlerAdapter getDecoder(String decoderClassName) {
         try {
             return (ChannelInboundHandlerAdapter) ClassUtil.loadClass(decoderClassName).newInstance();
@@ -21,10 +26,15 @@ public interface INetty {
         }
     }
 
-    default List<Class<? extends ChannelInboundHandlerAdapter>> getHanderList(String handerClassName) {
-        String[] handerArray = handerClassName.split(",");
+    /**
+     * 获取hander集合
+     * @param handlerClassName
+     * @return
+     */
+    default List<Class<? extends ChannelInboundHandlerAdapter>> getHandlerList(String handlerClassName) {
+        String[] handlerArray = handlerClassName.split(",");
         List<Class<? extends ChannelInboundHandlerAdapter>> list = new ArrayList<>();
-        for (String handler : handerArray) {
+        for (String handler : handlerArray) {
             list.add(ClassUtil.loadClass(handler,false));
         }
         return list;

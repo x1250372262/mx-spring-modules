@@ -1,9 +1,9 @@
 package com.mx.spring.security.service;
 
 import com.mx.spring.dev.support.page.PageBean;
-import com.mx.spring.dev.result.M;
+import com.mx.spring.dev.result.View;
 import com.mx.spring.dev.support.page.Pages;
-import com.mx.spring.dev.result.R;
+import com.mx.spring.dev.result.Result;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.security.base.bean.SecurityMenuBean;
 import com.mx.spring.security.base.vo.SecurityMenuListVO;
@@ -26,7 +26,7 @@ public interface ISecurityMenuService {
      * @return
      * @throws MxException
      */
-    M<List<SecurityMenuNavVO>> nav() throws MxException;
+    View<List<SecurityMenuNavVO>> nav() throws MxException;
 
     /**
      * 菜单列表
@@ -34,7 +34,7 @@ public interface ISecurityMenuService {
      * @return
      * @throws MxException
      */
-    M<List<SecurityMenuListVO>> list() throws MxException;
+    View<List<SecurityMenuListVO>> list() throws MxException;
 
     /**
      * 添加菜单
@@ -43,7 +43,7 @@ public interface ISecurityMenuService {
      * @return
      * @throws MxException
      */
-    R create(SecurityMenuBean menuBean) throws MxException;
+    Result create(SecurityMenuBean menuBean) throws MxException;
 
     /**
      * 修改菜单
@@ -53,7 +53,7 @@ public interface ISecurityMenuService {
      * @return
      * @throws MxException
      */
-    R update(String id, SecurityMenuBean menuBean) throws MxException;
+    Result update(String id, SecurityMenuBean menuBean) throws MxException;
 
     /**
      * 详情
@@ -62,7 +62,7 @@ public interface ISecurityMenuService {
      * @return
      * @throws MxException
      */
-    M<SecurityMenuVO> detail(String id) throws MxException;
+    View<SecurityMenuVO> detail(String id) throws MxException;
 
     /**
      * 删除菜单
@@ -71,7 +71,7 @@ public interface ISecurityMenuService {
      * @return
      * @throws MxException
      */
-    R delete(String id) throws MxException;
+    Result delete(String id) throws MxException;
 
     /**
      * 菜单角色列表
@@ -82,7 +82,7 @@ public interface ISecurityMenuService {
      * @return
      * @throws MxException
      */
-    M<Pages<SecurityMenuRoleVO>> roleList(String menuId, String name, PageBean<SecurityMenuRoleVO> pageBean) throws MxException;
+    View<Pages<SecurityMenuRoleVO>> roleList(String menuId, String name, PageBean<SecurityMenuRoleVO> pageBean) throws MxException;
 
     /**
      * 添加菜单角色
@@ -92,7 +92,7 @@ public interface ISecurityMenuService {
      * @return
      * @throws MxException
      */
-    R roleCreate(String menuId, String roleId) throws MxException;
+    Result roleCreate(String menuId, String roleId) throws MxException;
 
     /**
      * 删除菜单角色
@@ -101,5 +101,5 @@ public interface ISecurityMenuService {
      * @return
      * @throws MxException
      */
-    R roleDelete(String[] ids) throws MxException;
+    Result roleDelete(String[] ids) throws MxException;
 }

@@ -3,13 +3,13 @@ package com.mx.spring.security.controller;
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.M;
-import com.mx.spring.dev.result.R;
+import com.mx.spring.dev.result.View;
+import com.mx.spring.dev.result.Result;
 import com.mx.spring.dev.support.format.FormatRequest;
 import com.mx.spring.dev.support.page.PageDTO;
 import com.mx.spring.dev.support.page.Pages;
 import com.mx.spring.security.annotation.OperationLog;
-import com.mx.spring.security.base.config.SPConfig;
+import com.mx.spring.security.base.config.SecurityPermissionConfig;
 import com.mx.spring.security.base.enums.OperationType;
 import com.mx.spring.security.base.model.SecurityOperationLog;
 import com.mx.spring.security.base.vo.SecurityOperationLogListVO;
@@ -54,8 +54,8 @@ public class SecurityOperationLogController {
     @FormatRequest
     @SaCheckLogin
     @ApiOperation(value = "日志列表")
-    @SaCheckPermission(value = SPConfig.SECURITY_LOG_LIST)
-    public M<Pages<SecurityOperationLogListVO>> list(@ApiParam(name = "title", value = "标题") String title, @ApiParam(name = "startTime", value = "开始时间") Long startTime, @ApiParam(name = "endTime", value = "结束时间") Long endTime, PageDTO<SecurityOperationLog> pageDTO) throws MxException {
+    @SaCheckPermission(value = SecurityPermissionConfig.SECURITY_LOG_LIST)
+    public View<Pages<SecurityOperationLogListVO>> list(@ApiParam(name = "title", value = "标题") String title, @ApiParam(name = "startTime", value = "开始时间") Long startTime, @ApiParam(name = "endTime", value = "结束时间") Long endTime, PageDTO<SecurityOperationLog> pageDTO) throws MxException {
         return iLogService.list(title, startTime, endTime, pageDTO.toBean());
     }
 
@@ -71,8 +71,8 @@ public class SecurityOperationLogController {
     @FormatRequest
     @SaCheckLogin
     @ApiOperation(value = "日志详情")
-    @SaCheckPermission(value = SPConfig.SECURITY_LOG_DETAIL)
-    public M<SecurityOperationLogVO> detail(@ApiParam(name = "id", value = "ID", required = true) @PathVariable String id) throws MxException {
+    @SaCheckPermission(value = SecurityPermissionConfig.SECURITY_LOG_DETAIL)
+    public View<SecurityOperationLogVO> detail(@ApiParam(name = "id", value = "ID", required = true) @PathVariable String id) throws MxException {
         return iLogService.detail(id);
     }
 
@@ -87,9 +87,9 @@ public class SecurityOperationLogController {
     @FormatRequest
     @SaCheckLogin
     @ApiOperation(value = "删除日志")
-    @SaCheckPermission(value = SPConfig.SECURITY_LOG_DELETE)
+    @SaCheckPermission(value = SecurityPermissionConfig.SECURITY_LOG_DELETE)
     @OperationLog(operationType = OperationType.DELETE, title = "删除日志")
-    public R delete(@ApiParam(name = "ids", value = "ids", required = true) @NotNull(message = "ids不能为空") @RequestParam("ids[]") String[] ids) throws MxException {
+    public Result delete(@ApiParam(name = "ids", value = "ids", required = true) @NotNull(message = "ids不能为空") @RequestParam("ids[]") String[] ids) throws MxException {
         return iLogService.delete(ids);
     }
 }

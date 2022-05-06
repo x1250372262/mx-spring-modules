@@ -9,12 +9,12 @@ import cn.hutool.extra.servlet.ServletUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.mx.spring.dev.constants.Constants;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.M;
-import com.mx.spring.dev.result.R;
+import com.mx.spring.dev.result.View;
+import com.mx.spring.dev.result.Result;
 import com.mx.spring.dev.util.BeanUtil;
 import com.mx.spring.dev.util.TimeUtil;
 import com.mx.spring.dev.util.WebUtil;
-import com.mx.spring.jdbc.mybatis.plus.MP;
+import com.mx.spring.jdbc.mybatis.plus.Mp;
 import com.mx.spring.redis.api.IRedisApi;
 import com.mx.spring.security.SaUtils;
 import com.mx.spring.security.base.bean.LoginResult;
@@ -64,25 +64,25 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
     private MxSecurityConfig config;
 
     @Override
-    public M<LoginResult> login(String userName, String password) throws MxException {
+    public View<LoginResult> login(String userName, String password) throws MxException {
         Map<String, String> params = ServletUtil.getParamMap(WebUtil.request());
         ILoginHandler loginHandler = Handler.loginHandler();
-        R r = loginHandler.loginBefore(params);
+        Result r = loginHandler.loginBefore(params);
         if (Handler.check(r)) {
             return Handler.toM(r);
         }
-        SecurityUser securityUser = iSecurityUserMapper.selectOne(MP.lqw(bean).eq(SecurityUser::getUserName, userName).eq(SecurityUser::getClient, config.getClient()));
+        SecurityUser securityUser = iSecurityUserMapper.selectOne(Mp.lqw(bean).eq(SecurityUser::getUserName, userName).eq(SecurityUser::getClient, config.getClient()));
         if (securityUser == null) {
-            return M.fail(SECURITY_LOGIN_USER_NAME_NOT_EXIST.getCode(), SECURITY_LOGIN_USER_NAME_NOT_EXIST.getMsg());
+            return View.fail(SECURITY_LOGIN_USER_NAME_NOT_EXIST.getCode(), SECURITY_LOGIN_USER_NAME_NOT_EXIST.getMsg());
         }
         if (Objects.equals(Constants.BOOL_TRUE,securityUser.getDisableStatus())) {
-            return M.fail(SECURITY_LOGIN_USER_DISABLE.getCode(), SECURITY_LOGIN_USER_DISABLE.getMsg());
+            return View.fail(SECURITY_LOGIN_USER_DISABLE.getCode(), SECURITY_LOGIN_USER_DISABLE.getMsg());
         }
         //锁住了
         if (Objects.equals(Constants.BOOL_TRUE, securityUser.getLoginLockStatus()) && System.currentTimeMillis() < securityUser.getLoginLockEndTime()) {
             String msg = SECURITY_LOGIN_USER_LOCKED.getMsg();
             msg = StrUtil.format(msg, TimeUtil.formatTime(securityUser.getLoginLockEndTime()));
-            return M.fail(SECURITY_LOGIN_USER_LOCKED.getCode(), msg);
+            return View.fail(SECURITY_LOGIN_USER_LOCKED.getCode(), msg);
         } else if (Objects.equals(Constants.BOOL_TRUE, securityUser.getLoginLockStatus()) && System.currentTimeMillis() > securityUser.getLoginLockEndTime()) {
             securityUser.setLoginLockStatus(Constants.BOOL_FALSE);
             securityUser.setLoginErrorCount(0);
@@ -104,7 +104,7 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
                 securityUser.setLoginLockEndTime(System.currentTimeMillis() + TimeUtil.DAY);
             }
             iSecurityUserMapper.updateById(securityUser);
-            return M.fail(SECURITY_LOGIN_USER_NAME_OR_PASSWORD_ERROR.getCode(), SECURITY_LOGIN_USER_NAME_OR_PASSWORD_ERROR.getMsg());
+            return View.fail(SECURITY_LOGIN_USER_NAME_OR_PASSWORD_ERROR.getCode(), SECURITY_LOGIN_USER_NAME_OR_PASSWORD_ERROR.getMsg());
         } else {
             r = loginHandler.loginSuccess(params, securityUser);
             if (Handler.check(r)) {
@@ -127,14 +127,14 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
         if (r != null) {
             loginResult.setAttrs(r.attrs());
         }
-        return M.ok(loginResult);
+        return View.ok(loginResult);
     }
 
     @Override
-    public R logout() throws MxException {
+    public Result logout() throws MxException {
         Map<String, String> params = ServletUtil.getParamMap(WebUtil.request());
         ILoginHandler loginHandler = Handler.loginHandler();
-        R r = loginHandler.logoutBefore(params);
+        Result r = loginHandler.logoutBefore(params);
         if (Handler.check(r)) {
             return r;
         }
@@ -143,7 +143,7 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
         if (Handler.check(r)) {
             return r;
         }
-        return R.ok();
+        return Result.ok();
     }
 
     public void cacheUser(SecurityUser securityUser, SaTokenInfo saTokenInfo) throws MxException {
@@ -164,43 +164,43 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
 
     @Override
     public SecurityLoginVO info() throws MxException {
-        SecurityUser securityUser = iSecurityUserMapper.selectOne(MP.lqw(bean).eq(SecurityUser::getId, saUtils.loginId()));
+        SecurityUser securityUser = iSecurityUserMapper.selectOne(Mp.lqw(bean).eq(SecurityUser::getId, saUtils.loginId()));
         SecurityLoginVO securityUserVO = BeanUtil.copy(securityUser, SecurityLoginVO::new);
         return BeanUtil.copy(securityUserVO, SecurityLoginVO::new);
     }
 
     @Override
-    public R update(SecurityLoginInfoBean securityLoginInfoBean) throws MxException {
-        SecurityUser securityUser = iSecurityUserMapper.selectOne(MP.lqw(bean).eq(SecurityUser::getId, saUtils.loginId()));
+    public Result update(SecurityLoginInfoBean securityLoginInfoBean) throws MxException {
+        SecurityUser securityUser = iSecurityUserMapper.selectOne(Mp.lqw(bean).eq(SecurityUser::getId, saUtils.loginId()));
         if (securityUser == null) {
-            return R.noData();
+            return Result.noData();
         }
         securityUser = BeanUtil.duplicate(securityLoginInfoBean, securityUser);
         int result = iSecurityUserMapper.updateById(securityUser);
-        return R.result(result);
+        return Result.result(result);
     }
 
     @Override
-    public R password(String oldPassword, String newPassword, String rePassword) throws MxException {
+    public Result password(String oldPassword, String newPassword, String rePassword) throws MxException {
         if (!newPassword.equals(rePassword)) {
-            return R.create(SECURITY_USER_PASSWORD_NOT_SAME.getCode()).msg(SECURITY_USER_PASSWORD_NOT_SAME.getMsg());
+            return Result.create(SECURITY_USER_PASSWORD_NOT_SAME.getCode()).msg(SECURITY_USER_PASSWORD_NOT_SAME.getMsg());
         }
-        SecurityUser securityUser = iSecurityUserMapper.selectOne(MP.lqw(bean).eq(SecurityUser::getId, saUtils.loginId()));
+        SecurityUser securityUser = iSecurityUserMapper.selectOne(Mp.lqw(bean).eq(SecurityUser::getId, saUtils.loginId()));
         if (securityUser == null) {
-            return R.noData();
+            return Result.noData();
         }
         oldPassword = DigestUtils.md5DigestAsHex(Base64.encodeBase64((oldPassword + securityUser.getSalt()).getBytes(StandardCharsets.UTF_8)));
         if (!oldPassword.equals(securityUser.getPassword())) {
-            return R.create(SECURITY_USER_OLD_PASSWORD_ERROR.getCode()).msg(SECURITY_USER_OLD_PASSWORD_ERROR.getMsg());
+            return Result.create(SECURITY_USER_OLD_PASSWORD_ERROR.getCode()).msg(SECURITY_USER_OLD_PASSWORD_ERROR.getMsg());
         }
         newPassword = DigestUtils.md5DigestAsHex(Base64.encodeBase64((newPassword + securityUser.getSalt()).getBytes(StandardCharsets.UTF_8)));
         if (newPassword.equals(securityUser.getPassword())) {
-            return R.create(SECURITY_USER_NEW_PASSWORD_NOT_SAME_OLD_PASSWORD.getCode()).msg(SECURITY_USER_NEW_PASSWORD_NOT_SAME_OLD_PASSWORD.getMsg());
+            return Result.create(SECURITY_USER_NEW_PASSWORD_NOT_SAME_OLD_PASSWORD.getCode()).msg(SECURITY_USER_NEW_PASSWORD_NOT_SAME_OLD_PASSWORD.getMsg());
         }
         securityUser.setPassword(newPassword);
         securityUser.setLastModifyTime(System.currentTimeMillis());
         securityUser.setLastModifyUser(securityUser.getId());
         int result = iSecurityUserMapper.updateById(securityUser);
-        return R.result(result);
+        return Result.result(result);
     }
 }

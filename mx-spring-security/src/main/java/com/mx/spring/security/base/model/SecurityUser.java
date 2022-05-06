@@ -24,133 +24,133 @@ public class SecurityUser implements Serializable {
 	/**
 	* id
 	*/
-	@TableId(value = FIELDS.ID, type = IdType.INPUT)
+	@TableId(value = Fields.ID, type = IdType.INPUT)
 	@FieldInfo(comment = "id", nullable = false)
 	private String id;
 
 	/**
 	* 客户端
 	*/
-	@TableField(value = FIELDS.CLIENT)
+	@TableField(value = Fields.CLIENT)
 	@FieldInfo(comment = "客户端", nullable = false)
 	private String client;
 
 	/**
 	* 用户名
 	*/
-	@TableField(value = FIELDS.USER_NAME)
+	@TableField(value = Fields.USER_NAME)
 	@FieldInfo(comment = "用户名", nullable = false)
 	private String userName;
 
 	/**
 	* 真实姓名
 	*/
-	@TableField(value = FIELDS.REAL_NAME)
+	@TableField(value = Fields.REAL_NAME)
 	@FieldInfo(comment = "真实姓名")
 	private String realName;
 
 	/**
 	* 头像
 	*/
-	@TableField(value = FIELDS.PHOTO_URI)
+	@TableField(value = Fields.PHOTO_URI)
 	@FieldInfo(comment = "头像")
 	private String photoUri;
 
 	/**
 	* 密码
 	*/
-	@TableField(value = FIELDS.PASSWORD)
+	@TableField(value = Fields.PASSWORD)
 	@FieldInfo(comment = "密码", nullable = false)
 	private String password;
 
 	/**
 	* 手机号
 	*/
-	@TableField(value = FIELDS.MOBILE)
+	@TableField(value = Fields.MOBILE)
 	@FieldInfo(comment = "手机号")
 	private String mobile;
 
 	/**
 	* 性别
 	*/
-	@TableField(value = FIELDS.GENDER)
+	@TableField(value = Fields.GENDER)
 	@FieldInfo(comment = "性别")
 	private Integer gender;
 
 	/**
 	* 创建人
 	*/
-	@TableField(value = FIELDS.CREATE_USER)
+	@TableField(value = Fields.CREATE_USER)
 	@FieldInfo(comment = "创建人", nullable = false)
 	private String createUser;
 
 	/**
 	* 创建时间
 	*/
-	@TableField(value = FIELDS.CREATE_TIME)
+	@TableField(value = Fields.CREATE_TIME)
 	@FieldInfo(comment = "创建时间", nullable = false)
 	private Long createTime;
 
 	/**
 	* 最后修改时间
 	*/
-	@TableField(value = FIELDS.LAST_MODIFY_TIME)
+	@TableField(value = Fields.LAST_MODIFY_TIME)
 	@FieldInfo(comment = "最后修改时间", nullable = false)
 	private Long lastModifyTime;
 
 	/**
 	* 最后修改人
 	*/
-	@TableField(value = FIELDS.LAST_MODIFY_USER)
+	@TableField(value = Fields.LAST_MODIFY_USER)
 	@FieldInfo(comment = "最后修改人", nullable = false)
 	private String lastModifyUser;
 
 	/**
 	* 密码加密字符串
 	*/
-	@TableField(value = FIELDS.SALT)
+	@TableField(value = Fields.SALT)
 	@FieldInfo(comment = "密码加密字符串", nullable = false)
 	private String salt;
 
 	/**
 	* 禁用状态
 	*/
-	@TableField(value = FIELDS.DISABLE_STATUS)
+	@TableField(value = Fields.DISABLE_STATUS)
 	@FieldInfo(comment = "禁用状态", nullable = false)
 	private Integer disableStatus;
 
 	/**
 	* 是否是总管理员
 	*/
-	@TableField(value = FIELDS.FOUNDER)
+	@TableField(value = Fields.FOUNDER)
 	@FieldInfo(comment = "是否是总管理员", nullable = false)
 	private Integer founder;
 
 	/**
 	* 登录错误次数
 	*/
-	@TableField(value = FIELDS.LOGIN_ERROR_COUNT)
+	@TableField(value = Fields.LOGIN_ERROR_COUNT)
 	@FieldInfo(comment = "登录错误次数")
 	private Integer loginErrorCount;
 
 	/**
 	* 锁定状态
 	*/
-	@TableField(value = FIELDS.LOGIN_LOCK_STATUS)
+	@TableField(value = Fields.LOGIN_LOCK_STATUS)
 	@FieldInfo(comment = "锁定状态")
 	private Integer loginLockStatus;
 
 	/**
 	* 锁定开始时间
 	*/
-	@TableField(value = FIELDS.LOGIN_LOCK_START_TIME)
+	@TableField(value = Fields.LOGIN_LOCK_START_TIME)
 	@FieldInfo(comment = "锁定开始时间")
 	private Long loginLockStartTime;
 
 	/**
 	* 锁定结束时间
 	*/
-	@TableField(value = FIELDS.LOGIN_LOCK_END_TIME)
+	@TableField(value = Fields.LOGIN_LOCK_END_TIME)
 	@FieldInfo(comment = "锁定结束时间")
 	private Long loginLockEndTime;
 
@@ -568,7 +568,7 @@ public class SecurityUser implements Serializable {
 	/**
 	 * SecurityUser 字段常量表
 	 */
-	public static class FIELDS {
+	public static class Fields {
 		public static final String ID = "id";
 		public static final String CLIENT = "client";
 		public static final String USER_NAME = "user_name";

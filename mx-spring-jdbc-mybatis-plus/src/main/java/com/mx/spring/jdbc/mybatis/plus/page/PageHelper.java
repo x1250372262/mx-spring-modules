@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.dev.support.page.PageBean;
 import com.mx.spring.dev.support.page.Pages;
-import com.mx.spring.jdbc.mybatis.plus.util.MPBeanUtils;
+import com.mx.spring.jdbc.mybatis.plus.util.MpBeanUtils;
 
 import java.util.function.Supplier;
 
@@ -20,6 +20,6 @@ public class PageHelper {
     }
 
     public static <T> Pages<T> out(Page<T> page, Supplier<T> target) throws MxException {
-        return MPBeanUtils.copyPage(page, target);
+        return MpBeanUtils.copyPage(page, target);
     }
 }

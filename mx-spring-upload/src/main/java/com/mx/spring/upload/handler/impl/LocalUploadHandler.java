@@ -3,7 +3,7 @@ package com.mx.spring.upload.handler.impl;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.M;
+import com.mx.spring.dev.result.View;
 import com.mx.spring.upload.bean.Upload;
 import com.mx.spring.upload.config.LocalUploadConfig;
 import com.mx.spring.upload.handler.IUploadHandler;
@@ -28,12 +28,12 @@ public class LocalUploadHandler implements IUploadHandler {
     private final LocalUploadConfig localUploadConfig = SpringUtil.getBean(LocalUploadConfig.class);
 
     @Override
-    public M<Upload> handle(MultipartFile file) throws MxException {
+    public View<Upload> handle(MultipartFile file) throws MxException {
         if (StringUtils.isBlank(localUploadConfig.getFileStoragePath())) {
-            return M.fail(UPLOAD_LOCAL_FILE_STORAGE_PATH_ERROR.getCode(), UPLOAD_LOCAL_FILE_STORAGE_PATH_ERROR.getMsg());
+            return View.fail(UPLOAD_LOCAL_FILE_STORAGE_PATH_ERROR.getCode(), UPLOAD_LOCAL_FILE_STORAGE_PATH_ERROR.getMsg());
         }
         if (StringUtils.isBlank(localUploadConfig.getUrl())) {
-            return M.fail(UPLOAD_LOCAL_URL_ERROR.getCode(), UPLOAD_LOCAL_URL_ERROR.getMsg());
+            return View.fail(UPLOAD_LOCAL_URL_ERROR.getCode(), UPLOAD_LOCAL_URL_ERROR.getMsg());
         }
 
         String hash;
@@ -57,6 +57,6 @@ public class LocalUploadHandler implements IUploadHandler {
         }
         String url = getUrl(localUploadConfig.getUrl()) + getFilePath(type, hash, extension);
         Upload upload = new Upload(hash, targetFile.getName(), extension, url, file.getSize(), type, System.currentTimeMillis());
-        return M.ok(upload);
+        return View.ok(upload);
     }
 }

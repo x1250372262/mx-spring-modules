@@ -24,56 +24,56 @@ public class SecurityRolePermission implements Serializable {
 	/**
 	* id
 	*/
-	@TableId(value = FIELDS.ID, type = IdType.INPUT)
+	@TableId(value = Fields.ID, type = IdType.INPUT)
 	@FieldInfo(comment = "id", nullable = false)
 	private String id;
 
 	/**
 	* 客户端
 	*/
-	@TableField(value = FIELDS.CLIENT)
+	@TableField(value = Fields.CLIENT)
 	@FieldInfo(comment = "客户端", nullable = false)
 	private String client;
 
 	/**
 	* 角色id
 	*/
-	@TableField(value = FIELDS.ROLE_ID)
+	@TableField(value = Fields.ROLE_ID)
 	@FieldInfo(comment = "角色id", nullable = false)
 	private String roleId;
 
 	/**
 	* 权限id
 	*/
-	@TableField(value = FIELDS.PERMISSON_ID)
+	@TableField(value = Fields.PERMISSON_ID)
 	@FieldInfo(comment = "权限id", nullable = false)
 	private String permissonId;
 
 	/**
 	* 创建时间
 	*/
-	@TableField(value = FIELDS.CREATE_TIME)
+	@TableField(value = Fields.CREATE_TIME)
 	@FieldInfo(comment = "创建时间", nullable = false)
 	private Long createTime;
 
 	/**
 	* 权限组名称
 	*/
-	@TableField(value = FIELDS.GROUP_NAME)
+	@TableField(value = Fields.GROUP_NAME)
 	@FieldInfo(comment = "权限组名称", nullable = false)
 	private String groupName;
 
 	/**
 	* 权限名称
 	*/
-	@TableField(value = FIELDS.PERMISSION_NAME)
+	@TableField(value = Fields.PERMISSION_NAME)
 	@FieldInfo(comment = "权限名称", nullable = false)
 	private String permissionName;
 
 	/**
 	* 权限码
 	*/
-	@TableField(value = FIELDS.PERMISSION_CODE)
+	@TableField(value = Fields.PERMISSION_CODE)
 	@FieldInfo(comment = "权限码", nullable = false)
 	private String permissionCode;
 
@@ -282,7 +282,7 @@ public class SecurityRolePermission implements Serializable {
 	/**
 	 * SecurityRolePermission 字段常量表
 	 */
-	public static class FIELDS {
+	public static class Fields {
 		public static final String ID = "id";
 		public static final String CLIENT = "client";
 		public static final String ROLE_ID = "role_id";

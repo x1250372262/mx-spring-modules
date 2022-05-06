@@ -5,7 +5,7 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import com.mx.spring.security.base.bean.Permission;
-import com.mx.spring.security.base.config.SPConfig;
+import com.mx.spring.security.base.config.SecurityPermissionConfig;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.util.DigestUtils;
@@ -46,7 +46,7 @@ public class Security {
     private static void permissionSql(List<String> sqlList, String dbName, String client, String userId) {
         long time = System.currentTimeMillis();
         String sql = "INSERT INTO `{}`.`mx_security_permission` (`id`, `client`, `group_name`, `permission_name`, `permission_code`, `create_user`, `create_time`, `last_modify_user`, `last_modify_time`) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', {}, '{}', {});";
-        SPConfig.permissionList().forEach(permission -> sqlList.add(StrUtil.format(sql, dbName, IdUtil.fastSimpleUUID(), client, permission.getGroupName(), permission.getName(), permission.getCode(), userId, time, userId, time)));
+        SecurityPermissionConfig.permissionList().forEach(permission -> sqlList.add(StrUtil.format(sql, dbName, IdUtil.fastSimpleUUID(), client, permission.getGroupName(), permission.getName(), permission.getCode(), userId, time, userId, time)));
     }
 
     private static void outFile(File outFile, List<String> sqlList) {

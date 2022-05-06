@@ -6,14 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.mx.spring.security.base.config.SPConfig.GroupEnum.*;
+import static com.mx.spring.security.base.config.SecurityPermissionConfig.GroupEnum.*;
 
 /**
  * @Author: mengxiang.
  * @create: 2021-09-07 15:16
  * @Description: 权限配置 常量 方法
  */
-public class SPConfig {
+public class SecurityPermissionConfig {
 
     public static final String SECURITY_MENU_LIST = "SECURITY_MENU_LIST";
     public static final String SECURITY_MENU_CREATE = "SECURITY_MENU_CREATE";

@@ -5,14 +5,14 @@ import cn.hutool.core.util.IdUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.M;
-import com.mx.spring.dev.result.R;
+import com.mx.spring.dev.result.View;
+import com.mx.spring.dev.result.Result;
 import com.mx.spring.dev.support.page.PageBean;
 import com.mx.spring.dev.support.page.Pages;
 import com.mx.spring.dev.util.BeanUtil;
-import com.mx.spring.jdbc.mybatis.plus.MP;
+import com.mx.spring.jdbc.mybatis.plus.Mp;
 import com.mx.spring.jdbc.mybatis.plus.page.PageHelper;
-import com.mx.spring.jdbc.mybatis.plus.util.MPBeanUtils;
+import com.mx.spring.jdbc.mybatis.plus.util.MpBeanUtils;
 import com.mx.spring.security.SaUtils;
 import com.mx.spring.security.base.bean.SecurityRoleBean;
 import com.mx.spring.security.base.config.MxSecurityConfig;
@@ -61,18 +61,18 @@ public class SecurityRoleServiceImpl implements ISecurityRoleService {
     private MxSecurityConfig config;
 
     @Override
-    public M<Pages<SecurityRoleListVO>> list(String name, PageBean<SecurityRole> pageBean) throws MxException {
-        LambdaQueryWrapper<SecurityRole> lambdaQueryWrapper = MP.lqw(findRole)
+    public View<Pages<SecurityRoleListVO>> list(String name, PageBean<SecurityRole> pageBean) throws MxException {
+        LambdaQueryWrapper<SecurityRole> lambdaQueryWrapper = Mp.lqw(findRole)
                 .like(StringUtils.isNotBlank(name), SecurityRole::getName, name)
                 .eq(SecurityRole::getClient, config.getClient());
-        return M.list(MPBeanUtils.copyPage(iRoleMapper.selectPage(PageHelper.in(pageBean), lambdaQueryWrapper), SecurityRoleListVO::new));
+        return View.list(MpBeanUtils.copyPage(iRoleMapper.selectPage(PageHelper.in(pageBean), lambdaQueryWrapper), SecurityRoleListVO::new));
     }
 
     @Override
-    public R create(SecurityRoleBean roleBean) throws MxException {
-        SecurityRole role = iRoleMapper.selectOne(MP.lqw(findRole).eq(SecurityRole::getName, roleBean.getName()));
+    public Result create(SecurityRoleBean roleBean) throws MxException {
+        SecurityRole role = iRoleMapper.selectOne(Mp.lqw(findRole).eq(SecurityRole::getName, roleBean.getName()));
         if (role != null) {
-            return R.sameName();
+            return Result.sameName();
         }
         role = BeanUtil.copy(roleBean, SecurityRole::new, (s, t) ->
                 t.bind()
@@ -83,50 +83,50 @@ public class SecurityRoleServiceImpl implements ISecurityRoleService {
                         .lastModifyTime(System.currentTimeMillis())
                         .lastModifyUser(saUtils.loginId())
         );
-        return R.result(iRoleMapper.insert(role));
+        return Result.result(iRoleMapper.insert(role));
     }
 
     @Override
-    public R update(String id, Long lastModifyTime, SecurityRoleBean roleBean) throws MxException {
-        SecurityRole role = iRoleMapper.selectOne(MP.lqw(findRole).eq(SecurityRole::getName, roleBean.getName()).ne(SecurityRole::getId, id));
+    public Result update(String id, Long lastModifyTime, SecurityRoleBean roleBean) throws MxException {
+        SecurityRole role = iRoleMapper.selectOne(Mp.lqw(findRole).eq(SecurityRole::getName, roleBean.getName()).ne(SecurityRole::getId, id));
         if (role != null) {
-            return R.sameName();
+            return Result.sameName();
         }
         role = iRoleMapper.selectById(id);
         if (role == null) {
-            return R.noData();
+            return Result.noData();
         }
-        if (!R.checkVersion(role.getLastModifyTime(), lastModifyTime)) {
-            return R.noVersion();
+        if (Result.checkVersion(role.getLastModifyTime(), lastModifyTime)) {
+            return Result.noVersion();
         }
         role = BeanUtil.duplicate(roleBean, role, (s, t) -> {
             t.bind()
                     .lastModifyTime(System.currentTimeMillis())
                     .lastModifyUser(saUtils.loginId());
         });
-        return R.result(iRoleMapper.updateById(role));
+        return Result.result(iRoleMapper.updateById(role));
     }
 
     @Override
-    public M<SecurityRoleVO> detail(String id) throws MxException {
-        return M.ok(BeanUtil.copy(iRoleMapper.selectById(id), SecurityRoleVO::new));
+    public View<SecurityRoleVO> detail(String id) throws MxException {
+        return View.ok(BeanUtil.copy(iRoleMapper.selectById(id), SecurityRoleVO::new));
     }
 
     @Override
     @Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = {MxException.class, Exception.class})
-    public R delete(String[] ids) throws MxException {
-        iSecurityUserRoleMapper.delete(MP.lqw(SecurityUserRole.init()).in(SecurityUserRole::getRoleId, Arrays.asList(ids)));
-        return R.result(iRoleMapper.deleteBatchIds(Arrays.asList(ids)));
+    public Result delete(String[] ids) throws MxException {
+        iSecurityUserRoleMapper.delete(Mp.lqw(SecurityUserRole.init()).in(SecurityUserRole::getRoleId, Arrays.asList(ids)));
+        return Result.result(iRoleMapper.deleteBatchIds(Arrays.asList(ids)));
     }
 
     @Override
-    public R permissionList(String id) throws MxException {
+    public Result permissionList(String id) throws MxException {
         JSONObject jsonObject = new JSONObject();
         SecurityRole role = iRoleMapper.selectById(id);
         if (role == null) {
-            return R.noData();
+            return Result.noData();
         }
-        List<SecurityRolePermission> rolePermissionList = iRolePermissionMapper.selectList(MP.lqw(SecurityRolePermission.init())
+        List<SecurityRolePermission> rolePermissionList = iRolePermissionMapper.selectList(Mp.lqw(SecurityRolePermission.init())
                 .eq(SecurityRolePermission::getClient, config.getClient())
                 .eq(SecurityRolePermission::getRoleId, id));
         if (CollUtil.isNotEmpty(rolePermissionList)) {
@@ -136,18 +136,18 @@ public class SecurityRoleServiceImpl implements ISecurityRoleService {
             }
             jsonObject.put("permissions", selectRoles);
         }
-        return R.ok().data(jsonObject);
+        return Result.ok().data(jsonObject);
     }
 
     @Override
     @Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = {MxException.class, Exception.class})
-    public R permissionBind(String id, String[] permissions) throws MxException {
+    public Result permissionBind(String id, String[] permissions) throws MxException {
         SecurityRole role = iRoleMapper.selectById(id);
         if (role == null) {
-            return R.noData();
+            return Result.noData();
         }
 
-        iRolePermissionMapper.delete(MP.lqw(SecurityRolePermission.init())
+        iRolePermissionMapper.delete(Mp.lqw(SecurityRolePermission.init())
                 .eq(SecurityRolePermission::getClient, config.getClient())
                 .eq(SecurityRolePermission::getRoleId, id));
         List<SecurityPermission> permissionList = iPermissionMapper.selectList(null);
@@ -171,6 +171,6 @@ public class SecurityRoleServiceImpl implements ISecurityRoleService {
                 iRolePermissionMapper.insertBatch(rolePermissions);
             }
         }
-        return R.ok();
+        return Result.ok();
     }
 }

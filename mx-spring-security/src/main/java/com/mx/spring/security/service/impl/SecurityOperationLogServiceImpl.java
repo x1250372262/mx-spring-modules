@@ -2,14 +2,14 @@ package com.mx.spring.security.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.M;
-import com.mx.spring.dev.result.R;
+import com.mx.spring.dev.result.View;
+import com.mx.spring.dev.result.Result;
 import com.mx.spring.dev.support.page.PageBean;
 import com.mx.spring.dev.support.page.Pages;
 import com.mx.spring.dev.util.BeanUtil;
-import com.mx.spring.jdbc.mybatis.plus.MP;
+import com.mx.spring.jdbc.mybatis.plus.Mp;
 import com.mx.spring.jdbc.mybatis.plus.page.PageHelper;
-import com.mx.spring.jdbc.mybatis.plus.util.MPBeanUtils;
+import com.mx.spring.jdbc.mybatis.plus.util.MpBeanUtils;
 import com.mx.spring.security.base.config.MxSecurityConfig;
 import com.mx.spring.security.base.model.SecurityOperationLog;
 import com.mx.spring.security.base.vo.SecurityOperationLogListVO;
@@ -38,23 +38,23 @@ public class SecurityOperationLogServiceImpl implements ISecurityOperationLogSer
     private MxSecurityConfig config;
 
     @Override
-    public M<Pages<SecurityOperationLogListVO>> list(String title, Long startTime, Long endTime, PageBean<SecurityOperationLog> pageBean) throws MxException {
-        LambdaQueryWrapper<SecurityOperationLog> queryWrapper = MP.lqw(SecurityOperationLog.init())
+    public View<Pages<SecurityOperationLogListVO>> list(String title, Long startTime, Long endTime, PageBean<SecurityOperationLog> pageBean) throws MxException {
+        LambdaQueryWrapper<SecurityOperationLog> queryWrapper = Mp.lqw(SecurityOperationLog.init())
                 .eq(SecurityOperationLog::getClient,config.getClient())
                 .like(StringUtils.isNotBlank(title), SecurityOperationLog::getTitle, title)
                 .ge(Objects.nonNull(startTime), SecurityOperationLog::getCreateTime, startTime)
                 .le(Objects.nonNull(endTime), SecurityOperationLog::getCreateTime, endTime)
                 .orderByDesc(SecurityOperationLog::getCreateTime);
-        return M.list(MPBeanUtils.copyPage(iSecurityOperationLogMapper.selectPage(PageHelper.in(pageBean), queryWrapper), SecurityOperationLogListVO::new));
+        return View.list(MpBeanUtils.copyPage(iSecurityOperationLogMapper.selectPage(PageHelper.in(pageBean), queryWrapper), SecurityOperationLogListVO::new));
     }
 
     @Override
-    public M<SecurityOperationLogVO> detail(String id) throws MxException {
-        return M.ok(BeanUtil.copy(iSecurityOperationLogMapper.selectById(id), SecurityOperationLogVO::new));
+    public View<SecurityOperationLogVO> detail(String id) throws MxException {
+        return View.ok(BeanUtil.copy(iSecurityOperationLogMapper.selectById(id), SecurityOperationLogVO::new));
     }
 
     @Override
-    public R delete(String[] ids) throws MxException {
-        return R.result(iSecurityOperationLogMapper.deleteBatchIds(Arrays.asList(ids)));
+    public Result delete(String[] ids) throws MxException {
+        return Result.result(iSecurityOperationLogMapper.deleteBatchIds(Arrays.asList(ids)));
     }
 }

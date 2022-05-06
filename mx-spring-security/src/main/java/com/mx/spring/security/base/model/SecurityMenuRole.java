@@ -24,42 +24,42 @@ public class SecurityMenuRole implements Serializable {
 	/**
 	* id
 	*/
-	@TableId(value = FIELDS.ID, type = IdType.INPUT)
+	@TableId(value = Fields.ID, type = IdType.INPUT)
 	@FieldInfo(comment = "id", nullable = false)
 	private String id;
 
 	/**
 	* 客户端
 	*/
-	@TableField(value = FIELDS.CLIENT)
+	@TableField(value = Fields.CLIENT)
 	@FieldInfo(comment = "客户端", nullable = false)
 	private String client;
 
 	/**
 	* 菜单id
 	*/
-	@TableField(value = FIELDS.MENU_ID)
+	@TableField(value = Fields.MENU_ID)
 	@FieldInfo(comment = "菜单id", nullable = false)
 	private String menuId;
 
 	/**
 	* 角色id
 	*/
-	@TableField(value = FIELDS.ROLE_ID)
+	@TableField(value = Fields.ROLE_ID)
 	@FieldInfo(comment = "角色id", nullable = false)
 	private String roleId;
 
 	/**
 	* 创建人
 	*/
-	@TableField(value = FIELDS.CREATE_USER)
+	@TableField(value = Fields.CREATE_USER)
 	@FieldInfo(comment = "创建人", nullable = false)
 	private String createUser;
 
 	/**
 	* 创建时间
 	*/
-	@TableField(value = FIELDS.CREATE_TIME)
+	@TableField(value = Fields.CREATE_TIME)
 	@FieldInfo(comment = "创建时间", nullable = false)
 	private Long createTime;
 
@@ -230,7 +230,7 @@ public class SecurityMenuRole implements Serializable {
 	/**
 	 * SecurityMenuRole 字段常量表
 	 */
-	public static class FIELDS {
+	public static class Fields {
 		public static final String ID = "id";
 		public static final String CLIENT = "client";
 		public static final String MENU_ID = "menu_id";

@@ -6,13 +6,13 @@ import cn.hutool.extra.servlet.ServletUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mx.spring.dev.constants.Constants;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.M;
-import com.mx.spring.dev.result.R;
+import com.mx.spring.dev.result.View;
+import com.mx.spring.dev.result.Result;
 import com.mx.spring.dev.support.page.PageBean;
 import com.mx.spring.dev.support.page.Pages;
 import com.mx.spring.dev.util.BeanUtil;
 import com.mx.spring.dev.util.WebUtil;
-import com.mx.spring.jdbc.mybatis.plus.MP;
+import com.mx.spring.jdbc.mybatis.plus.Mp;
 import com.mx.spring.jdbc.mybatis.plus.page.PageHelper;
 import com.mx.spring.security.SaUtils;
 import com.mx.spring.security.base.bean.SecurityUserBean;
@@ -63,23 +63,23 @@ public class SecurityUserServiceImpl implements ISecurityUserService {
     private MxSecurityConfig config;
 
     @Override
-    public M<Pages<SecurityUserListVO>> list(String userName, String realName, Integer disableStatus, PageBean<SecurityUserListVO> pageBean) throws MxException {
+    public View<Pages<SecurityUserListVO>> list(String userName, String realName, Integer disableStatus, PageBean<SecurityUserListVO> pageBean) throws MxException {
         Page<SecurityUserListVO> resultData = iSecurityUserMapper.findAll(userName, realName, disableStatus, config.getClient(), PageHelper.in(pageBean));
-        return M.list(PageHelper.out(resultData, SecurityUserListVO::new));
+        return View.list(PageHelper.out(resultData, SecurityUserListVO::new));
     }
 
     @Override
     @Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = {MxException.class, Exception.class})
-    public R create(String password, SecurityUserBean userBean) throws MxException {
+    public Result create(String password, SecurityUserBean userBean) throws MxException {
         Map<String, String> params = ServletUtil.getParamMap(WebUtil.request());
         IUserHandler userHandler = Handler.userHandler();
-        R r = userHandler.createBefore(params);
+        Result r = userHandler.createBefore(params);
         if (Handler.check(r)) {
             return r;
         }
-        SecurityUser securityUser = iSecurityUserMapper.selectOne(MP.lqw(bean).eq(SecurityUser::getUserName, userBean.getUserName()).eq(SecurityUser::getClient, config.getClient()));
+        SecurityUser securityUser = iSecurityUserMapper.selectOne(Mp.lqw(bean).eq(SecurityUser::getUserName, userBean.getUserName()).eq(SecurityUser::getClient, config.getClient()));
         if (securityUser != null) {
-            return R.sameData("用户名");
+            return Result.sameData("用户名");
         }
         String salt = RandomUtil.randomString(6);
         password = DigestUtils.md5DigestAsHex(Base64.encodeBase64((password + salt).getBytes(StandardCharsets.UTF_8)));
@@ -91,37 +91,37 @@ public class SecurityUserServiceImpl implements ISecurityUserService {
         if (Handler.check(r)) {
             return r;
         }
-        return R.result(iSecurityUserMapper.insert(securityUser));
+        return Result.result(iSecurityUserMapper.insert(securityUser));
     }
 
     @Override
-    public M<SecurityUserVO> detail(String id) throws MxException {
-        return M.ok(BeanUtil.copy(iSecurityUserMapper.selectById(id), SecurityUserVO::new));
+    public View<SecurityUserVO> detail(String id) throws MxException {
+        return View.ok(BeanUtil.copy(iSecurityUserMapper.selectById(id), SecurityUserVO::new));
     }
 
     @Override
-    public R status(String id, Long lastModifyTime, Integer status) throws MxException {
+    public Result status(String id, Long lastModifyTime, Integer status) throws MxException {
         SecurityUser securityUser = iSecurityUserMapper.selectById(id);
         if (securityUser == null) {
-            return R.noData();
+            return Result.noData();
         }
-        if (!R.checkVersion(securityUser.getLastModifyTime(), lastModifyTime)) {
-            return R.noVersion();
+        if (Result.checkVersion(securityUser.getLastModifyTime(), lastModifyTime)) {
+            return Result.noVersion();
         }
         securityUser.setLastModifyUser(saUtils.loginId());
         securityUser.setLastModifyTime(System.currentTimeMillis());
         securityUser.setDisableStatus(status);
-        return R.result(iSecurityUserMapper.updateById(securityUser));
+        return Result.result(iSecurityUserMapper.updateById(securityUser));
     }
 
     @Override
-    public R unlock(String id, Long lastModifyTime) throws MxException {
+    public Result unlock(String id, Long lastModifyTime) throws MxException {
         SecurityUser securityUser = iSecurityUserMapper.selectById(id);
         if (securityUser == null) {
-            return R.noData();
+            return Result.noData();
         }
-        if (!R.checkVersion(securityUser.getLastModifyTime(), lastModifyTime)) {
-            return R.noVersion();
+        if (Result.checkVersion(securityUser.getLastModifyTime(), lastModifyTime)) {
+            return Result.noVersion();
         }
         securityUser.setLastModifyUser(saUtils.loginId());
         securityUser.setLastModifyTime(System.currentTimeMillis());
@@ -129,17 +129,17 @@ public class SecurityUserServiceImpl implements ISecurityUserService {
         securityUser.setLoginLockStatus(Constants.BOOL_FALSE);
         securityUser.setLoginLockStartTime(0L);
         securityUser.setLoginLockEndTime(0L);
-        return R.result(iSecurityUserMapper.updateById(securityUser));
+        return Result.result(iSecurityUserMapper.updateById(securityUser));
     }
 
     @Override
-    public R resetPassword(String id, Long lastModifyTime) throws MxException {
+    public Result resetPassword(String id, Long lastModifyTime) throws MxException {
         SecurityUser securityUser = iSecurityUserMapper.selectById(id);
         if (securityUser == null) {
-            return R.noData();
+            return Result.noData();
         }
-        if (!R.checkVersion(securityUser.getLastModifyTime(), lastModifyTime)) {
-            return R.noVersion();
+        if (Result.checkVersion(securityUser.getLastModifyTime(), lastModifyTime)) {
+            return Result.noVersion();
         }
         securityUser.setLastModifyUser(saUtils.loginId());
         securityUser.setLastModifyTime(System.currentTimeMillis());
@@ -152,28 +152,28 @@ public class SecurityUserServiceImpl implements ISecurityUserService {
             e.printStackTrace();
         }
         securityUser.setPassword(password);
-        return R.result(iSecurityUserMapper.updateById(securityUser));
+        return Result.result(iSecurityUserMapper.updateById(securityUser));
     }
 
     @Override
-    public M<Pages<SecurityUserRoleVO>> roleList(String userId, PageBean<SecurityUserRoleVO> pageBean) throws MxException {
+    public View<Pages<SecurityUserRoleVO>> roleList(String userId, PageBean<SecurityUserRoleVO> pageBean) throws MxException {
         Page<SecurityUserRoleVO> resultData = iSecurityUserRoleMapper.roleList(userId, PageHelper.in(pageBean));
-        return M.list(PageHelper.out(resultData, SecurityUserRoleVO::new));
+        return View.list(PageHelper.out(resultData, SecurityUserRoleVO::new));
     }
 
     @Override
-    public R roleCreate(String userId, String roleId) throws MxException {
-        SecurityUserRole adminRole = iSecurityUserRoleMapper.selectOne(MP.lqw(SecurityUserRole.init()).eq(SecurityUserRole::getUserId, userId).eq(SecurityUserRole::getRoleId, roleId).eq(SecurityUserRole::getClient, config.getClient()));
+    public Result roleCreate(String userId, String roleId) throws MxException {
+        SecurityUserRole adminRole = iSecurityUserRoleMapper.selectOne(Mp.lqw(SecurityUserRole.init()).eq(SecurityUserRole::getUserId, userId).eq(SecurityUserRole::getRoleId, roleId).eq(SecurityUserRole::getClient, config.getClient()));
         if (adminRole != null) {
-            return R.create(SECURITY_USER_ROLE_EXISTS.getCode()).msg(SECURITY_USER_ROLE_EXISTS.getMsg());
+            return Result.create(SECURITY_USER_ROLE_EXISTS.getCode()).msg(SECURITY_USER_ROLE_EXISTS.getMsg());
         }
         adminRole = SecurityUserRole.builder().id(IdUtil.fastSimpleUUID()).userId(userId).roleId(roleId).client(config.getClient()).createUser(saUtils.loginId()).createTime(System.currentTimeMillis()).lastModifyUser(saUtils.loginId()).lastModifyTime(System.currentTimeMillis()).build();
-        return R.result(iSecurityUserRoleMapper.insert(adminRole));
+        return Result.result(iSecurityUserRoleMapper.insert(adminRole));
     }
 
     @Override
-    public R roleDelete(String[] ids) throws MxException {
-        return R.result(iSecurityUserRoleMapper.deleteBatchIds(Arrays.asList(ids)));
+    public Result roleDelete(String[] ids) throws MxException {
+        return Result.result(iSecurityUserRoleMapper.deleteBatchIds(Arrays.asList(ids)));
     }
 
 }

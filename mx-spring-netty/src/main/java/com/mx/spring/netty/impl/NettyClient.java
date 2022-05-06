@@ -66,7 +66,7 @@ public class NettyClient implements INetty {
         if (StringUtils.isBlank(config.getHandlerClassName())) {
             throw new MxException("请指定handler处理类");
         }
-        List<Class<? extends ChannelInboundHandlerAdapter>> handlerAdapterList = getHanderList(config.getHandlerClassName());
+        List<Class<? extends ChannelInboundHandlerAdapter>> handlerAdapterList = getHandlerList(config.getHandlerClassName());
         if (CollUtil.isEmpty(handlerAdapterList)) {
             throw new MxException("请指定handler处理类");
         }

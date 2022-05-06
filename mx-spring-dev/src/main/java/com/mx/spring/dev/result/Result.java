@@ -18,8 +18,8 @@ import java.util.Objects;
  * @create: 2021-07-02 16:58
  * @Description:
  */
-@ApiModel(value = "R", description = "通用请求返回数据-操作消息提醒")
-public class R implements Serializable {
+@ApiModel(value = "Result", description = "通用请求返回数据-操作消息提醒")
+public class Result implements Serializable {
 
     @ApiModelProperty(value = "错误码")
     private int code;
@@ -30,106 +30,106 @@ public class R implements Serializable {
     @ApiModelProperty(value = "其他参数")
     private Map<String, Object> attrs = new HashMap<>();
 
-    private R() {
+    private Result() {
     }
 
-    private R(int code) {
+    private Result(int code) {
         this.code = code;
     }
 
-    public static boolean check(R r) {
+    public static boolean check(Result r) {
         return r.code() == C.SUCCESS.getCode();
     }
 
-    public R none() {
-        return R.create(-10);
+    public Result none() {
+        return Result.create(-10);
     }
 
     /**
      * 根据参数返回成功还是失败
      */
-    public static R result(Object object) {
+    public static Result result(Object object) {
         if (object != null) {
-            return R.ok();
+            return Result.ok();
         }
-        return R.fail();
+        return Result.fail();
     }
 
     /**
      * 根据参数返回成功还是失败
      */
-    public static R result(int result) {
+    public static Result result(int result) {
         if (result >= 1) {
-            return R.ok();
+            return Result.ok();
         }
-        return R.fail();
+        return Result.fail();
     }
 
     /**
      * 根据参数返回成功还是失败
      */
-    public static R result(List<?> list) {
+    public static Result result(List<?> list) {
         if (CollectionUtil.isNotEmpty(list)) {
-            return R.ok();
+            return Result.ok();
         }
-        return R.fail();
+        return Result.fail();
     }
 
     /**
      * 根据参数返回成功还是失败
      */
-    public static R result(int[] result) {
+    public static Result result(int[] result) {
         if (result != null && result.length > 0) {
-            return R.ok();
+            return Result.ok();
         }
-        return R.fail();
+        return Result.fail();
     }
 
     /**
      * 成功result
      */
-    public static R ok() {
-        return R.create(C.SUCCESS.getCode())
+    public static Result ok() {
+        return Result.create(C.SUCCESS.getCode())
                 .msg(C.SUCCESS.getMsg());
     }
 
     /**
      * 返回成功 并且带map参数
      */
-    public static R mapResult(Map<String, Object> attrs) {
-        return R.ok().attrs(attrs);
+    public static Result mapResult(Map<String, Object> attrs) {
+        return Result.ok().attrs(attrs);
     }
 
     /**
      * 失败result
      */
-    public static R fail() {
-        return R.create(C.ERROR.getCode())
+    public static Result fail() {
+        return Result.create(C.ERROR.getCode())
                 .msg(C.ERROR.getMsg());
     }
 
-    public static R create() {
-        return new R();
+    public static Result create() {
+        return new Result();
     }
 
-    public static R create(int code) {
-        return new R(code);
+    public static Result create(int code) {
+        return new Result(code);
     }
 
-    public static R sameName() {
-        return R.create(C.FIELDS_EXISTS.getCode()).msg(String.format(C.FIELDS_EXISTS.getMsg(), "名称"));
+    public static Result sameName() {
+        return Result.create(C.FIELDS_EXISTS.getCode()).msg(String.format(C.FIELDS_EXISTS.getMsg(), "名称"));
     }
 
-    public static R sameData(String msg) {
-        return R.create(C.FIELDS_EXISTS.getCode()).msg(String.format(C.FIELDS_EXISTS.getMsg(), msg));
+    public static Result sameData(String msg) {
+        return Result.create(C.FIELDS_EXISTS.getCode()).msg(String.format(C.FIELDS_EXISTS.getMsg(), msg));
     }
 
-    public static R noVersion() {
-        return R.create(C.VERSION_NOT_SAME.getCode()).msg(C.VERSION_NOT_SAME.getMsg());
+    public static Result noVersion() {
+        return Result.create(C.VERSION_NOT_SAME.getCode()).msg(C.VERSION_NOT_SAME.getMsg());
     }
 
-    public static R noData() {
-        return R.create(C.NO_DATA.getCode()).msg(C.NO_DATA.getMsg());
+    public static Result noData() {
+        return Result.create(C.NO_DATA.getCode()).msg(C.NO_DATA.getMsg());
     }
 
     public static boolean checkVersion(Object var1, Object var2) {
@@ -144,7 +144,7 @@ public class R implements Serializable {
         return code;
     }
 
-    public R code(int code) {
+    public Result code(int code) {
         this.code = code;
         return this;
     }
@@ -153,7 +153,7 @@ public class R implements Serializable {
         return StringUtils.trimToEmpty(msg);
     }
 
-    public R msg(String msg) {
+    public Result msg(String msg) {
         this.msg = msg;
         return this;
     }
@@ -167,27 +167,27 @@ public class R implements Serializable {
         return (T) this.attrs.get(attrKey);
     }
 
-    public R attr(String attrKey, Object attrValue) {
+    public Result attr(String attrKey, Object attrValue) {
         this.attrs.put(attrKey, attrValue);
         return this;
     }
 
-    public R attr(String attrKey, Object attrValue, Object defaultValue) {
+    public Result attr(String attrKey, Object attrValue, Object defaultValue) {
         this.attrs.put(attrKey, ObjectUtils.defaultIfNull(attrValue, defaultValue));
         return this;
     }
 
-    public R attrs(Map<String, Object> attrs) {
+    public Result attrs(Map<String, Object> attrs) {
         this.attrs = attrs;
         return this;
     }
 
-    public R data(Object value) {
+    public Result data(Object value) {
         this.attrs.put("data", value);
         return this;
     }
 
-    public R data(Object value, Object defaultValue) {
+    public Result data(Object value, Object defaultValue) {
         this.attrs.put("data", ObjectUtils.defaultIfNull(value, defaultValue));
         return this;
     }

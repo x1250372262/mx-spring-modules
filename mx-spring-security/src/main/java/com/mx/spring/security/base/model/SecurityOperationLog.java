@@ -24,133 +24,133 @@ public class SecurityOperationLog implements Serializable {
 	/**
 	* id
 	*/
-	@TableId(value = FIELDS.ID, type = IdType.INPUT)
+	@TableId(value = Fields.ID, type = IdType.INPUT)
 	@FieldInfo(comment = "id", nullable = false)
 	private String id;
 
 	/**
 	* 客户端
 	*/
-	@TableField(value = FIELDS.CLIENT)
+	@TableField(value = Fields.CLIENT)
 	@FieldInfo(comment = "客户端", nullable = false)
 	private String client;
 
 	/**
 	* 标题
 	*/
-	@TableField(value = FIELDS.TITLE)
+	@TableField(value = Fields.TITLE)
 	@FieldInfo(comment = "标题", nullable = false)
 	private String title;
 
 	/**
 	* 类型具体看配置
 	*/
-	@TableField(value = FIELDS.TYPE)
+	@TableField(value = Fields.TYPE)
 	@FieldInfo(comment = "类型具体看配置", nullable = false)
 	private String type;
 
 	/**
 	* 类型名称
 	*/
-	@TableField(value = FIELDS.TYPE_NAME)
+	@TableField(value = Fields.TYPE_NAME)
 	@FieldInfo(comment = "类型名称", nullable = false)
 	private String typeName;
 
 	/**
 	* 操作人
 	*/
-	@TableField(value = FIELDS.USER_ID)
+	@TableField(value = Fields.USER_ID)
 	@FieldInfo(comment = "操作人", nullable = false)
 	private String userId;
 
 	/**
 	* 操作人名称
 	*/
-	@TableField(value = FIELDS.USER_NAME)
+	@TableField(value = Fields.USER_NAME)
 	@FieldInfo(comment = "操作人名称", nullable = false)
 	private String userName;
 
 	/**
 	* 创建时间
 	*/
-	@TableField(value = FIELDS.CREATE_TIME)
+	@TableField(value = Fields.CREATE_TIME)
 	@FieldInfo(comment = "创建时间", nullable = false)
 	private Long createTime;
 
 	/**
 	* 请求路径
 	*/
-	@TableField(value = FIELDS.REQUEST_URL)
+	@TableField(value = Fields.REQUEST_URL)
 	@FieldInfo(comment = "请求路径", nullable = false)
 	private String requestUrl;
 
 	/**
 	* 请求参数
 	*/
-	@TableField(value = FIELDS.REQUEST_PARAM)
+	@TableField(value = Fields.REQUEST_PARAM)
 	@FieldInfo(comment = "请求参数")
 	private String requestParam;
 
 	/**
 	* 返回错误码
 	*/
-	@TableField(value = FIELDS.RETURN_CODE)
+	@TableField(value = Fields.RETURN_CODE)
 	@FieldInfo(comment = "返回错误码", nullable = false)
 	private String returnCode;
 
 	/**
 	* 返回错误信息
 	*/
-	@TableField(value = FIELDS.RETURN_MESSAGE)
+	@TableField(value = Fields.RETURN_MESSAGE)
 	@FieldInfo(comment = "返回错误信息", nullable = false)
 	private String returnMessage;
 
 	/**
 	* 返回结果
 	*/
-	@TableField(value = FIELDS.RETURN_RESULT)
+	@TableField(value = Fields.RETURN_RESULT)
 	@FieldInfo(comment = "返回结果", nullable = false)
 	private String returnResult;
 
 	/**
 	* 类名称
 	*/
-	@TableField(value = FIELDS.CLASS_NAME)
+	@TableField(value = Fields.CLASS_NAME)
 	@FieldInfo(comment = "类名称", nullable = false)
 	private String className;
 
 	/**
 	* 方法名
 	*/
-	@TableField(value = FIELDS.METHOD_NAME)
+	@TableField(value = Fields.METHOD_NAME)
 	@FieldInfo(comment = "方法名", nullable = false)
 	private String methodName;
 
 	/**
 	* ip地址
 	*/
-	@TableField(value = FIELDS.IP)
+	@TableField(value = Fields.IP)
 	@FieldInfo(comment = "ip地址", nullable = false)
 	private String ip;
 
 	/**
 	* 位置
 	*/
-	@TableField(value = FIELDS.LOCATION)
+	@TableField(value = Fields.LOCATION)
 	@FieldInfo(comment = "位置", nullable = false)
 	private String location;
 
 	/**
 	* 操作系统
 	*/
-	@TableField(value = FIELDS.OS)
+	@TableField(value = Fields.OS)
 	@FieldInfo(comment = "操作系统", nullable = false)
 	private String os;
 
 	/**
 	* 浏览器
 	*/
-	@TableField(value = FIELDS.BROWSER)
+	@TableField(value = Fields.BROWSER)
 	@FieldInfo(comment = "浏览器", nullable = false)
 	private String browser;
 
@@ -568,7 +568,7 @@ public class SecurityOperationLog implements Serializable {
 	/**
 	 * SecurityOperationLog 字段常量表
 	 */
-	public static class FIELDS {
+	public static class Fields {
 		public static final String ID = "id";
 		public static final String CLIENT = "client";
 		public static final String TITLE = "title";

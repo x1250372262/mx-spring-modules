@@ -24,63 +24,63 @@ public class SecurityMenu implements Serializable {
 	/**
 	* id
 	*/
-	@TableId(value = FIELDS.ID, type = IdType.INPUT)
+	@TableId(value = Fields.ID, type = IdType.INPUT)
 	@FieldInfo(comment = "id", nullable = false)
 	private String id;
 
 	/**
 	* 客户端
 	*/
-	@TableField(value = FIELDS.CLIENT)
+	@TableField(value = Fields.CLIENT)
 	@FieldInfo(comment = "客户端", nullable = false)
 	private String client;
 
 	/**
 	* 菜单类型 0默认 1公开 2拥有者可看
 	*/
-	@TableField(value = FIELDS.TYPE)
+	@TableField(value = Fields.TYPE)
 	@FieldInfo(comment = "菜单类型 0默认 1公开 2拥有者可看", nullable = false)
 	private Integer type;
 
 	/**
 	* 父id
 	*/
-	@TableField(value = FIELDS.PARENT_ID)
+	@TableField(value = Fields.PARENT_ID)
 	@FieldInfo(comment = "父id", nullable = false)
 	private String parentId;
 
 	/**
 	* 菜单名称
 	*/
-	@TableField(value = FIELDS.NAME)
+	@TableField(value = Fields.NAME)
 	@FieldInfo(comment = "菜单名称", nullable = false)
 	private String name;
 
 	/**
 	* 图标
 	*/
-	@TableField(value = FIELDS.ICON)
+	@TableField(value = Fields.ICON)
 	@FieldInfo(comment = "图标")
 	private String icon;
 
 	/**
 	* 路径
 	*/
-	@TableField(value = FIELDS.PATH)
+	@TableField(value = Fields.PATH)
 	@FieldInfo(comment = "路径")
 	private String path;
 
 	/**
 	* 地址
 	*/
-	@TableField(value = FIELDS.URL)
+	@TableField(value = Fields.URL)
 	@FieldInfo(comment = "地址")
 	private String url;
 
 	/**
 	* 排序
 	*/
-	@TableField(value = FIELDS.SORT)
+	@TableField(value = Fields.SORT)
 	@FieldInfo(comment = "排序", nullable = false)
 	private Integer sort;
 
@@ -308,7 +308,7 @@ public class SecurityMenu implements Serializable {
 	/**
 	 * SecurityMenu 字段常量表
 	 */
-	public static class FIELDS {
+	public static class Fields {
 		public static final String ID = "id";
 		public static final String CLIENT = "client";
 		public static final String TYPE = "type";

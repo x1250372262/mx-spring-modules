@@ -12,9 +12,14 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class NettyClientStore {
 
-    //存放ChannelHandlerContext map   key是自定义标识
+    /**
+     * 存放ChannelHandlerContext map   key是自定义标识
+     */
     private static final Map<String, ChannelHandlerContext> CLIENT_MAP;
-    //存放key的map  key是ChannelHandlerContext id
+
+    /**
+     * 存放key的map  key是ChannelHandlerContext id
+     */
     private static final Map<String, String> KEY_MAP;
 
     static {

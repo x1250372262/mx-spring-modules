@@ -24,56 +24,56 @@ public class SecurityRole implements Serializable {
 	/**
 	* id
 	*/
-	@TableId(value = FIELDS.ID, type = IdType.INPUT)
+	@TableId(value = Fields.ID, type = IdType.INPUT)
 	@FieldInfo(comment = "id", nullable = false)
 	private String id;
 
 	/**
 	* 客户端
 	*/
-	@TableField(value = FIELDS.CLIENT)
+	@TableField(value = Fields.CLIENT)
 	@FieldInfo(comment = "客户端", nullable = false)
 	private String client;
 
 	/**
 	* 名称
 	*/
-	@TableField(value = FIELDS.NAME)
+	@TableField(value = Fields.NAME)
 	@FieldInfo(comment = "名称", nullable = false)
 	private String name;
 
 	/**
 	* 备注
 	*/
-	@TableField(value = FIELDS.REMARK)
+	@TableField(value = Fields.REMARK)
 	@FieldInfo(comment = "备注")
 	private String remark;
 
 	/**
 	* 创建人
 	*/
-	@TableField(value = FIELDS.CREATE_USER)
+	@TableField(value = Fields.CREATE_USER)
 	@FieldInfo(comment = "创建人", nullable = false)
 	private String createUser;
 
 	/**
 	* 创建时间
 	*/
-	@TableField(value = FIELDS.CREATE_TIME)
+	@TableField(value = Fields.CREATE_TIME)
 	@FieldInfo(comment = "创建时间", nullable = false)
 	private Long createTime;
 
 	/**
 	* 最后更新人
 	*/
-	@TableField(value = FIELDS.LAST_MODIFY_USER)
+	@TableField(value = Fields.LAST_MODIFY_USER)
 	@FieldInfo(comment = "最后更新人", nullable = false)
 	private String lastModifyUser;
 
 	/**
 	* 最后更新时间
 	*/
-	@TableField(value = FIELDS.LAST_MODIFY_TIME)
+	@TableField(value = Fields.LAST_MODIFY_TIME)
 	@FieldInfo(comment = "最后更新时间", nullable = false)
 	private Long lastModifyTime;
 
@@ -282,7 +282,7 @@ public class SecurityRole implements Serializable {
 	/**
 	 * SecurityRole 字段常量表
 	 */
-	public static class FIELDS {
+	public static class Fields {
 		public static final String ID = "id";
 		public static final String CLIENT = "client";
 		public static final String NAME = "name";
