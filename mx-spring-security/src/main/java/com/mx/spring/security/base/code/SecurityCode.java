@@ -10,28 +10,29 @@ public enum SecurityCode {
     /**
      * 安全错误码 70开头
      */
-    SECURITY_LOGIN_USER_NAME_NOT_EXIST(70000, "用户名不存在"),
-    SECURITY_LOGIN_USER_NAME_OR_PASSWORD_ERROR(70001, "用户名或密码错误"),
-    SECURITY_LOGIN_USER_LOCKED(70002, "用户被锁住，请在{}后重试"),
+    SECURITY_CHECK_ERROR("MS000", "检查错误"),
+    SECURITY_LOGIN_USER_NAME_NOT_EXIST("MS001", "用户名不存在"),
+    SECURITY_LOGIN_USER_NAME_OR_PASSWORD_ERROR("MS002", "用户名或密码错误"),
+    SECURITY_LOGIN_USER_LOCKED("MS003", "用户被锁住，请在{}后重试"),
 
-    SECURITY_LOGIN_USER_DISABLE(70003, "用户被禁用,请联系管理员!"),
-    SECURITY_USER_PASSWORD_NOT_SAME(70004, "两次密码输入不一致"),
-    SECURITY_USER_OLD_PASSWORD_ERROR(70005, "原密码错误"),
-    SECURITY_USER_NEW_PASSWORD_NOT_SAME_OLD_PASSWORD(70006, "新密码不能和原密码相同"),
-    SECURITY_USER_ROLE_EXISTS(70007, "该角色已经添加过了"),
-    SECURITY_MENU_HAS_CHILD_NOT_DELETE(70008, "有子菜单不能删除!"),
-    SECURITY_MENU_ROLE_EXISTS(70009, "该角色已经添加过了!");
+    SECURITY_LOGIN_USER_DISABLE("MS004", "用户被禁用,请联系管理员!"),
+    SECURITY_USER_PASSWORD_NOT_SAME("MS005", "两次密码输入不一致"),
+    SECURITY_USER_OLD_PASSWORD_ERROR("MS006", "原密码错误"),
+    SECURITY_USER_NEW_PASSWORD_NOT_SAME_OLD_PASSWORD("MS007", "新密码不能和原密码相同"),
+    SECURITY_USER_ROLE_EXISTS("MS008", "该角色已经添加过了"),
+    SECURITY_MENU_HAS_CHILD_NOT_DELETE("MS009", "有子菜单不能删除!"),
+    SECURITY_MENU_ROLE_EXISTS("MS010", "该角色已经添加过了!");
 
 
-    private final int code;
+    private final String code;
     private final String msg;
 
-    SecurityCode(int code, String msg) {
+    SecurityCode(String code, String msg) {
         this.code = code;
         this.msg = msg;
     }
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 

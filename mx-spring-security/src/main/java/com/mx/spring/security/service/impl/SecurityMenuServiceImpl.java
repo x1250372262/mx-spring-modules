@@ -5,8 +5,8 @@ import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.IdUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.View;
 import com.mx.spring.dev.result.Result;
+import com.mx.spring.dev.result.View;
 import com.mx.spring.dev.support.page.PageBean;
 import com.mx.spring.dev.support.page.Pages;
 import com.mx.spring.dev.util.BeanUtil;
@@ -156,7 +156,7 @@ public class SecurityMenuServiceImpl implements ISecurityMenuService {
         SecurityMenuRole menuRole = iMenuRoleMapper.selectOne(Mp.lqw(SecurityMenuRole.init())
                 .eq(SecurityMenuRole::getMenuId, menuId)
                 .eq(SecurityMenuRole::getRoleId, roleId)
-                .eq(SecurityMenuRole::getClient,config.getClient()));
+                .eq(SecurityMenuRole::getClient, config.getClient()));
         if (menuRole != null) {
             return Result.create(SECURITY_MENU_ROLE_EXISTS.getCode()).msg(SECURITY_MENU_ROLE_EXISTS.getMsg());
         }

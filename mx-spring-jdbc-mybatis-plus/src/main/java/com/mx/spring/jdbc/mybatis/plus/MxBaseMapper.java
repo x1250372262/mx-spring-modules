@@ -8,12 +8,13 @@ import java.util.List;
 /**
  * @Author: mengxiang.
  * @create: 2021-09-30 08:41
- * @Description:
+ * @Description: 自定义mapper
  */
 public interface MxBaseMapper<T> extends BaseMapper<T> {
 
     /**
      * 自定义批量插入
+     *
      * @param list
      * @return
      */
@@ -21,6 +22,7 @@ public interface MxBaseMapper<T> extends BaseMapper<T> {
 
     /**
      * 自定义批量更新，条件为主键
+     *
      * @param list
      * @return
      */

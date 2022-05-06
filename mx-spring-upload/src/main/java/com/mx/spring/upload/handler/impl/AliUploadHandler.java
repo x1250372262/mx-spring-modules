@@ -28,6 +28,7 @@ public class AliUploadHandler implements IUploadHandler {
 
     private final AliUploadConfig aliUploadConfig = SpringUtil.getBean(AliUploadConfig.class);
     OSS ossClient = new OSSClientBuilder().build(aliUploadConfig.getEndpoint(), aliUploadConfig.getAccessKeyId(), aliUploadConfig.getAccessKeySecret());
+
     @Override
     public View<Upload> handle(MultipartFile file) throws MxException {
         if (StringUtils.isBlank(aliUploadConfig.getUrl())) {

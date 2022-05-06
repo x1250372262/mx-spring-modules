@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 /**
  * @Author: mengxiang.
  * @create: 2022-03-25 20:28
- * @Description:
+ * @Description: 系统配置
  */
 @Component
 @ConfigurationProperties(prefix = "mx.config")

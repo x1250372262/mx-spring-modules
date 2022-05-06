@@ -4,11 +4,10 @@ import cn.hutool.setting.dialect.Props;
 import com.mx.maven.util.PropUtils;
 
 /**
- * @program: mx-maven-plugin
- * @description: mapper配置
- * @author: mengxiang
- * @create: 2021-09-02 14:39
- **/
+ * @Author: mengxiang.
+ * @create: 2021-09-30 09:21
+ * @Description: mapper配置
+ */
 public class MapperConfig {
 
     /**
@@ -42,7 +41,7 @@ public class MapperConfig {
     }
 
     public MapperConfig init(Props props) {
-        this.createMapper = props.getBool(PropUtils.MAPPER_CREATE,false);
+        this.createMapper = props.getBool(PropUtils.MAPPER_CREATE, false);
         this.packageName = props.getStr(PropUtils.MAPPER_PACK_NAME);
         this.xmlPath = props.getStr(PropUtils.MAPPER_XML_PATH);
         this.mapperProjectPath = props.getStr(PropUtils.MAPPER_PROJECT_PATH);

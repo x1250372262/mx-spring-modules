@@ -2,8 +2,8 @@ package com.mx.spring.security.service;
 
 
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.View;
 import com.mx.spring.dev.result.Result;
+import com.mx.spring.dev.result.View;
 import com.mx.spring.security.base.bean.LoginResult;
 import com.mx.spring.security.base.bean.SecurityLoginInfoBean;
 import com.mx.spring.security.base.vo.SecurityLoginVO;
@@ -37,6 +37,7 @@ public interface ISecurityLoginService {
 
     /**
      * 获取登录人信息
+     *
      * @return
      * @throws MxException
      */

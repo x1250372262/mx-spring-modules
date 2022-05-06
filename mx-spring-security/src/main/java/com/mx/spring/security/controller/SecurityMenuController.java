@@ -3,8 +3,8 @@ package com.mx.spring.security.controller;
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.View;
 import com.mx.spring.dev.result.Result;
+import com.mx.spring.dev.result.View;
 import com.mx.spring.dev.support.format.FormatRequest;
 import com.mx.spring.dev.support.page.PageDTO;
 import com.mx.spring.dev.support.page.Pages;
@@ -106,7 +106,7 @@ public class SecurityMenuController {
     @SaCheckPermission(value = SecurityPermissionConfig.SECURITY_MENU_UPDATE)
     @OperationLog(operationType = OperationType.UPDATE, title = "修改菜单")
     public Result update(@ApiParam(name = "id", value = "ID", required = true)
-                    @NotBlank(message = "ID不能为空") String id,
+                         @NotBlank(message = "ID不能为空") String id,
                          @Validated SecurityMenuDTO menuDTO) throws MxException {
         return iMenuService.update(id, menuDTO.toBean());
     }
@@ -124,7 +124,7 @@ public class SecurityMenuController {
     @ApiOperation(value = "菜单详情")
     @SaCheckPermission(value = SecurityPermissionConfig.SECURITY_MENU_DETAIL)
     public View<SecurityMenuVO> detail(@ApiParam(name = "id", value = "ID", required = true)
-                                    @NotBlank(message = "ID不能为空") String id) throws MxException {
+                                       @NotBlank(message = "ID不能为空") String id) throws MxException {
         return iMenuService.detail(id);
     }
 
@@ -142,7 +142,7 @@ public class SecurityMenuController {
     @SaCheckPermission(value = SecurityPermissionConfig.SECURITY_MENU_DELETE)
     @OperationLog(operationType = OperationType.DELETE, title = "删除菜单")
     public Result delete(@ApiParam(name = "id", value = "ID", required = true)
-                    @NotBlank(message = "ID不能为空") String id) throws MxException {
+                         @NotBlank(message = "ID不能为空") String id) throws MxException {
         return iMenuService.delete(id);
     }
 
@@ -161,7 +161,7 @@ public class SecurityMenuController {
     @ApiOperation(value = "菜单角色列表")
     @SaCheckPermission(value = SecurityPermissionConfig.SECURITY_MENU_ROLE_LIST)
     public View<Pages<SecurityMenuRoleVO>> roleList(@ApiParam(name = "menuId", value = "菜单ID", required = true)
-                                                 @NotBlank(message = "菜单ID不能为空") String menuId,
+                                                    @NotBlank(message = "菜单ID不能为空") String menuId,
                                                     @ApiParam(name = "name", value = "角色名称") String name,
                                                     PageDTO<SecurityMenuRoleVO> pageDTO) throws MxException {
         return iMenuService.roleList(menuId, name, pageDTO.toBean());
@@ -182,9 +182,9 @@ public class SecurityMenuController {
     @SaCheckPermission(value = SecurityPermissionConfig.SECURITY_MENU_ROLE_CREATE)
     @OperationLog(operationType = OperationType.CREATE, title = "添加菜单角色")
     public Result roleCreate(@ApiParam(name = "menuId", value = "菜单ID", required = true)
-                        @NotBlank(message = "菜单ID不能为空") String menuId,
+                             @NotBlank(message = "菜单ID不能为空") String menuId,
                              @ApiParam(name = "roleId", value = "角色ID", required = true)
-                        @NotBlank(message = "角色ID不能为空") String roleId) throws MxException {
+                             @NotBlank(message = "角色ID不能为空") String roleId) throws MxException {
         return iMenuService.roleCreate(menuId, roleId);
     }
 
@@ -202,8 +202,8 @@ public class SecurityMenuController {
     @SaCheckPermission(value = SecurityPermissionConfig.SECURITY_MENU_ROLE_DELETE)
     @OperationLog(operationType = OperationType.DELETE, title = "删除菜单角色")
     public Result roleDelete(@ApiParam(name = "ids", value = "ids", required = true)
-                        @NotNull(message = "ids不能为空")
-                        @RequestParam("ids[]") String[] ids) throws MxException {
+                             @NotNull(message = "ids不能为空")
+                             @RequestParam("ids[]") String[] ids) throws MxException {
         return iMenuService.roleDelete(ids);
     }
 }

@@ -5,9 +5,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * @Author: 徐建鹏.
+ * @Author: mengxiang.
  * @create: 2022-04-22 14:21
- * @Description:
+ * @Description: 基本配置
  */
 @Component
 @ConfigurationProperties(prefix = "mx.netty")
@@ -24,7 +24,7 @@ public class NettyConfig {
     private String serverClient;
 
     public String getServerClient() {
-        return StringUtils.defaultIfBlank(serverClient,SERVER_CLIENT_ALL);
+        return StringUtils.defaultIfBlank(serverClient, SERVER_CLIENT_ALL);
     }
 
     public void setServerClient(String serverClient) {

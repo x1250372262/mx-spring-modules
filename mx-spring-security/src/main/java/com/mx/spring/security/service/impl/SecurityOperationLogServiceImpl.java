@@ -2,8 +2,8 @@ package com.mx.spring.security.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.View;
 import com.mx.spring.dev.result.Result;
+import com.mx.spring.dev.result.View;
 import com.mx.spring.dev.support.page.PageBean;
 import com.mx.spring.dev.support.page.Pages;
 import com.mx.spring.dev.util.BeanUtil;
@@ -40,7 +40,7 @@ public class SecurityOperationLogServiceImpl implements ISecurityOperationLogSer
     @Override
     public View<Pages<SecurityOperationLogListVO>> list(String title, Long startTime, Long endTime, PageBean<SecurityOperationLog> pageBean) throws MxException {
         LambdaQueryWrapper<SecurityOperationLog> queryWrapper = Mp.lqw(SecurityOperationLog.init())
-                .eq(SecurityOperationLog::getClient,config.getClient())
+                .eq(SecurityOperationLog::getClient, config.getClient())
                 .like(StringUtils.isNotBlank(title), SecurityOperationLog::getTitle, title)
                 .ge(Objects.nonNull(startTime), SecurityOperationLog::getCreateTime, startTime)
                 .le(Objects.nonNull(endTime), SecurityOperationLog::getCreateTime, endTime)

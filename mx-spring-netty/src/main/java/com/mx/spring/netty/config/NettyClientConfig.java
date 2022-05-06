@@ -4,9 +4,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * @Author: 徐建鹏.
+ * @Author: mengxiang.
  * @create: 2022-04-22 14:21
- * @Description:
+ * @Description: 客户端配置
  */
 @Component
 @ConfigurationProperties(prefix = "mx.netty.client")

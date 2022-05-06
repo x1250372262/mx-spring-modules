@@ -6,11 +6,10 @@ import freemarker.template.utility.NullArgumentException;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * @program: mx-maven-plugin
- * @description: 总配置
- * @author: mengxiang
- * @create: 2021-09-02 14:39
- **/
+ * @Author: mengxiang.
+ * @create: 2021-09-30 09:21
+ * @Description: 基本配置
+ */
 public class MxConfig {
 
     private String driverClassName;
@@ -27,19 +26,19 @@ public class MxConfig {
 
     public MxConfig init(Props props) {
         this.driverClassName = props.getStr(PropUtils.DRIVER_CLASS_NAME);
-        if(StringUtils.isBlank(this.driverClassName)){
+        if (StringUtils.isBlank(this.driverClassName)) {
             throw new NullArgumentException(PropUtils.DRIVER_CLASS_NAME);
         }
         this.url = props.getStr(PropUtils.URL);
-        if(StringUtils.isBlank(this.url)){
+        if (StringUtils.isBlank(this.url)) {
             throw new NullArgumentException(PropUtils.URL);
         }
         this.userName = props.getStr(PropUtils.USER_NAME);
-        if(StringUtils.isBlank(this.userName)){
+        if (StringUtils.isBlank(this.userName)) {
             throw new NullArgumentException(PropUtils.USER_NAME);
         }
         this.password = props.getStr(PropUtils.PASSWORD);
-        if(StringUtils.isBlank(this.password)){
+        if (StringUtils.isBlank(this.password)) {
             throw new NullArgumentException(PropUtils.PASSWORD);
         }
         return this;

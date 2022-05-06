@@ -11,7 +11,7 @@ import java.util.function.Supplier;
 /**
  * @Author: mengxiang.
  * @create: 2021-07-02 16:58
- * @Description:
+ * @Description: 复制bean工具类
  */
 public class MpBeanUtils extends BeanUtil {
 

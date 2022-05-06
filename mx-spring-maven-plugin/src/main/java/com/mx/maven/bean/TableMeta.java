@@ -4,11 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @program: mx-maven-plugin
- * @description:
- * @author: mengxiang
- * @create: 2021-09-02 14:39
- **/
+ * @Author: mengxiang.
+ * @create: 2021-09-30 09:21
+ * @Description: 表元数据
+ */
 public class TableMeta {
 
     private List<String> pkSet;

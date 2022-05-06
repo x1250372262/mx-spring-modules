@@ -1,13 +1,13 @@
 package com.mx.maven.util;
 
 /**
- * @Author: 徐建鹏.
- * @create: 2022-04-21 11:11
- * @Description:
+ * @Author: mengxiang.
+ * @create: 2021-09-30 09:21
+ * @Description: jdbc类型
  */
 public class JdbcTypeUtils {
 
-    public enum JdbcType{
+    public enum JdbcType {
 
         /**
          * jdbc类型
@@ -41,9 +41,9 @@ public class JdbcTypeUtils {
 
     }
 
-    public static String getJdbcType(String oldType){
+    public static String getJdbcType(String oldType) {
         JdbcType jdbcType = JdbcType.valueTo(oldType);
-        if(jdbcType == null){
+        if (jdbcType == null) {
             return oldType;
         }
         return jdbcType.name();

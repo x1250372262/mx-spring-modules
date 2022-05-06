@@ -9,8 +9,8 @@ import cn.hutool.extra.servlet.ServletUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.mx.spring.dev.constants.Constants;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.View;
 import com.mx.spring.dev.result.Result;
+import com.mx.spring.dev.result.View;
 import com.mx.spring.dev.util.BeanUtil;
 import com.mx.spring.dev.util.TimeUtil;
 import com.mx.spring.dev.util.WebUtil;
@@ -75,7 +75,7 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
         if (securityUser == null) {
             return View.fail(SECURITY_LOGIN_USER_NAME_NOT_EXIST.getCode(), SECURITY_LOGIN_USER_NAME_NOT_EXIST.getMsg());
         }
-        if (Objects.equals(Constants.BOOL_TRUE,securityUser.getDisableStatus())) {
+        if (Objects.equals(Constants.BOOL_TRUE, securityUser.getDisableStatus())) {
             return View.fail(SECURITY_LOGIN_USER_DISABLE.getCode(), SECURITY_LOGIN_USER_DISABLE.getMsg());
         }
         //锁住了
@@ -98,7 +98,7 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
             //次数+1 到数之后直接冻结
             securityUser.setLoginErrorCount(securityUser.getLoginErrorCount() + 1);
             //冻结了 配置设置了错误次数 并且实际错误次数大于等于设置的错误次数
-            if(config.getErrorCount() > 0 && securityUser.getLoginErrorCount() >= config.getErrorCount()){
+            if (config.getErrorCount() > 0 && securityUser.getLoginErrorCount() >= config.getErrorCount()) {
                 securityUser.setLoginLockStatus(Constants.BOOL_TRUE);
                 securityUser.setLoginLockStartTime(System.currentTimeMillis());
                 securityUser.setLoginLockEndTime(System.currentTimeMillis() + TimeUtil.DAY);

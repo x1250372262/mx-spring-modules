@@ -3,9 +3,9 @@ package com.mx.spring.dev.exception;
 /**
  * @Author: mengxiang.
  * @create: 2021-07-02 16:58
- * @Description:
+ * @Description: 自义定异常
  */
-public class MxException extends Exception {
+public class MxException extends RuntimeException {
 
     protected final String message;
 

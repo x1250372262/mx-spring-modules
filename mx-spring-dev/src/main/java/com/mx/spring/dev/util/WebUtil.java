@@ -12,7 +12,7 @@ import java.util.Objects;
 /**
  * @Author: mengxiang.
  * @create: 2021-07-02 16:58
- * @Description:
+ * @Description: web工具类
  */
 public class WebUtil {
 

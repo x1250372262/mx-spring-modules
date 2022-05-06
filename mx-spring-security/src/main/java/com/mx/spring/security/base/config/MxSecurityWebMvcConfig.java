@@ -36,11 +36,10 @@ public class MxSecurityWebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        if(mxSecurityConfig.isCross()){
+        if (mxSecurityConfig.isCross()) {
             //添加映射路径
             registry.addMapping("/**")
                     //放行哪些原始域
-//                    .allowedOrigins("*")
                     .allowedOriginPatterns("*")
                     //是否发送Cookie信息
                     .allowCredentials(true)

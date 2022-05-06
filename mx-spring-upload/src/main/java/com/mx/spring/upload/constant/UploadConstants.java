@@ -1,7 +1,7 @@
 package com.mx.spring.upload.constant;
 
 /**
- * @Author: 徐建鹏.
+ * @Author: mengxiang.
  * @create: 2022-04-21 13:07
  * @Description:
  */

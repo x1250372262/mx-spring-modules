@@ -13,7 +13,7 @@ import static com.mx.spring.netty.config.NettyConfig.SERVER_CLIENT_CLIENT;
 import static com.mx.spring.netty.config.NettyConfig.SERVER_CLIENT_SERVER;
 
 /**
- * @Author: 徐建鹏.
+ * @Author: mengxiang.
  * @create: 2022-04-22 15:56
  * @Description:
  */

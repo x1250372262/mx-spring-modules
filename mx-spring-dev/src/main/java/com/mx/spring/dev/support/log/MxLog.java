@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 /**
  * @Author: mengxiang.
  * @create: 2022-03-25 16:43
- * @Description:
+ * @Description: 快捷打印日志
  */
 public class MxLog {
 

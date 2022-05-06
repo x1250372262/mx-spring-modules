@@ -7,28 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @program: mx-maven-plugin
- * @description: 数据库工具类
- * @author: mengxiang
- * @create: 2021-09-02 14:25
- **/
+ * @Author: mengxiang.
+ * @create: 2021-09-30 09:21
+ * @Description: 数据库工具类
+ */
 public class DbUtils {
 
     private static final Props PROPS = PropUtils.getProps();
-
-//    /**
-//     * 获取数据源
-//     *
-//     * @return
-//     */
-//    public static DataSource dataSource() {
-//        DbConfig dbConfig = new DbConfig();
-//        dbConfig.setDriver(PROPS.getStr(PropUtils.DRIVER_CLASS_NAME));
-//        dbConfig.setUrl(PROPS.getStr(PropUtils.URL));
-//        dbConfig.setUser(PROPS.getStr(PropUtils.USER_NAME));
-//        dbConfig.setPass(PROPS.getStr(PropUtils.PASSWORD));
-//        return new PooledDataSource(dbConfig);
-//    }
 
 
     public static Connection connection() throws Exception {
@@ -60,7 +45,5 @@ public class DbUtils {
                 }
             }
         }
-
     }
-
 }

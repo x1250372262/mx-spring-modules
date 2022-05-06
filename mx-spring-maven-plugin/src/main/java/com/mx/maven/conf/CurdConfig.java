@@ -4,11 +4,10 @@ import cn.hutool.setting.dialect.Props;
 import com.mx.maven.util.PropUtils;
 
 /**
- * @program: mx-maven-plugin
- * @description: mapper配置
- * @author: mengxiang
- * @create: 2021-09-02 14:39
- **/
+ * @Author: mengxiang.
+ * @create: 2021-09-30 09:21
+ * @Description: curd配置
+ */
 public class CurdConfig {
 
 
@@ -185,8 +184,8 @@ public class CurdConfig {
         this.voName = props.getStr(PropUtils.CURD_VO_PACK_NAME);
         this.voProjectPath = props.getStr(PropUtils.CURD_VO_PROJECT_PATH);
         this.checkVersion = props.getBool(PropUtils.CURD_CHECK_VERSION, false);
-        this.notSameField = props.getStr(PropUtils.CURD_NOT_SAME_FIELD,"我的相同字段");
-        this.notSameText = props.getStr(PropUtils.CURD_NOT_SAME_TEXT,"我是相同字段描述");
+        this.notSameField = props.getStr(PropUtils.CURD_NOT_SAME_FIELD, "我的相同字段");
+        this.notSameText = props.getStr(PropUtils.CURD_NOT_SAME_TEXT, "我是相同字段描述");
         this.listParams = props.getStr(PropUtils.CURD_LIST_PARAMS);
         this.listReturns = props.getStr(PropUtils.CURD_LIST_RETURNS);
         this.detailReturns = props.getStr(PropUtils.CURD_DETAIL_RETURNS);

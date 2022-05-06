@@ -3,8 +3,8 @@ package com.mx.spring.security.controller;
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.View;
 import com.mx.spring.dev.result.Result;
+import com.mx.spring.dev.result.View;
 import com.mx.spring.dev.support.format.FormatRequest;
 import com.mx.spring.dev.support.page.PageDTO;
 import com.mx.spring.dev.support.page.Pages;
@@ -91,9 +91,9 @@ public class SecurityRoleController {
     @SaCheckPermission(value = SecurityPermissionConfig.SECURITY_ROLE_UPDATE)
     @OperationLog(operationType = OperationType.UPDATE, title = "修改角色")
     public Result update(@ApiParam(name = "id", value = "ID", required = true)
-                    @PathVariable String id,
+                         @PathVariable String id,
                          @ApiParam(name = "lastModifyTime", value = "最后修改时间(乐观锁)", required = true)
-                    @NotNull(message = "最后修改时间(乐观锁)不能为空") Long lastModifyTime,
+                         @NotNull(message = "最后修改时间(乐观锁)不能为空") Long lastModifyTime,
                          @Validated SecurityRoleDTO roleDTO) throws MxException {
         return iRoleService.update(id, lastModifyTime, roleDTO.toBean());
     }
@@ -111,7 +111,7 @@ public class SecurityRoleController {
     @ApiOperation(value = "角色详情")
     @SaCheckPermission(value = SecurityPermissionConfig.SECURITY_ROLE_DETAIL)
     public View<SecurityRoleVO> detail(@ApiParam(name = "id", value = "ID", required = true)
-                                    @PathVariable String id) throws MxException {
+                                       @PathVariable String id) throws MxException {
         return iRoleService.detail(id);
     }
 
@@ -129,8 +129,8 @@ public class SecurityRoleController {
     @SaCheckPermission(value = SecurityPermissionConfig.SECURITY_ROLE_DELETE)
     @OperationLog(operationType = OperationType.DELETE, title = "删除角色")
     public Result delete(@ApiParam(name = "ids", value = "ids", required = true)
-                    @NotNull(message = "ids不能为空")
-                    @RequestParam("ids[]") String[] ids) throws MxException {
+                         @NotNull(message = "ids不能为空")
+                         @RequestParam("ids[]") String[] ids) throws MxException {
         return iRoleService.delete(ids);
     }
 
@@ -148,7 +148,7 @@ public class SecurityRoleController {
     @ApiOperation(value = "角色权限列表")
     @SaCheckPermission(value = SecurityPermissionConfig.SECURITY_ROLE_PERMISSION_LIST)
     public Result permissionList(@ApiParam(name = "id", value = "id", required = true)
-                            @NotBlank(message = "id不能为空") String id) throws MxException {
+                                 @NotBlank(message = "id不能为空") String id) throws MxException {
         return iRoleService.permissionList(id);
     }
 
@@ -168,7 +168,7 @@ public class SecurityRoleController {
     @SaCheckPermission(value = SecurityPermissionConfig.SECURITY_ROLE_PERMISSION_BIND)
     @OperationLog(operationType = OperationType.OTHER, title = "角色权限绑定")
     public Result permissionBind(@ApiParam(name = "id", value = "id", required = true)
-                            @NotBlank(message = "id不能为空") String id,
+                                 @NotBlank(message = "id不能为空") String id,
                                  @RequestParam(value = "permissions[]") String[] permissions) throws MxException {
         return iRoleService.permissionBind(id, permissions);
     }

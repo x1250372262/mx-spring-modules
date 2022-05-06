@@ -2,8 +2,8 @@ package com.mx.spring.security.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.View;
 import com.mx.spring.dev.result.Result;
+import com.mx.spring.dev.result.View;
 import com.mx.spring.dev.support.format.FormatRequest;
 import com.mx.spring.security.annotation.OperationLog;
 import com.mx.spring.security.base.bean.LoginResult;
@@ -50,9 +50,9 @@ public class SecurityLoginController {
     @FormatRequest
     @ApiOperation(value = "管理员登录")
     public View<LoginResult> login(@ApiParam(name = "userName", value = "用户名", required = true)
-                                @NotBlank(message = "用户名不能为空") String userName,
+                                   @NotBlank(message = "用户名不能为空") String userName,
                                    @ApiParam(name = "password", value = "密码(前端需要自行MD5加密一次)", required = true)
-                                @NotBlank(message = "密码不能为空") String password) throws MxException {
+                                   @NotBlank(message = "密码不能为空") String password) throws MxException {
         return iSecurityLoginService.login(userName, password);
     }
 

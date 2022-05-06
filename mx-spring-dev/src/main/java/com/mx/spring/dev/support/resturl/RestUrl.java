@@ -3,7 +3,7 @@ package com.mx.spring.dev.support.resturl;
 /**
  * @Author: mengxiang.
  * @create: 2022-03-25 20:54
- * @Description:
+ * @Description: restUrl对象
  */
 public class RestUrl {
 

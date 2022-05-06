@@ -3,7 +3,6 @@ package com.mx.spring.netty.impl;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.convert.Convert;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.support.log.MxLog;
 import com.mx.spring.netty.INetty;
 import com.mx.spring.netty.config.NettyClientConfig;
 import com.mx.spring.netty.handler.HeartBeatServerHandler;

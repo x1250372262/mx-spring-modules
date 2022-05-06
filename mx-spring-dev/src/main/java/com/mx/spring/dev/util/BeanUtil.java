@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 /**
  * @Author: mengxiang.
  * @create: 2021-07-02 16:58
- * @Description:
+ * @Description: bean工具类
  */
 public class BeanUtil {
 
@@ -123,6 +123,7 @@ public class BeanUtil {
 
         /**
          * 回调方法
+         *
          * @param s
          * @param t
          * @throws MxException

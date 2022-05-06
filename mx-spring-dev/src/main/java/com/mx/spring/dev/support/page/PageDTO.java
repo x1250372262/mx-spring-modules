@@ -12,7 +12,7 @@ import java.io.Serializable;
 /**
  * @Author: mengxiang.
  * @create: 2021-07-02 16:58
- * @Description:
+ * @Description: 分页dto
  */
 @ApiModel(value = "分页信息", description = "分页信息")
 public class PageDTO<T> implements Serializable {

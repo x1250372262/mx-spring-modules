@@ -5,11 +5,10 @@ import com.mx.maven.util.ModelUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * @program: mx-maven-plugin
- * @description:
- * @author: mengxiang
- * @create: 2021-09-02 14:39
- **/
+ * @Author: mengxiang.
+ * @create: 2021-09-30 09:21
+ * @Description: 列对象
+ */
 public class ColumnInfo {
 
     private String columnName;

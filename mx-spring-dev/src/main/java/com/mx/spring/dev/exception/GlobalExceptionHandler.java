@@ -3,7 +3,8 @@ package com.mx.spring.dev.exception;
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.exception.NotPermissionException;
 import cn.dev33.satoken.exception.NotRoleException;
-import com.mx.spring.dev.code.C;
+import cn.hutool.core.util.StrUtil;
+import com.mx.spring.dev.code.Code;
 import com.mx.spring.dev.result.Result;
 import com.mx.spring.dev.support.log.MxLog;
 import org.springframework.validation.BindException;
@@ -24,7 +25,7 @@ import java.util.stream.Collectors;
 /**
  * @Author: mengxiang.
  * @create: 2021-07-02 16:58
- * @Description:
+ * @Description: 全局异常处理
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -35,7 +36,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({HttpRequestMethodNotSupportedException.class})
     public Result handleException(HttpRequestMethodNotSupportedException e) {
         MxLog.error(e.getMessage(), e);
-        return Result.create(C.SYSTEM_ERROR.getCode()).msg("不支持' " + e.getMethod() + "'请求");
+        return Result.create(Code.NOT_SUPPORT_REQUEST.getCode()).msg(StrUtil.format(Code.NOT_SUPPORT_REQUEST.getMsg(), e.getMethod()));
     }
 
     /**
@@ -44,7 +45,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     public Result notFount(RuntimeException e) {
         MxLog.error("运行时异常:", e);
-        return Result.create(C.SYSTEM_ERROR.getCode()).msg("运行时异常:" + e.getMessage());
+        return Result.create(Code.SYSTEM_ERROR.getCode()).msg("运行时异常:" + e.getMessage());
     }
 
     /**
@@ -53,7 +54,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public Result handleException(Exception e) {
         MxLog.error(e.getMessage(), e);
-        return Result.create(C.SYSTEM_ERROR.getCode()).msg(C.SYSTEM_ERROR.getMsg());
+        return Result.create(Code.SYSTEM_ERROR.getCode()).msg(Code.SYSTEM_ERROR.getMsg());
     }
 
     /**
@@ -62,7 +63,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MxException.class)
     public Result businessException(MxException e) {
         MxLog.error(e.getMessage(), e);
-        return Result.create(C.SYSTEM_ERROR.getCode()).msg(e.getMessage());
+        return Result.create(Code.SYSTEM_ERROR.getCode()).msg(e.getMessage());
     }
 
     /**
@@ -71,7 +72,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NotLoginException.class)
     public Result notLoginException(HttpServletRequest request, NotLoginException e) {
         MxLog.error(e.getMessage(), e);
-        return Result.create(C.NOT_LOGIN.getCode()).msg(C.NOT_LOGIN.getMsg());
+        return Result.create(Code.NOT_LOGIN.getCode()).msg(Code.NOT_LOGIN.getMsg());
     }
 
     /**
@@ -80,7 +81,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({NotPermissionException.class, NotRoleException.class})
     public Result notPermissionException(HttpServletRequest request, Exception e) {
         MxLog.error(e.getMessage(), e);
-        return Result.create(C.NOT_PERMISSION.getCode()).msg(C.NOT_PERMISSION.getMsg());
+        return Result.create(Code.NOT_PERMISSION.getCode()).msg(Code.NOT_PERMISSION.getMsg());
     }
 
 
@@ -95,7 +96,7 @@ public class GlobalExceptionHandler {
                 message = fieldError.getField() + fieldError.getDefaultMessage();
             }
         }
-        return Result.create(C.INVALID_PARAMETER.getCode()).msg(message);
+        return Result.create(Code.INVALID_PARAMETER.getCode()).msg(message);
     }
 
     @ResponseBody
@@ -104,7 +105,7 @@ public class GlobalExceptionHandler {
         MxLog.warn("ConstraintViolationException:", e);
         Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
         String message = violations.stream().map(ConstraintViolation::getMessage).collect(Collectors.joining(";"));
-        return Result.create(C.INVALID_PARAMETER.getCode()).msg(message);
+        return Result.create(Code.INVALID_PARAMETER.getCode()).msg(message);
     }
 
     @ResponseBody
@@ -118,7 +119,7 @@ public class GlobalExceptionHandler {
                 message = fieldError.getField() + fieldError.getDefaultMessage();
             }
         }
-        return Result.create(C.INVALID_PARAMETER.getCode()).msg(message);
+        return Result.create(Code.INVALID_PARAMETER.getCode()).msg(message);
     }
 
 

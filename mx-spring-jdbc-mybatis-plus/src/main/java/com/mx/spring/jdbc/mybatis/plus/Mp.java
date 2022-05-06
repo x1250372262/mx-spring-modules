@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 /**
  * @Author: mengxiang.
  * @create: 2021-09-30 09:21
- * @Description:
+ * @Description: 便捷操作
  */
 public class Mp {
 

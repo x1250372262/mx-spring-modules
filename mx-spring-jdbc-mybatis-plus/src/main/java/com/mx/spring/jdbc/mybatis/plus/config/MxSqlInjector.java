@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @Author: mengxiang.
  * @create: 2021-10-11 09:33
- * @Description:
+ * @Description: 自定义sql注入
  */
 public class MxSqlInjector extends DefaultSqlInjector {
 

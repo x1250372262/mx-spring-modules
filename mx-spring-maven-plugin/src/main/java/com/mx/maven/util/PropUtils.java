@@ -5,11 +5,10 @@ import cn.hutool.setting.dialect.Props;
 import java.io.File;
 
 /**
- * @program: mx-maven-plugin
- * @description: 资源文件工具类
- * @author: mengxiang
- * @create: 2021-09-02 13:03
- **/
+ * @Author: mengxiang.
+ * @create: 2021-09-30 09:21
+ * @Description: 资源文件工具类
+ */
 public class PropUtils {
 
     public static final String DRIVER_CLASS_NAME = "mx.driverClassName";

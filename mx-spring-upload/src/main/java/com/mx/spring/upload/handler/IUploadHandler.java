@@ -26,6 +26,7 @@ public interface IUploadHandler {
 
     /**
      * 获取文件存储路径
+     *
      * @param type
      * @param hash
      * @param extension
@@ -42,6 +43,7 @@ public interface IUploadHandler {
 
     /**
      * 获取文件访问url
+     *
      * @param url
      * @return
      */

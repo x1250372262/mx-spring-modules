@@ -5,8 +5,7 @@ package com.mx.spring.security.base.enums;
  * @create: 2022-04-20 00:00
  * @Description: 菜单类型枚举
  */
-public enum MenuType
-{
+public enum MenuType {
     /**
      * 默认
      */

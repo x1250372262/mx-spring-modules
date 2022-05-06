@@ -4,19 +4,17 @@ import cn.hutool.core.util.StrUtil;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * @program: mx-maven-plugin
- * @description:
- * @author: mengxiang
- * @create: 2021-09-02 14:39
- **/
+ * @Author: mengxiang.
+ * @create: 2021-09-30 09:21
+ * @Description: 实体类 数据库字段转换
+ */
 public class ModelUtils {
 
     /**
-     * 处理字段名称，使其符合JavaBean属性串格式<br>
-     * 例如：属性名称为"user_name"，其处理结果为"UserName"<br>
+     * 数据库字段转换成java字段
      *
-     * @param propertyName 属性名称
-     * @return 符合JavaBean属性格式串
+     * @param propertyName
+     * @return
      */
     public static String propertyNameToFieldName(String propertyName) {
         if (StringUtils.contains(propertyName, StrUtil.UNDERLINE)) {

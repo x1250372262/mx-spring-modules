@@ -12,13 +12,6 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "mx.upload.tx")
 public class TxUploadConfig {
 
-//
-//    private String secretId="你的腾讯云secretId";     				//腾讯云对象存储的secretId(需替换)
-//    private String secretKey="你的腾讯云secretKey";          			//腾讯云对象存储的secretKey(需替换)
-//    private String bucket="ap-chengdu";                             //所属地域
-//    private String bucketName="你的存储桶名称";                       //存储桶名称(需替换)
-//    private String path="https://bucketName.coscd.myqcloud.com";    //访问域名（bucketName替换为你的存储桶名称）
-//    private String qianzhui="directory";
 
     /**
      * 外链地址

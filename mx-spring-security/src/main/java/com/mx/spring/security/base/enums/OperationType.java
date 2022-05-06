@@ -5,8 +5,7 @@ package com.mx.spring.security.base.enums;
  * @create: 2022-04-20 00:00
  * @Description: 操作日志类型枚举
  */
-public enum OperationType
-{
+public enum OperationType {
     /**
      * 未知
      */

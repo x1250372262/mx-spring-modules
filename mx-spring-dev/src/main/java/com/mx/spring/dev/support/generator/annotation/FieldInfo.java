@@ -14,12 +14,14 @@ public @interface FieldInfo {
 
     /**
      * 描述
+     *
      * @return
      */
     String comment() default "";
 
     /**
      * 是否为空 默认true
+     *
      * @return
      */
     boolean nullable() default true;

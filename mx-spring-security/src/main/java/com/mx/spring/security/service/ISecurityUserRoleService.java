@@ -13,6 +13,7 @@ public interface ISecurityUserRoleService {
 
     /**
      * 获取所有权限
+     *
      * @param securityUserId
      * @param token
      * @return

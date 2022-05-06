@@ -22,7 +22,7 @@ import java.util.Objects;
 /**
  * @Author: mengxiang.
  * @create: 2022-03-25 20:54
- * @Description:
+ * @Description: RestUrl工具类
  */
 @Component
 public class RestUrlUtils {
@@ -37,7 +37,7 @@ public class RestUrlUtils {
 
     @PostConstruct
     public void printList() {
-        if(mxConfig.isPrintRestUrl()){
+        if (mxConfig.isPrintRestUrl()) {
             if (CollUtil.isEmpty(REST_URL_LIST)) {
                 list();
             }
@@ -55,7 +55,6 @@ public class RestUrlUtils {
 
 
     public void list() {
-        System.out.println("11111");
         if (REST_URL_LIST == null) {
             synchronized (RestUrlUtils.class) {
                 if (REST_URL_LIST == null) {

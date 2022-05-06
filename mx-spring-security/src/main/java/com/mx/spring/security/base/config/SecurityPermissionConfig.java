@@ -116,7 +116,7 @@ public class SecurityPermissionConfig {
         //人员管理
         SECURITY_USER_LIST("人员列表"), SECURITY_USER_CREATE("添加人员"), SECURITY_USER_UPDATE_STATUS("修改人员状态"), SECURITY_USER_UNLOCK("解除人员冻结"), SECURITY_USER_RESET_PASSWORD("重置人员密码"), SECURITY_USER_DETAIL("人员详情"), SECURITY_USER_ROLE_LIST("人员角色列表"), SECURITY_USER_ROLE_CREATE("添加人员角色"), SECURITY_USER_ROLE_DELETE("删除人员角色"),
         //日志管理
-        SECURITY_LOG_LIST("日志列表"),SECURITY_LOG_DETAIL("日志详情"), SECURITY_LOG_DELETE("删除日志");
+        SECURITY_LOG_LIST("日志列表"), SECURITY_LOG_DETAIL("日志详情"), SECURITY_LOG_DELETE("删除日志");
 
         private final String value;
 

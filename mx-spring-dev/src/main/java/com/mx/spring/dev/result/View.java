@@ -1,6 +1,6 @@
 package com.mx.spring.dev.result;
 
-import com.mx.spring.dev.code.C;
+import com.mx.spring.dev.code.Code;
 import com.mx.spring.dev.support.page.Pages;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -10,13 +10,13 @@ import java.io.Serializable;
 /**
  * @Author: mengxiang.
  * @create: 2021-07-02 16:58
- * @Description:
+ * @Description: 通用请求返回数据-响应信息主体
  */
 @ApiModel(value = "View", description = "通用请求返回数据-响应信息主体")
 public class View<T> implements Serializable {
 
     @ApiModelProperty(value = "错误码")
-    private int code;
+    private String code;
 
     @ApiModelProperty(value = "错误信息")
     private String msg;
@@ -33,7 +33,7 @@ public class View<T> implements Serializable {
     }
 
 
-    public static <T> View<T> ok(int code, String msg, T data) {
+    public static <T> View<T> ok(String code, String msg, T data) {
         View<T> result = new View<>();
         result.setCode(code);
         result.setMsg(msg);
@@ -41,24 +41,16 @@ public class View<T> implements Serializable {
         return result;
     }
 
-    public static <T> View<T> ok(int code, T data) {
-        return ok(code, C.SUCCESS.getMsg(), data);
-    }
-
-    public static <T> View<T> ok(String msg, T data) {
-        return ok(C.SUCCESS.getCode(), msg, data);
-    }
-
     public static <T> View<T> ok(T data) {
-        return ok(C.SUCCESS.getCode(), C.SUCCESS.getMsg(), data);
+        return ok(Code.SUCCESS.getCode(), Code.SUCCESS.getMsg(), data);
     }
 
-    public static <T> View<T> ok(int code, String msg) {
+    public static <T> View<T> ok(String code, String msg) {
         return ok(code, msg, null);
     }
 
 
-    public static <T> View<T> fail(int code, String msg, T data) {
+    public static <T> View<T> fail(String code, String msg, T data) {
         View<T> result = new View<>();
         result.setCode(code);
         result.setMsg(msg);
@@ -66,28 +58,20 @@ public class View<T> implements Serializable {
         return result;
     }
 
-    public static <T> View<T> fail(int code, T data) {
-        return ok(code, C.ERROR.getMsg(), data);
-    }
-
-    public static <T> View<T> fail(String msg, T data) {
-        return ok(C.ERROR.getCode(), msg, data);
-    }
-
     public static <T> View<T> fail(T data) {
-        return ok(C.ERROR.getCode(), C.ERROR.getMsg(), data);
+        return ok(Code.ERROR.getCode(), Code.ERROR.getMsg(), data);
     }
 
-    public static <T> View<T> fail(int code, String msg) {
+    public static <T> View<T> fail(String code, String msg) {
         return fail(code, msg, null);
     }
 
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 

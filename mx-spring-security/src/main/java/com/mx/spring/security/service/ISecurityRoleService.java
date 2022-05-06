@@ -1,8 +1,8 @@
 package com.mx.spring.security.service;
 
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.View;
 import com.mx.spring.dev.result.Result;
+import com.mx.spring.dev.result.View;
 import com.mx.spring.dev.support.page.PageBean;
 import com.mx.spring.dev.support.page.Pages;
 import com.mx.spring.security.base.bean.SecurityRoleBean;
@@ -77,6 +77,7 @@ public interface ISecurityRoleService {
 
     /**
      * 角色权限绑定
+     *
      * @param id
      * @param permissions
      * @return

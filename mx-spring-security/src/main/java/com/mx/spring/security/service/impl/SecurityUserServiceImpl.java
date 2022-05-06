@@ -6,8 +6,8 @@ import cn.hutool.extra.servlet.ServletUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mx.spring.dev.constants.Constants;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.View;
 import com.mx.spring.dev.result.Result;
+import com.mx.spring.dev.result.View;
 import com.mx.spring.dev.support.page.PageBean;
 import com.mx.spring.dev.support.page.Pages;
 import com.mx.spring.dev.util.BeanUtil;
@@ -147,7 +147,7 @@ public class SecurityUserServiceImpl implements ISecurityUserService {
         userName = DigestUtils.md5DigestAsHex(userName.getBytes(StandardCharsets.UTF_8));
         String password = null;
         try {
-            password = DigestUtils.md5DigestAsHex(Base64.encodeBase64((userName + securityUser.getSalt()).getBytes(Constants.DEFAULT_CHARTSET)));
+            password = DigestUtils.md5DigestAsHex(Base64.encodeBase64((userName + securityUser.getSalt()).getBytes(Constants.DEFAULT_CHARSET)));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

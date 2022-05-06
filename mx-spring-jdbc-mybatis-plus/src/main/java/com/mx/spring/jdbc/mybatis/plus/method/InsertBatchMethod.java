@@ -1,7 +1,6 @@
 package com.mx.spring.jdbc.mybatis.plus.method;
 
 import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.enums.SqlMethod;
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import org.apache.commons.lang3.StringUtils;
@@ -12,7 +11,7 @@ import org.apache.ibatis.mapping.SqlSource;
 /**
  * @Author: mengxiang.
  * @create: 2021-09-30 08:56
- * @Description:
+ * @Description: 自定义批量插入方法
  */
 public class InsertBatchMethod extends AbstractMethod {
 
@@ -40,7 +39,7 @@ public class InsertBatchMethod extends AbstractMethod {
 
     private String createFieldSql(TableInfo tableInfo) {
         StringBuilder fieldSql = new StringBuilder();
-        if(StringUtils.isNotBlank(tableInfo.getKeyColumn())){
+        if (StringUtils.isNotBlank(tableInfo.getKeyColumn())) {
             fieldSql.append(tableInfo.getKeyColumn()).append(",");
         }
         tableInfo.getFieldList().forEach(t -> fieldSql.append(t.getColumn()).append(","));
@@ -51,7 +50,7 @@ public class InsertBatchMethod extends AbstractMethod {
     private String createValueSql(TableInfo tableInfo) {
         final StringBuilder valueSql = new StringBuilder();
         valueSql.append("<foreach collection=\"list\" item=\"item\" index=\"index\" open=\"(\" separator=\"),(\" close=\")\">");
-        if(StringUtils.isNotBlank(tableInfo.getKeyProperty())){
+        if (StringUtils.isNotBlank(tableInfo.getKeyProperty())) {
             valueSql.append("#{item.").append(tableInfo.getKeyProperty()).append("},");
         }
         tableInfo.getFieldList().forEach(x -> valueSql.append("#{item.").append(x.getProperty()).append("},"));

@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @Author: mengxiang.
  * @create: 2021-07-02 16:58
- * @Description:
+ * @Description: 分页基类
  */
 @ApiModel(value = "分页信息", description = "分页信息")
 public class Pages<T> implements Serializable {

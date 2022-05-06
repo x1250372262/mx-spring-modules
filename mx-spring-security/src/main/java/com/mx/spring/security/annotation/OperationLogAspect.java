@@ -5,11 +5,13 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import cn.hutool.http.useragent.UserAgentUtil;
 import com.alibaba.fastjson.JSONObject;
-import com.mx.spring.dev.result.View;
+import com.mx.spring.dev.code.Code;
 import com.mx.spring.dev.result.Result;
+import com.mx.spring.dev.result.View;
 import com.mx.spring.dev.support.log.MxLog;
 import com.mx.spring.dev.util.WebUtil;
 import com.mx.spring.security.SaUtils;
+import com.mx.spring.security.base.code.SecurityCode;
 import com.mx.spring.security.base.config.MxSecurityConfig;
 import com.mx.spring.security.base.enums.OperationType;
 import com.mx.spring.security.base.model.SecurityOperationLog;
@@ -84,7 +86,7 @@ public class OperationLogAspect {
             if (securityUser == null) {
                 return;
             }
-            int code = 10000;
+            String code = SecurityCode.SECURITY_CHECK_ERROR.getCode();
             String msg = OperationType.UNKNOWN.name();
             if (ret instanceof Result) {
                 code = ((Result) ret).getCode();
@@ -94,7 +96,7 @@ public class OperationLogAspect {
                 msg = ((View<?>) ret).getMsg();
             }
             if (e != null) {
-                code = -50;
+                code = Code.SYSTEM_ERROR.getCode();
                 msg = e.getMessage();
             }
             HttpServletRequest request = WebUtil.request();

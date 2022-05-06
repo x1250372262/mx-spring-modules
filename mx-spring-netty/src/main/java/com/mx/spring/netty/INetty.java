@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Author: 徐建鹏.
+ * @Author: mengxiang.
  * @create: 2022-04-22 15:47
  * @Description:
  */
@@ -15,6 +15,7 @@ public interface INetty {
 
     /**
      * 获取编码器
+     *
      * @param decoderClassName
      * @return
      */
@@ -28,6 +29,7 @@ public interface INetty {
 
     /**
      * 获取hander集合
+     *
      * @param handlerClassName
      * @return
      */
@@ -35,7 +37,7 @@ public interface INetty {
         String[] handlerArray = handlerClassName.split(",");
         List<Class<? extends ChannelInboundHandlerAdapter>> list = new ArrayList<>();
         for (String handler : handlerArray) {
-            list.add(ClassUtil.loadClass(handler,false));
+            list.add(ClassUtil.loadClass(handler, false));
         }
         return list;
     }

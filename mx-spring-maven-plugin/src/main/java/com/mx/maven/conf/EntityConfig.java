@@ -6,11 +6,10 @@ import freemarker.template.utility.NullArgumentException;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * @program: mx-maven-plugin
- * @description: 实体类配置
- * @author: mengxiang
- * @create: 2021-09-02 14:39
- **/
+ * @Author: mengxiang.
+ * @create: 2021-09-30 09:21
+ * @Description: 实体类配置
+ */
 public class EntityConfig {
 
     /**

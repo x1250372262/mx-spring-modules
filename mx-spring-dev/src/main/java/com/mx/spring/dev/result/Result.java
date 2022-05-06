@@ -1,7 +1,8 @@
 package com.mx.spring.dev.result;
 
 import cn.hutool.core.collection.CollectionUtil;
-import com.mx.spring.dev.code.C;
+import cn.hutool.core.util.StrUtil;
+import com.mx.spring.dev.code.Code;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.ObjectUtils;
@@ -16,13 +17,13 @@ import java.util.Objects;
 /**
  * @Author: mengxiang.
  * @create: 2021-07-02 16:58
- * @Description:
+ * @Description: 通用请求返回数据-操作消息提醒
  */
 @ApiModel(value = "Result", description = "通用请求返回数据-操作消息提醒")
 public class Result implements Serializable {
 
     @ApiModelProperty(value = "错误码")
-    private int code;
+    private String code;
 
     @ApiModelProperty(value = "错误信息")
     private String msg;
@@ -33,16 +34,16 @@ public class Result implements Serializable {
     private Result() {
     }
 
-    private Result(int code) {
+    private Result(String code) {
         this.code = code;
     }
 
-    public static boolean check(Result r) {
-        return r.code() == C.SUCCESS.getCode();
+    public static boolean check(Result result) {
+        return Code.SUCCESS.getCode().equals(result.code);
     }
 
-    public Result none() {
-        return Result.create(-10);
+    public boolean check() {
+        return Code.SUCCESS.getCode().equals(this.code);
     }
 
     /**
@@ -89,8 +90,8 @@ public class Result implements Serializable {
      * 成功result
      */
     public static Result ok() {
-        return Result.create(C.SUCCESS.getCode())
-                .msg(C.SUCCESS.getMsg());
+        return Result.create(Code.SUCCESS.getCode())
+                .msg(Code.SUCCESS.getMsg());
     }
 
     /**
@@ -104,47 +105,45 @@ public class Result implements Serializable {
      * 失败result
      */
     public static Result fail() {
-        return Result.create(C.ERROR.getCode())
-                .msg(C.ERROR.getMsg());
+        return Result.create(Code.ERROR.getCode())
+                .msg(Code.ERROR.getMsg());
     }
 
     public static Result create() {
         return new Result();
     }
 
-    public static Result create(int code) {
+    public static Result create(String code) {
         return new Result(code);
     }
 
+
     public static Result sameName() {
-        return Result.create(C.FIELDS_EXISTS.getCode()).msg(String.format(C.FIELDS_EXISTS.getMsg(), "名称"));
+        return Result.create(Code.FIELDS_EXISTS.getCode()).msg(StrUtil.format(Code.FIELDS_EXISTS.getMsg(), "名称"));
     }
 
     public static Result sameData(String msg) {
-        return Result.create(C.FIELDS_EXISTS.getCode()).msg(String.format(C.FIELDS_EXISTS.getMsg(), msg));
+        return Result.create(Code.FIELDS_EXISTS.getCode()).msg(String.format(Code.FIELDS_EXISTS.getMsg(), msg));
     }
 
     public static Result noVersion() {
-        return Result.create(C.VERSION_NOT_SAME.getCode()).msg(C.VERSION_NOT_SAME.getMsg());
+        return Result.create(Code.VERSION_NOT_SAME.getCode()).msg(Code.VERSION_NOT_SAME.getMsg());
     }
 
     public static Result noData() {
-        return Result.create(C.NO_DATA.getCode()).msg(C.NO_DATA.getMsg());
+        return Result.create(Code.NO_DATA.getCode()).msg(Code.NO_DATA.getMsg());
     }
 
     public static boolean checkVersion(Object var1, Object var2) {
         return Objects.equals(var1, var2);
     }
 
-    public boolean check() {
-        return this.code() == C.SUCCESS.getCode();
-    }
 
-    public int code() {
+    public String code() {
         return code;
     }
 
-    public Result code(int code) {
+    public Result code(String code) {
         this.code = code;
         return this;
     }
@@ -192,11 +191,11 @@ public class Result implements Serializable {
         return this;
     }
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 

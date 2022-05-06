@@ -5,6 +5,7 @@ import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.StrUtil;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.redis.api.IRedisApi;
@@ -41,7 +42,7 @@ public class SecurityStpImpl implements StpInterface {
         List<String> permissionList = new ArrayList<>();
         try {
             String permissionKey = StrUtil.format(PERMISSION_LIST, mxSecurityConfig.getClient(), saUtils.getToken(), StpUtil.getLoginType(), saUtils.loginId());
-            List<Object> redisPermissionList = JSONObject.parseArray(Convert.toStr(iRedisApi.strGet(permissionKey)));
+            JSONArray redisPermissionList = JSONObject.parseArray(Convert.toStr(iRedisApi.strGet(permissionKey)));
             if (CollUtil.isNotEmpty(redisPermissionList)) {
                 for (Object redisRole : redisPermissionList) {
                     permissionList.add(Convert.toStr(redisRole));

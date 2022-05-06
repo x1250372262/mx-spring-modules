@@ -4,7 +4,7 @@ package com.mx.spring.dev.support.page;
 /**
  * @Author: mengxiang.
  * @create: 2021-07-02 16:58
- * @Description:
+ * @Description: 分页bean
  */
 public class PageBean<T> {
 

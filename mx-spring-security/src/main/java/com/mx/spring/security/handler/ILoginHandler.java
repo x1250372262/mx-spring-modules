@@ -1,7 +1,7 @@
 package com.mx.spring.security.handler;
 
-import com.mx.spring.dev.result.Result;
 import com.mx.spring.dev.exception.MxException;
+import com.mx.spring.dev.result.Result;
 import com.mx.spring.security.base.model.SecurityUser;
 import org.springframework.stereotype.Component;
 
