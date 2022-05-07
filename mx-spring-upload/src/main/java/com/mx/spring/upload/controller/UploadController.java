@@ -2,7 +2,7 @@ package com.mx.spring.upload.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.View;
+import com.mx.spring.dev.result.MxView;
 import com.mx.spring.dev.support.format.FormatRequest;
 import com.mx.spring.upload.bean.Upload;
 import com.mx.spring.upload.enums.FileUploadType;
@@ -39,7 +39,7 @@ public class UploadController {
     @FormatRequest
     @ApiImplicitParam(name = "file", dataType = "__File", value = "文件")
     @ApiImplicitParams({@ApiImplicitParam(name = "file", value = "文件流对象,接收数组格式", required = true, dataType = "MultipartFile", dataTypeClass = MultipartFile.class, paramType = "query")})
-    public View<Upload> upload(MultipartFile file) throws MxException {
+    public MxView<Upload> upload(MultipartFile file) throws MxException {
         return iUploadService.upload(file);
     }
 

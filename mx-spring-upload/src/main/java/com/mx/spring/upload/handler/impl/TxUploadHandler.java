@@ -3,7 +3,7 @@ package com.mx.spring.upload.handler.impl;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.View;
+import com.mx.spring.dev.result.MxView;
 import com.mx.spring.upload.bean.Upload;
 import com.mx.spring.upload.config.TxUploadConfig;
 import com.mx.spring.upload.handler.IUploadHandler;
@@ -38,24 +38,24 @@ public class TxUploadHandler implements IUploadHandler {
 
 
     @Override
-    public View<Upload> handle(MultipartFile file) throws MxException {
+    public MxView<Upload> handle(MultipartFile file) throws MxException {
         if (StringUtils.isBlank(txUploadConfig.getUrl())) {
-            return View.fail(UPLOAD_TX_URL_ERROR.getCode(), UPLOAD_TX_URL_ERROR.getMsg());
+            return MxView.fail(UPLOAD_TX_URL_ERROR.getCode(), UPLOAD_TX_URL_ERROR.getMsg());
         }
         if (StringUtils.isBlank(txUploadConfig.getSecretId())) {
-            return View.fail(UPLOAD_TX_ACCESS_KEY_ERROR.getCode(), UPLOAD_TX_ACCESS_KEY_ERROR.getMsg());
+            return MxView.fail(UPLOAD_TX_ACCESS_KEY_ERROR.getCode(), UPLOAD_TX_ACCESS_KEY_ERROR.getMsg());
         }
         if (StringUtils.isBlank(txUploadConfig.getSecretKey())) {
-            return View.fail(UPLOAD_TX_SECRET_KEY_ERROR.getCode(), UPLOAD_TX_SECRET_KEY_ERROR.getMsg());
+            return MxView.fail(UPLOAD_TX_SECRET_KEY_ERROR.getCode(), UPLOAD_TX_SECRET_KEY_ERROR.getMsg());
         }
         if (StringUtils.isBlank(txUploadConfig.getBucket())) {
-            return View.fail(UPLOAD_TX_BUCKET_ERROR.getCode(), UPLOAD_TX_BUCKET_ERROR.getMsg());
+            return MxView.fail(UPLOAD_TX_BUCKET_ERROR.getCode(), UPLOAD_TX_BUCKET_ERROR.getMsg());
         }
         if (StringUtils.isBlank(txUploadConfig.getRegion())) {
-            return View.fail(UPLOAD_TX_REGION_ERROR.getCode(), UPLOAD_TX_REGION_ERROR.getMsg());
+            return MxView.fail(UPLOAD_TX_REGION_ERROR.getCode(), UPLOAD_TX_REGION_ERROR.getMsg());
         }
         Upload upload = uploadFile(file);
-        return View.ok(upload);
+        return MxView.ok(upload);
     }
 
     private Upload uploadFile(MultipartFile multipartFile) throws MxException {

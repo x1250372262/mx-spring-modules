@@ -5,8 +5,8 @@ import cn.hutool.core.util.IdUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.Result;
-import com.mx.spring.dev.result.View;
+import com.mx.spring.dev.result.MxResult;
+import com.mx.spring.dev.result.MxView;
 import com.mx.spring.dev.support.page.PageBean;
 import com.mx.spring.dev.support.page.Pages;
 import com.mx.spring.dev.util.BeanUtil;
@@ -61,18 +61,18 @@ public class SecurityRoleServiceImpl implements ISecurityRoleService {
     private MxSecurityConfig config;
 
     @Override
-    public View<Pages<SecurityRoleListVO>> list(String name, PageBean<SecurityRole> pageBean) throws MxException {
+    public MxView<Pages<SecurityRoleListVO>> list(String name, PageBean<SecurityRole> pageBean) throws MxException {
         LambdaQueryWrapper<SecurityRole> lambdaQueryWrapper = Mp.lqw(findRole)
                 .like(StringUtils.isNotBlank(name), SecurityRole::getName, name)
                 .eq(SecurityRole::getClient, config.getClient());
-        return View.list(MpBeanUtils.copyPage(iRoleMapper.selectPage(PageHelper.in(pageBean), lambdaQueryWrapper), SecurityRoleListVO::new));
+        return MxView.list(MpBeanUtils.copyPage(iRoleMapper.selectPage(PageHelper.in(pageBean), lambdaQueryWrapper), SecurityRoleListVO::new));
     }
 
     @Override
-    public Result create(SecurityRoleBean roleBean) throws MxException {
+    public MxResult create(SecurityRoleBean roleBean) throws MxException {
         SecurityRole role = iRoleMapper.selectOne(Mp.lqw(findRole).eq(SecurityRole::getName, roleBean.getName()));
         if (role != null) {
-            return Result.sameName();
+            return MxResult.sameName();
         }
         role = BeanUtil.copy(roleBean, SecurityRole::new, (s, t) ->
                 t.bind()
@@ -83,48 +83,48 @@ public class SecurityRoleServiceImpl implements ISecurityRoleService {
                         .lastModifyTime(System.currentTimeMillis())
                         .lastModifyUser(saUtils.loginId())
         );
-        return Result.result(iRoleMapper.insert(role));
+        return MxResult.result(iRoleMapper.insert(role));
     }
 
     @Override
-    public Result update(String id, Long lastModifyTime, SecurityRoleBean roleBean) throws MxException {
+    public MxResult update(String id, Long lastModifyTime, SecurityRoleBean roleBean) throws MxException {
         SecurityRole role = iRoleMapper.selectOne(Mp.lqw(findRole).eq(SecurityRole::getName, roleBean.getName()).ne(SecurityRole::getId, id));
         if (role != null) {
-            return Result.sameName();
+            return MxResult.sameName();
         }
         role = iRoleMapper.selectById(id);
         if (role == null) {
-            return Result.noData();
+            return MxResult.noData();
         }
-        if (Result.checkVersion(role.getLastModifyTime(), lastModifyTime)) {
-            return Result.noVersion();
+        if (MxResult.checkVersion(role.getLastModifyTime(), lastModifyTime)) {
+            return MxResult.noVersion();
         }
         role = BeanUtil.duplicate(roleBean, role, (s, t) -> {
             t.bind()
                     .lastModifyTime(System.currentTimeMillis())
                     .lastModifyUser(saUtils.loginId());
         });
-        return Result.result(iRoleMapper.updateById(role));
+        return MxResult.result(iRoleMapper.updateById(role));
     }
 
     @Override
-    public View<SecurityRoleVO> detail(String id) throws MxException {
-        return View.ok(BeanUtil.copy(iRoleMapper.selectById(id), SecurityRoleVO::new));
+    public MxView<SecurityRoleVO> detail(String id) throws MxException {
+        return MxView.ok(BeanUtil.copy(iRoleMapper.selectById(id), SecurityRoleVO::new));
     }
 
     @Override
     @Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = {MxException.class, Exception.class})
-    public Result delete(String[] ids) throws MxException {
+    public MxResult delete(String[] ids) throws MxException {
         iSecurityUserRoleMapper.delete(Mp.lqw(SecurityUserRole.init()).in(SecurityUserRole::getRoleId, Arrays.asList(ids)));
-        return Result.result(iRoleMapper.deleteBatchIds(Arrays.asList(ids)));
+        return MxResult.result(iRoleMapper.deleteBatchIds(Arrays.asList(ids)));
     }
 
     @Override
-    public Result permissionList(String id) throws MxException {
+    public MxResult permissionList(String id) throws MxException {
         JSONObject jsonObject = new JSONObject();
         SecurityRole role = iRoleMapper.selectById(id);
         if (role == null) {
-            return Result.noData();
+            return MxResult.noData();
         }
         List<SecurityRolePermission> rolePermissionList = iRolePermissionMapper.selectList(Mp.lqw(SecurityRolePermission.init())
                 .eq(SecurityRolePermission::getClient, config.getClient())
@@ -136,15 +136,15 @@ public class SecurityRoleServiceImpl implements ISecurityRoleService {
             }
             jsonObject.put("permissions", selectRoles);
         }
-        return Result.ok().data(jsonObject);
+        return MxResult.ok().data(jsonObject);
     }
 
     @Override
     @Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = {MxException.class, Exception.class})
-    public Result permissionBind(String id, String[] permissions) throws MxException {
+    public MxResult permissionBind(String id, String[] permissions) throws MxException {
         SecurityRole role = iRoleMapper.selectById(id);
         if (role == null) {
-            return Result.noData();
+            return MxResult.noData();
         }
 
         iRolePermissionMapper.delete(Mp.lqw(SecurityRolePermission.init())
@@ -171,6 +171,6 @@ public class SecurityRoleServiceImpl implements ISecurityRoleService {
                 iRolePermissionMapper.insertBatch(rolePermissions);
             }
         }
-        return Result.ok();
+        return MxResult.ok();
     }
 }

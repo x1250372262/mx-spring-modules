@@ -2,8 +2,8 @@ package com.mx.spring.security.service;
 
 
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.Result;
-import com.mx.spring.dev.result.View;
+import com.mx.spring.dev.result.MxResult;
+import com.mx.spring.dev.result.MxView;
 import com.mx.spring.dev.support.page.PageBean;
 import com.mx.spring.dev.support.page.Pages;
 import com.mx.spring.security.base.bean.SecurityUserBean;
@@ -29,7 +29,7 @@ public interface ISecurityUserService {
      * @return
      * @throws MxException
      */
-    View<Pages<SecurityUserListVO>> list(String userName, String realName, Integer disableStatus, PageBean<SecurityUserListVO> pageBean) throws MxException;
+    MxView<Pages<SecurityUserListVO>> list(String userName, String realName, Integer disableStatus, PageBean<SecurityUserListVO> pageBean) throws MxException;
 
     /**
      * 添加角色
@@ -39,7 +39,7 @@ public interface ISecurityUserService {
      * @return
      * @throws MxException
      */
-    Result create(String password, SecurityUserBean securityUserBean) throws MxException;
+    MxResult create(String password, SecurityUserBean securityUserBean) throws MxException;
 
     /**
      * 详情
@@ -48,7 +48,7 @@ public interface ISecurityUserService {
      * @return
      * @throws MxException
      */
-    View<SecurityUserVO> detail(String id) throws MxException;
+    MxView<SecurityUserVO> detail(String id) throws MxException;
 
 
     /**
@@ -60,7 +60,7 @@ public interface ISecurityUserService {
      * @return
      * @throws MxException
      */
-    Result status(String id, Long lastModifyTime, Integer status) throws MxException;
+    MxResult status(String id, Long lastModifyTime, Integer status) throws MxException;
 
     /**
      * 解锁
@@ -70,7 +70,7 @@ public interface ISecurityUserService {
      * @return
      * @throws MxException
      */
-    Result unlock(String id, Long lastModifyTime) throws MxException;
+    MxResult unlock(String id, Long lastModifyTime) throws MxException;
 
     /**
      * 重置密码
@@ -80,7 +80,7 @@ public interface ISecurityUserService {
      * @return
      * @throws MxException
      */
-    Result resetPassword(String id, Long lastModifyTime) throws MxException;
+    MxResult resetPassword(String id, Long lastModifyTime) throws MxException;
 
     /**
      * 人员权限列表
@@ -90,7 +90,7 @@ public interface ISecurityUserService {
      * @return
      * @throws MxException
      */
-    View<Pages<SecurityUserRoleVO>> roleList(String userId, PageBean<SecurityUserRoleVO> pageBean) throws MxException;
+    MxView<Pages<SecurityUserRoleVO>> roleList(String userId, PageBean<SecurityUserRoleVO> pageBean) throws MxException;
 
     /**
      * 添加人员角色
@@ -100,7 +100,7 @@ public interface ISecurityUserService {
      * @return
      * @throws MxException
      */
-    Result roleCreate(String userId, String roleId) throws MxException;
+    MxResult roleCreate(String userId, String roleId) throws MxException;
 
     /**
      * 删除人员角色
@@ -109,5 +109,5 @@ public interface ISecurityUserService {
      * @return
      * @throws MxException
      */
-    Result roleDelete(String[] ids) throws MxException;
+    MxResult roleDelete(String[] ids) throws MxException;
 }

@@ -6,7 +6,7 @@ import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.model.PutObjectRequest;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.View;
+import com.mx.spring.dev.result.MxView;
 import com.mx.spring.upload.bean.Upload;
 import com.mx.spring.upload.config.AliUploadConfig;
 import com.mx.spring.upload.handler.IUploadHandler;
@@ -30,24 +30,24 @@ public class AliUploadHandler implements IUploadHandler {
     OSS ossClient = new OSSClientBuilder().build(aliUploadConfig.getEndpoint(), aliUploadConfig.getAccessKeyId(), aliUploadConfig.getAccessKeySecret());
 
     @Override
-    public View<Upload> handle(MultipartFile file) throws MxException {
+    public MxView<Upload> handle(MultipartFile file) throws MxException {
         if (StringUtils.isBlank(aliUploadConfig.getUrl())) {
-            return View.fail(UPLOAD_ALI_URL_ERROR.getCode(), UPLOAD_ALI_URL_ERROR.getMsg());
+            return MxView.fail(UPLOAD_ALI_URL_ERROR.getCode(), UPLOAD_ALI_URL_ERROR.getMsg());
         }
         if (StringUtils.isBlank(aliUploadConfig.getAccessKeyId())) {
-            return View.fail(UPLOAD_ALI_ACCESS_KEY_ID_ERROR.getCode(), UPLOAD_ALI_ACCESS_KEY_ID_ERROR.getMsg());
+            return MxView.fail(UPLOAD_ALI_ACCESS_KEY_ID_ERROR.getCode(), UPLOAD_ALI_ACCESS_KEY_ID_ERROR.getMsg());
         }
         if (StringUtils.isBlank(aliUploadConfig.getAccessKeySecret())) {
-            return View.fail(UPLOAD_ALI_ACCESS_KEY_SECRET_ERROR.getCode(), UPLOAD_ALI_ACCESS_KEY_SECRET_ERROR.getMsg());
+            return MxView.fail(UPLOAD_ALI_ACCESS_KEY_SECRET_ERROR.getCode(), UPLOAD_ALI_ACCESS_KEY_SECRET_ERROR.getMsg());
         }
         if (StringUtils.isBlank(aliUploadConfig.getBucket())) {
-            return View.fail(UPLOAD_ALI_BUCKET_ERROR.getCode(), UPLOAD_ALI_BUCKET_ERROR.getMsg());
+            return MxView.fail(UPLOAD_ALI_BUCKET_ERROR.getCode(), UPLOAD_ALI_BUCKET_ERROR.getMsg());
         }
         if (StringUtils.isBlank(aliUploadConfig.getEndpoint())) {
-            return View.fail(UPLOAD_ALI_ENDPOINT_ERROR.getCode(), UPLOAD_ALI_ENDPOINT_ERROR.getMsg());
+            return MxView.fail(UPLOAD_ALI_ENDPOINT_ERROR.getCode(), UPLOAD_ALI_ENDPOINT_ERROR.getMsg());
         }
         Upload upload = uploadFile(file);
-        return View.ok(upload);
+        return MxView.ok(upload);
     }
 
     private Upload uploadFile(MultipartFile multipartFile) throws MxException {

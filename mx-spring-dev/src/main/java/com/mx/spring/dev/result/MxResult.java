@@ -19,8 +19,8 @@ import java.util.Objects;
  * @create: 2021-07-02 16:58
  * @Description: 通用请求返回数据-操作消息提醒
  */
-@ApiModel(value = "Result", description = "通用请求返回数据-操作消息提醒")
-public class Result implements Serializable {
+@ApiModel(value = "MxResult", description = "通用请求返回数据-操作消息提醒")
+public class MxResult implements Serializable {
 
     @ApiModelProperty(value = "错误码")
     private String code;
@@ -31,14 +31,14 @@ public class Result implements Serializable {
     @ApiModelProperty(value = "其他参数")
     private Map<String, Object> attrs = new HashMap<>();
 
-    private Result() {
+    private MxResult() {
     }
 
-    private Result(String code) {
+    private MxResult(String code) {
         this.code = code;
     }
 
-    public static boolean check(Result result) {
+    public static boolean check(MxResult result) {
         return Code.SUCCESS.getCode().equals(result.code);
     }
 
@@ -49,89 +49,89 @@ public class Result implements Serializable {
     /**
      * 根据参数返回成功还是失败
      */
-    public static Result result(Object object) {
+    public static MxResult result(Object object) {
         if (object != null) {
-            return Result.ok();
+            return MxResult.ok();
         }
-        return Result.fail();
+        return MxResult.fail();
     }
 
     /**
      * 根据参数返回成功还是失败
      */
-    public static Result result(int result) {
+    public static MxResult result(int result) {
         if (result >= 1) {
-            return Result.ok();
+            return MxResult.ok();
         }
-        return Result.fail();
+        return MxResult.fail();
     }
 
     /**
      * 根据参数返回成功还是失败
      */
-    public static Result result(List<?> list) {
+    public static MxResult result(List<?> list) {
         if (CollectionUtil.isNotEmpty(list)) {
-            return Result.ok();
+            return MxResult.ok();
         }
-        return Result.fail();
+        return MxResult.fail();
     }
 
     /**
      * 根据参数返回成功还是失败
      */
-    public static Result result(int[] result) {
+    public static MxResult result(int[] result) {
         if (result != null && result.length > 0) {
-            return Result.ok();
+            return MxResult.ok();
         }
-        return Result.fail();
+        return MxResult.fail();
     }
 
     /**
      * 成功result
      */
-    public static Result ok() {
-        return Result.create(Code.SUCCESS.getCode())
+    public static MxResult ok() {
+        return MxResult.create(Code.SUCCESS.getCode())
                 .msg(Code.SUCCESS.getMsg());
     }
 
     /**
      * 返回成功 并且带map参数
      */
-    public static Result mapResult(Map<String, Object> attrs) {
-        return Result.ok().attrs(attrs);
+    public static MxResult mapResult(Map<String, Object> attrs) {
+        return MxResult.ok().attrs(attrs);
     }
 
     /**
      * 失败result
      */
-    public static Result fail() {
-        return Result.create(Code.ERROR.getCode())
+    public static MxResult fail() {
+        return MxResult.create(Code.ERROR.getCode())
                 .msg(Code.ERROR.getMsg());
     }
 
-    public static Result create() {
-        return new Result();
+    public static MxResult create() {
+        return new MxResult();
     }
 
-    public static Result create(String code) {
-        return new Result(code);
+    public static MxResult create(String code) {
+        return new MxResult(code);
     }
 
 
-    public static Result sameName() {
-        return Result.create(Code.FIELDS_EXISTS.getCode()).msg(StrUtil.format(Code.FIELDS_EXISTS.getMsg(), "名称"));
+    public static MxResult sameName() {
+        return MxResult.create(Code.FIELDS_EXISTS.getCode()).msg(StrUtil.format(Code.FIELDS_EXISTS.getMsg(), "名称"));
     }
 
-    public static Result sameData(String msg) {
-        return Result.create(Code.FIELDS_EXISTS.getCode()).msg(String.format(Code.FIELDS_EXISTS.getMsg(), msg));
+    public static MxResult sameData(String msg) {
+        return MxResult.create(Code.FIELDS_EXISTS.getCode()).msg(String.format(Code.FIELDS_EXISTS.getMsg(), msg));
     }
 
-    public static Result noVersion() {
-        return Result.create(Code.VERSION_NOT_SAME.getCode()).msg(Code.VERSION_NOT_SAME.getMsg());
+    public static MxResult noVersion() {
+        return MxResult.create(Code.VERSION_NOT_SAME.getCode()).msg(Code.VERSION_NOT_SAME.getMsg());
     }
 
-    public static Result noData() {
-        return Result.create(Code.NO_DATA.getCode()).msg(Code.NO_DATA.getMsg());
+    public static MxResult noData() {
+        return MxResult.create(Code.NO_DATA.getCode()).msg(Code.NO_DATA.getMsg());
     }
 
     public static boolean checkVersion(Object var1, Object var2) {
@@ -143,7 +143,7 @@ public class Result implements Serializable {
         return code;
     }
 
-    public Result code(String code) {
+    public MxResult code(String code) {
         this.code = code;
         return this;
     }
@@ -152,7 +152,7 @@ public class Result implements Serializable {
         return StringUtils.trimToEmpty(msg);
     }
 
-    public Result msg(String msg) {
+    public MxResult msg(String msg) {
         this.msg = msg;
         return this;
     }
@@ -166,27 +166,27 @@ public class Result implements Serializable {
         return (T) this.attrs.get(attrKey);
     }
 
-    public Result attr(String attrKey, Object attrValue) {
+    public MxResult attr(String attrKey, Object attrValue) {
         this.attrs.put(attrKey, attrValue);
         return this;
     }
 
-    public Result attr(String attrKey, Object attrValue, Object defaultValue) {
+    public MxResult attr(String attrKey, Object attrValue, Object defaultValue) {
         this.attrs.put(attrKey, ObjectUtils.defaultIfNull(attrValue, defaultValue));
         return this;
     }
 
-    public Result attrs(Map<String, Object> attrs) {
+    public MxResult attrs(Map<String, Object> attrs) {
         this.attrs = attrs;
         return this;
     }
 
-    public Result data(Object value) {
+    public MxResult data(Object value) {
         this.attrs.put("data", value);
         return this;
     }
 
-    public Result data(Object value, Object defaultValue) {
+    public MxResult data(Object value, Object defaultValue) {
         this.attrs.put("data", ObjectUtils.defaultIfNull(value, defaultValue));
         return this;
     }

@@ -3,8 +3,8 @@ package com.mx.spring.security.controller;
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.Result;
-import com.mx.spring.dev.result.View;
+import com.mx.spring.dev.result.MxResult;
+import com.mx.spring.dev.result.MxView;
 import com.mx.spring.dev.support.format.FormatRequest;
 import com.mx.spring.dev.support.page.PageDTO;
 import com.mx.spring.dev.support.page.Pages;
@@ -57,10 +57,10 @@ public class SecurityUserController {
     @SaCheckLogin
     @ApiOperation(value = "人员列表")
     @SaCheckPermission(value = SecurityPermissionConfig.SECURITY_USER_LIST)
-    public View<Pages<SecurityUserListVO>> list(@ApiParam(name = "userName", value = "用户名") String userName,
-                                                @ApiParam(name = "realName", value = "真实姓名") String realName,
-                                                @ApiParam(name = "disableStatus", value = "状态") Integer disableStatus,
-                                                PageDTO<SecurityUserListVO> pageDTO) throws MxException {
+    public MxView<Pages<SecurityUserListVO>> list(@ApiParam(name = "userName", value = "用户名") String userName,
+                                                  @ApiParam(name = "realName", value = "真实姓名") String realName,
+                                                  @ApiParam(name = "disableStatus", value = "状态") Integer disableStatus,
+                                                  PageDTO<SecurityUserListVO> pageDTO) throws MxException {
         return iUserService.list(userName, realName, disableStatus, pageDTO.toBean());
     }
 
@@ -78,9 +78,9 @@ public class SecurityUserController {
     @ApiOperation(value = "添加人员")
     @SaCheckPermission(value = SecurityPermissionConfig.SECURITY_USER_CREATE)
     @OperationLog(operationType = OperationType.CREATE, title = "添加人员")
-    public Result create(@ApiParam(name = "password", value = "密码(前端需自行md5加密一次)", required = true)
+    public MxResult create(@ApiParam(name = "password", value = "密码(前端需自行md5加密一次)", required = true)
                          @NotBlank(message = "密码不能为空") String password,
-                         @Validated SecurityUserDTO securityUserDTO) throws MxException {
+                           @Validated SecurityUserDTO securityUserDTO) throws MxException {
         return iUserService.create(password, securityUserDTO.toBean());
     }
 
@@ -99,11 +99,11 @@ public class SecurityUserController {
     @ApiOperation(value = "修改状态")
     @SaCheckPermission(value = SecurityPermissionConfig.SECURITY_USER_UPDATE_STATUS)
     @OperationLog(operationType = OperationType.OTHER, title = "修改状态")
-    public Result status(@ApiParam(name = "id", value = "ID", required = true)
+    public MxResult status(@ApiParam(name = "id", value = "ID", required = true)
                          @PathVariable String id,
-                         @ApiParam(name = "lastModifyTime", value = "最后修改时间(乐观锁)", required = true)
+                           @ApiParam(name = "lastModifyTime", value = "最后修改时间(乐观锁)", required = true)
                          @NotNull(message = "最后修改时间(乐观锁)不能为空") Long lastModifyTime,
-                         @ApiParam(name = "status", value = "状态", required = true)
+                           @ApiParam(name = "status", value = "状态", required = true)
                          @NotNull(message = "状态不能为空") Integer status) throws MxException {
         return iUserService.status(id, lastModifyTime, status);
     }
@@ -122,9 +122,9 @@ public class SecurityUserController {
     @ApiOperation(value = "解锁")
     @SaCheckPermission(value = SecurityPermissionConfig.SECURITY_USER_UNLOCK)
     @OperationLog(operationType = OperationType.OTHER, title = "解锁")
-    public Result unlock(@ApiParam(name = "id", value = "ID", required = true)
+    public MxResult unlock(@ApiParam(name = "id", value = "ID", required = true)
                          @PathVariable String id,
-                         @ApiParam(name = "lastModifyTime", value = "最后修改时间(乐观锁)", required = true)
+                           @ApiParam(name = "lastModifyTime", value = "最后修改时间(乐观锁)", required = true)
                          @NotNull(message = "最后修改时间(乐观锁)不能为空") Long lastModifyTime) throws MxException {
         return iUserService.unlock(id, lastModifyTime);
     }
@@ -143,9 +143,9 @@ public class SecurityUserController {
     @ApiOperation(value = "重置密码")
     @SaCheckPermission(value = SecurityPermissionConfig.SECURITY_USER_RESET_PASSWORD)
     @OperationLog(operationType = OperationType.OTHER, title = "重置密码")
-    public Result resetPassword(@ApiParam(name = "id", value = "ID", required = true)
+    public MxResult resetPassword(@ApiParam(name = "id", value = "ID", required = true)
                                 @PathVariable String id,
-                                @ApiParam(name = "lastModifyTime", value = "最后修改时间(乐观锁)", required = true)
+                                  @ApiParam(name = "lastModifyTime", value = "最后修改时间(乐观锁)", required = true)
                                 @NotNull(message = "最后修改时间(乐观锁)不能为空") Long lastModifyTime) throws MxException {
         return iUserService.resetPassword(id, lastModifyTime);
     }
@@ -162,7 +162,7 @@ public class SecurityUserController {
     @SaCheckLogin
     @ApiOperation(value = "人员详情")
     @SaCheckPermission(value = SecurityPermissionConfig.SECURITY_USER_DETAIL)
-    public View<SecurityUserVO> detail(@ApiParam(name = "id", value = "ID", required = true)
+    public MxView<SecurityUserVO> detail(@ApiParam(name = "id", value = "ID", required = true)
                                        @PathVariable String id) throws MxException {
         return iUserService.detail(id);
     }
@@ -181,9 +181,9 @@ public class SecurityUserController {
     @SaCheckLogin
     @ApiOperation(value = "人员角色列表")
     @SaCheckPermission(value = SecurityPermissionConfig.SECURITY_USER_ROLE_LIST)
-    public View<Pages<SecurityUserRoleVO>> roleList(@ApiParam(name = "userId", value = "人员ID")
+    public MxView<Pages<SecurityUserRoleVO>> roleList(@ApiParam(name = "userId", value = "人员ID")
                                                     @NotNull(message = "人员ID不能为空") String userId,
-                                                    PageDTO<SecurityUserRoleVO> pageDTO) throws MxException {
+                                                      PageDTO<SecurityUserRoleVO> pageDTO) throws MxException {
         return iUserService.roleList(userId, pageDTO.toBean());
     }
 
@@ -201,9 +201,9 @@ public class SecurityUserController {
     @ApiOperation(value = "添加人员角色")
     @SaCheckPermission(value = SecurityPermissionConfig.SECURITY_USER_ROLE_CREATE)
     @OperationLog(operationType = OperationType.CREATE, title = "添加人员角色")
-    public Result roleCreate(@ApiParam(name = "userId", value = "人员ID")
+    public MxResult roleCreate(@ApiParam(name = "userId", value = "人员ID")
                              @NotNull(message = "人员ID不能为空") String userId,
-                             @ApiParam(name = "roleId", value = "角色ID")
+                               @ApiParam(name = "roleId", value = "角色ID")
                              @NotNull(message = "角色ID不能为空") String roleId) throws MxException {
         return iUserService.roleCreate(userId, roleId);
     }
@@ -221,7 +221,7 @@ public class SecurityUserController {
     @ApiOperation(value = "删除人员角色")
     @SaCheckPermission(value = SecurityPermissionConfig.SECURITY_USER_ROLE_DELETE)
     @OperationLog(operationType = OperationType.DELETE, title = "删除人员角色")
-    public Result roleDelete(@ApiParam(name = "ids", value = "ids", required = true)
+    public MxResult roleDelete(@ApiParam(name = "ids", value = "ids", required = true)
                              @NotNull(message = "ids不能为空")
                              @RequestParam("ids[]") String[] ids) throws MxException {
         return iUserService.roleDelete(ids);

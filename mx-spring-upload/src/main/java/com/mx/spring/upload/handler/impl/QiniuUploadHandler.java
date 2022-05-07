@@ -4,7 +4,7 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.View;
+import com.mx.spring.dev.result.MxView;
 import com.mx.spring.upload.bean.Upload;
 import com.mx.spring.upload.config.QiniuUploadConfig;
 import com.mx.spring.upload.handler.IUploadHandler;
@@ -38,21 +38,21 @@ public class QiniuUploadHandler implements IUploadHandler {
 
 
     @Override
-    public View<Upload> handle(MultipartFile file) throws MxException {
+    public MxView<Upload> handle(MultipartFile file) throws MxException {
         if (StringUtils.isBlank(qiniuUploadConfig.getUrl())) {
-            return View.fail(UPLOAD_QINIU_URL_ERROR.getCode(), UPLOAD_QINIU_URL_ERROR.getMsg());
+            return MxView.fail(UPLOAD_QINIU_URL_ERROR.getCode(), UPLOAD_QINIU_URL_ERROR.getMsg());
         }
         if (StringUtils.isBlank(qiniuUploadConfig.getAccessKey())) {
-            return View.fail(UPLOAD_QINIU_ACCESS_KEY_ERROR.getCode(), UPLOAD_QINIU_ACCESS_KEY_ERROR.getMsg());
+            return MxView.fail(UPLOAD_QINIU_ACCESS_KEY_ERROR.getCode(), UPLOAD_QINIU_ACCESS_KEY_ERROR.getMsg());
         }
         if (StringUtils.isBlank(qiniuUploadConfig.getSecretKey())) {
-            return View.fail(UPLOAD_QINIU_SECRET_KEY_ERROR.getCode(), UPLOAD_QINIU_SECRET_KEY_ERROR.getMsg());
+            return MxView.fail(UPLOAD_QINIU_SECRET_KEY_ERROR.getCode(), UPLOAD_QINIU_SECRET_KEY_ERROR.getMsg());
         }
         if (StringUtils.isBlank(qiniuUploadConfig.getBucket())) {
-            return View.fail(UPLOAD_QINIU_BUCKET_ERROR.getCode(), UPLOAD_QINIU_BUCKET_ERROR.getMsg());
+            return MxView.fail(UPLOAD_QINIU_BUCKET_ERROR.getCode(), UPLOAD_QINIU_BUCKET_ERROR.getMsg());
         }
         Upload upload = uploadFile(file);
-        return View.ok(upload);
+        return MxView.ok(upload);
     }
 
     private Upload uploadFile(MultipartFile multipartFile) throws MxException {

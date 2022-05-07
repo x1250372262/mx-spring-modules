@@ -6,8 +6,8 @@ import cn.hutool.extra.servlet.ServletUtil;
 import cn.hutool.http.useragent.UserAgentUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.mx.spring.dev.code.Code;
-import com.mx.spring.dev.result.Result;
-import com.mx.spring.dev.result.View;
+import com.mx.spring.dev.result.MxResult;
+import com.mx.spring.dev.result.MxView;
 import com.mx.spring.dev.support.log.MxLog;
 import com.mx.spring.dev.util.WebUtil;
 import com.mx.spring.security.SaUtil;
@@ -88,12 +88,12 @@ public class OperationLogAspect {
             }
             String code = SecurityCode.SECURITY_CHECK_ERROR.getCode();
             String msg = OperationType.UNKNOWN.name();
-            if (ret instanceof Result) {
-                code = ((Result) ret).getCode();
-                msg = ((Result) ret).getMsg();
-            } else if (ret instanceof View) {
-                code = ((View<?>) ret).getCode();
-                msg = ((View<?>) ret).getMsg();
+            if (ret instanceof MxResult) {
+                code = ((MxResult) ret).getCode();
+                msg = ((MxResult) ret).getMsg();
+            } else if (ret instanceof MxView) {
+                code = ((MxView<?>) ret).getCode();
+                msg = ((MxView<?>) ret).getMsg();
             }
             if (e != null) {
                 code = Code.SYSTEM_ERROR.getCode();

@@ -9,8 +9,8 @@ import cn.hutool.extra.servlet.ServletUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.mx.spring.dev.constants.Constants;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.Result;
-import com.mx.spring.dev.result.View;
+import com.mx.spring.dev.result.MxResult;
+import com.mx.spring.dev.result.MxView;
 import com.mx.spring.dev.util.BeanUtil;
 import com.mx.spring.dev.util.TimeUtil;
 import com.mx.spring.dev.util.WebUtil;
@@ -64,25 +64,25 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
     private MxSecurityConfig config;
 
     @Override
-    public View<LoginResult> login(String userName, String password) throws MxException {
+    public MxView<LoginResult> login(String userName, String password) throws MxException {
         Map<String, String> params = ServletUtil.getParamMap(WebUtil.request());
         ILoginHandler loginHandler = Handler.loginHandler();
-        Result r = loginHandler.loginBefore(params);
+        MxResult r = loginHandler.loginBefore(params);
         if (Handler.check(r)) {
             return Handler.toM(r);
         }
         SecurityUser securityUser = iSecurityUserMapper.selectOne(Mp.lqw(bean).eq(SecurityUser::getUserName, userName).eq(SecurityUser::getClient, config.getClient()));
         if (securityUser == null) {
-            return View.fail(SECURITY_LOGIN_USER_NAME_NOT_EXIST.getCode(), SECURITY_LOGIN_USER_NAME_NOT_EXIST.getMsg());
+            return MxView.fail(SECURITY_LOGIN_USER_NAME_NOT_EXIST.getCode(), SECURITY_LOGIN_USER_NAME_NOT_EXIST.getMsg());
         }
         if (Objects.equals(Constants.BOOL_TRUE, securityUser.getDisableStatus())) {
-            return View.fail(SECURITY_LOGIN_USER_DISABLE.getCode(), SECURITY_LOGIN_USER_DISABLE.getMsg());
+            return MxView.fail(SECURITY_LOGIN_USER_DISABLE.getCode(), SECURITY_LOGIN_USER_DISABLE.getMsg());
         }
         //锁住了
         if (Objects.equals(Constants.BOOL_TRUE, securityUser.getLoginLockStatus()) && System.currentTimeMillis() < securityUser.getLoginLockEndTime()) {
             String msg = SECURITY_LOGIN_USER_LOCKED.getMsg();
             msg = StrUtil.format(msg, TimeUtil.formatTime(securityUser.getLoginLockEndTime()));
-            return View.fail(SECURITY_LOGIN_USER_LOCKED.getCode(), msg);
+            return MxView.fail(SECURITY_LOGIN_USER_LOCKED.getCode(), msg);
         } else if (Objects.equals(Constants.BOOL_TRUE, securityUser.getLoginLockStatus()) && System.currentTimeMillis() > securityUser.getLoginLockEndTime()) {
             securityUser.setLoginLockStatus(Constants.BOOL_FALSE);
             securityUser.setLoginErrorCount(0);
@@ -104,7 +104,7 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
                 securityUser.setLoginLockEndTime(System.currentTimeMillis() + TimeUtil.DAY);
             }
             iSecurityUserMapper.updateById(securityUser);
-            return View.fail(SECURITY_LOGIN_USER_NAME_OR_PASSWORD_ERROR.getCode(), SECURITY_LOGIN_USER_NAME_OR_PASSWORD_ERROR.getMsg());
+            return MxView.fail(SECURITY_LOGIN_USER_NAME_OR_PASSWORD_ERROR.getCode(), SECURITY_LOGIN_USER_NAME_OR_PASSWORD_ERROR.getMsg());
         } else {
             r = loginHandler.loginSuccess(params, securityUser);
             if (Handler.check(r)) {
@@ -127,14 +127,14 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
         if (r != null) {
             loginResult.setAttrs(r.attrs());
         }
-        return View.ok(loginResult);
+        return MxView.ok(loginResult);
     }
 
     @Override
-    public Result logout() throws MxException {
+    public MxResult logout() throws MxException {
         Map<String, String> params = ServletUtil.getParamMap(WebUtil.request());
         ILoginHandler loginHandler = Handler.loginHandler();
-        Result r = loginHandler.logoutBefore(params);
+        MxResult r = loginHandler.logoutBefore(params);
         if (Handler.check(r)) {
             return r;
         }
@@ -143,7 +143,7 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
         if (Handler.check(r)) {
             return r;
         }
-        return Result.ok();
+        return MxResult.ok();
     }
 
     public void cacheUser(SecurityUser securityUser, SaTokenInfo saTokenInfo) throws MxException {
@@ -170,37 +170,37 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
     }
 
     @Override
-    public Result update(SecurityLoginInfoBean securityLoginInfoBean) throws MxException {
+    public MxResult update(SecurityLoginInfoBean securityLoginInfoBean) throws MxException {
         SecurityUser securityUser = iSecurityUserMapper.selectOne(Mp.lqw(bean).eq(SecurityUser::getId, saUtils.loginId()));
         if (securityUser == null) {
-            return Result.noData();
+            return MxResult.noData();
         }
         securityUser = BeanUtil.duplicate(securityLoginInfoBean, securityUser);
         int result = iSecurityUserMapper.updateById(securityUser);
-        return Result.result(result);
+        return MxResult.result(result);
     }
 
     @Override
-    public Result password(String oldPassword, String newPassword, String rePassword) throws MxException {
+    public MxResult password(String oldPassword, String newPassword, String rePassword) throws MxException {
         if (!newPassword.equals(rePassword)) {
-            return Result.create(SECURITY_USER_PASSWORD_NOT_SAME.getCode()).msg(SECURITY_USER_PASSWORD_NOT_SAME.getMsg());
+            return MxResult.create(SECURITY_USER_PASSWORD_NOT_SAME.getCode()).msg(SECURITY_USER_PASSWORD_NOT_SAME.getMsg());
         }
         SecurityUser securityUser = iSecurityUserMapper.selectOne(Mp.lqw(bean).eq(SecurityUser::getId, saUtils.loginId()));
         if (securityUser == null) {
-            return Result.noData();
+            return MxResult.noData();
         }
         oldPassword = DigestUtils.md5DigestAsHex(Base64.encodeBase64((oldPassword + securityUser.getSalt()).getBytes(StandardCharsets.UTF_8)));
         if (!oldPassword.equals(securityUser.getPassword())) {
-            return Result.create(SECURITY_USER_OLD_PASSWORD_ERROR.getCode()).msg(SECURITY_USER_OLD_PASSWORD_ERROR.getMsg());
+            return MxResult.create(SECURITY_USER_OLD_PASSWORD_ERROR.getCode()).msg(SECURITY_USER_OLD_PASSWORD_ERROR.getMsg());
         }
         newPassword = DigestUtils.md5DigestAsHex(Base64.encodeBase64((newPassword + securityUser.getSalt()).getBytes(StandardCharsets.UTF_8)));
         if (newPassword.equals(securityUser.getPassword())) {
-            return Result.create(SECURITY_USER_NEW_PASSWORD_NOT_SAME_OLD_PASSWORD.getCode()).msg(SECURITY_USER_NEW_PASSWORD_NOT_SAME_OLD_PASSWORD.getMsg());
+            return MxResult.create(SECURITY_USER_NEW_PASSWORD_NOT_SAME_OLD_PASSWORD.getCode()).msg(SECURITY_USER_NEW_PASSWORD_NOT_SAME_OLD_PASSWORD.getMsg());
         }
         securityUser.setPassword(newPassword);
         securityUser.setLastModifyTime(System.currentTimeMillis());
         securityUser.setLastModifyUser(securityUser.getId());
         int result = iSecurityUserMapper.updateById(securityUser);
-        return Result.result(result);
+        return MxResult.result(result);
     }
 }

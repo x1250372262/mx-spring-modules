@@ -5,7 +5,7 @@ import cn.dev33.satoken.exception.NotPermissionException;
 import cn.dev33.satoken.exception.NotRoleException;
 import cn.hutool.core.util.StrUtil;
 import com.mx.spring.dev.code.Code;
-import com.mx.spring.dev.result.Result;
+import com.mx.spring.dev.result.MxResult;
 import com.mx.spring.dev.support.log.MxLog;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
@@ -34,60 +34,60 @@ public class GlobalExceptionHandler {
      * 请求方式不支持
      */
     @ExceptionHandler({HttpRequestMethodNotSupportedException.class})
-    public Result handleException(HttpRequestMethodNotSupportedException e) {
+    public MxResult handleException(HttpRequestMethodNotSupportedException e) {
         MxLog.error(e.getMessage(), e);
-        return Result.create(Code.NOT_SUPPORT_REQUEST.getCode()).msg(StrUtil.format(Code.NOT_SUPPORT_REQUEST.getMsg(), e.getMethod()));
+        return MxResult.create(Code.NOT_SUPPORT_REQUEST.getCode()).msg(StrUtil.format(Code.NOT_SUPPORT_REQUEST.getMsg(), e.getMethod()));
     }
 
     /**
      * 拦截未知的运行时异常
      */
     @ExceptionHandler(RuntimeException.class)
-    public Result notFount(RuntimeException e) {
+    public MxResult notFount(RuntimeException e) {
         MxLog.error("运行时异常:", e);
-        return Result.create(Code.SYSTEM_ERROR.getCode()).msg("运行时异常:" + e.getMessage());
+        return MxResult.create(Code.SYSTEM_ERROR.getCode()).msg("运行时异常:" + e.getMessage());
     }
 
     /**
      * 系统异常
      */
     @ExceptionHandler(Exception.class)
-    public Result handleException(Exception e) {
+    public MxResult handleException(Exception e) {
         MxLog.error(e.getMessage(), e);
-        return Result.create(Code.SYSTEM_ERROR.getCode()).msg(Code.SYSTEM_ERROR.getMsg());
+        return MxResult.create(Code.SYSTEM_ERROR.getCode()).msg(Code.SYSTEM_ERROR.getMsg());
     }
 
     /**
      * 业务异常
      */
     @ExceptionHandler(MxException.class)
-    public Result businessException(MxException e) {
+    public MxResult businessException(MxException e) {
         MxLog.error(e.getMessage(), e);
-        return Result.create(Code.SYSTEM_ERROR.getCode()).msg(e.getMessage());
+        return MxResult.create(Code.SYSTEM_ERROR.getCode()).msg(e.getMessage());
     }
 
     /**
      * 登录异常
      */
     @ExceptionHandler(NotLoginException.class)
-    public Result notLoginException(HttpServletRequest request, NotLoginException e) {
+    public MxResult notLoginException(HttpServletRequest request, NotLoginException e) {
         MxLog.error(e.getMessage(), e);
-        return Result.create(Code.NOT_LOGIN.getCode()).msg(Code.NOT_LOGIN.getMsg());
+        return MxResult.create(Code.NOT_LOGIN.getCode()).msg(Code.NOT_LOGIN.getMsg());
     }
 
     /**
      * 权限
      */
     @ExceptionHandler({NotPermissionException.class, NotRoleException.class})
-    public Result notPermissionException(HttpServletRequest request, Exception e) {
+    public MxResult notPermissionException(HttpServletRequest request, Exception e) {
         MxLog.error(e.getMessage(), e);
-        return Result.create(Code.NOT_PERMISSION.getCode()).msg(Code.NOT_PERMISSION.getMsg());
+        return MxResult.create(Code.NOT_PERMISSION.getCode()).msg(Code.NOT_PERMISSION.getMsg());
     }
 
 
     @ResponseBody
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
-    public Result handleValidException(MethodArgumentNotValidException e) {
+    public MxResult handleValidException(MethodArgumentNotValidException e) {
         BindingResult bindingResult = e.getBindingResult();
         String message = null;
         if (bindingResult.hasErrors()) {
@@ -96,21 +96,21 @@ public class GlobalExceptionHandler {
                 message = fieldError.getField() + fieldError.getDefaultMessage();
             }
         }
-        return Result.create(Code.INVALID_PARAMETER.getCode()).msg(message);
+        return MxResult.create(Code.INVALID_PARAMETER.getCode()).msg(message);
     }
 
     @ResponseBody
     @ExceptionHandler(value = ConstraintViolationException.class)
-    public Result handleValidException(ConstraintViolationException e) {
+    public MxResult handleValidException(ConstraintViolationException e) {
         MxLog.warn("ConstraintViolationException:", e);
         Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
         String message = violations.stream().map(ConstraintViolation::getMessage).collect(Collectors.joining(";"));
-        return Result.create(Code.INVALID_PARAMETER.getCode()).msg(message);
+        return MxResult.create(Code.INVALID_PARAMETER.getCode()).msg(message);
     }
 
     @ResponseBody
     @ExceptionHandler(value = BindException.class)
-    public Result handleValidException(BindException e) {
+    public MxResult handleValidException(BindException e) {
         BindingResult bindingResult = e.getBindingResult();
         String message = null;
         if (bindingResult.hasErrors()) {
@@ -119,7 +119,7 @@ public class GlobalExceptionHandler {
                 message = fieldError.getField() + fieldError.getDefaultMessage();
             }
         }
-        return Result.create(Code.INVALID_PARAMETER.getCode()).msg(message);
+        return MxResult.create(Code.INVALID_PARAMETER.getCode()).msg(message);
     }
 
 

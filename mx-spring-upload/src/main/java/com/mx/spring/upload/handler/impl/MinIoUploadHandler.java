@@ -3,7 +3,7 @@ package com.mx.spring.upload.handler.impl;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.View;
+import com.mx.spring.dev.result.MxView;
 import com.mx.spring.upload.bean.Upload;
 import com.mx.spring.upload.config.MinIoUploadConfig;
 import com.mx.spring.upload.handler.IUploadHandler;
@@ -29,21 +29,21 @@ public class MinIoUploadHandler implements IUploadHandler {
 
 
     @Override
-    public View<Upload> handle(MultipartFile file) throws MxException {
+    public MxView<Upload> handle(MultipartFile file) throws MxException {
         if (StringUtils.isBlank(minIOUploadConfig.getUrl())) {
-            return View.fail(UPLOAD_MINIO_URL_ERROR.getCode(), UPLOAD_MINIO_URL_ERROR.getMsg());
+            return MxView.fail(UPLOAD_MINIO_URL_ERROR.getCode(), UPLOAD_MINIO_URL_ERROR.getMsg());
         }
         if (StringUtils.isBlank(minIOUploadConfig.getAccessKey())) {
-            return View.fail(UPLOAD_MINIO_ACCESS_KEY_ERROR.getCode(), UPLOAD_MINIO_ACCESS_KEY_ERROR.getMsg());
+            return MxView.fail(UPLOAD_MINIO_ACCESS_KEY_ERROR.getCode(), UPLOAD_MINIO_ACCESS_KEY_ERROR.getMsg());
         }
         if (StringUtils.isBlank(minIOUploadConfig.getSecretKey())) {
-            return View.fail(UPLOAD_MINIO_SECRET_KEY_ERROR.getCode(), UPLOAD_MINIO_SECRET_KEY_ERROR.getMsg());
+            return MxView.fail(UPLOAD_MINIO_SECRET_KEY_ERROR.getCode(), UPLOAD_MINIO_SECRET_KEY_ERROR.getMsg());
         }
         if (StringUtils.isBlank(minIOUploadConfig.getBucket())) {
-            return View.fail(UPLOAD_MINIO_BUCKET_ERROR.getCode(), UPLOAD_MINIO_BUCKET_ERROR.getMsg());
+            return MxView.fail(UPLOAD_MINIO_BUCKET_ERROR.getCode(), UPLOAD_MINIO_BUCKET_ERROR.getMsg());
         }
         Upload upload = uploadFile(file);
-        return View.ok(upload);
+        return MxView.ok(upload);
     }
 
     private Upload uploadFile(MultipartFile multipartFile) throws MxException {

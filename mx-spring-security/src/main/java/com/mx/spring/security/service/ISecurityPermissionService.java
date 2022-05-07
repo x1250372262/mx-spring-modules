@@ -1,7 +1,7 @@
 package com.mx.spring.security.service;
 
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.View;
+import com.mx.spring.dev.result.MxView;
 import com.mx.spring.security.base.vo.SecurityPermissionSelectVO;
 
 import java.util.List;
@@ -19,5 +19,5 @@ public interface ISecurityPermissionService {
      * @return
      * @throws MxException
      */
-    View<List<SecurityPermissionSelectVO>> list() throws MxException;
+    MxView<List<SecurityPermissionSelectVO>> list() throws MxException;
 }

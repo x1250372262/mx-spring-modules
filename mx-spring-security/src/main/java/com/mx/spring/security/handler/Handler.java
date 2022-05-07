@@ -2,8 +2,8 @@ package com.mx.spring.security.handler;
 
 import cn.hutool.core.util.ClassUtil;
 import cn.hutool.extra.spring.SpringUtil;
-import com.mx.spring.dev.result.Result;
-import com.mx.spring.dev.result.View;
+import com.mx.spring.dev.result.MxResult;
+import com.mx.spring.dev.result.MxView;
 import com.mx.spring.security.base.code.SecurityCode;
 import com.mx.spring.security.base.config.MxSecurityConfig;
 import org.springframework.context.annotation.Import;
@@ -18,12 +18,12 @@ public class Handler {
 
     public static MxSecurityConfig config = SpringUtil.getBean(MxSecurityConfig.class);
 
-    public static boolean check(Result result) {
+    public static boolean check(MxResult result) {
         return result != null && SecurityCode.SECURITY_CHECK_ERROR.getCode().equals(result.code());
     }
 
-    public static <T> View<T> toM(Result result) {
-        return View.fail(result.getCode(), result.getMsg());
+    public static <T> MxView<T> toM(MxResult result) {
+        return MxView.fail(result.getCode(), result.getMsg());
     }
 
     public static ILoginHandler loginHandler() {

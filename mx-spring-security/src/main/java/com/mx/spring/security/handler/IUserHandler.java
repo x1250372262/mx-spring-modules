@@ -1,7 +1,7 @@
 package com.mx.spring.security.handler;
 
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.Result;
+import com.mx.spring.dev.result.MxResult;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -20,7 +20,7 @@ public interface IUserHandler {
      * @return
      * @throws MxException
      */
-    Result createBefore(Map<String, String> params) throws MxException;
+    MxResult createBefore(Map<String, String> params) throws MxException;
 
     /**
      * 添加用户之后
@@ -29,19 +29,19 @@ public interface IUserHandler {
      * @return
      * @throws MxException
      */
-    Result createAfter(Map<String, String> params) throws MxException;
+    MxResult createAfter(Map<String, String> params) throws MxException;
 
     @Component
     class DefaultUserHandler implements IUserHandler {
 
 
         @Override
-        public Result createBefore(Map<String, String> params) throws MxException {
+        public MxResult createBefore(Map<String, String> params) throws MxException {
             return null;
         }
 
         @Override
-        public Result createAfter(Map<String, String> params) throws MxException {
+        public MxResult createAfter(Map<String, String> params) throws MxException {
             return null;
         }
     }

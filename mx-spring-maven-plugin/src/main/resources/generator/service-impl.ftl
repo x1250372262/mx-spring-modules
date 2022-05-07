@@ -54,7 +54,7 @@ public class ${modelName}ServiceImpl implements I${modelName}Service {
         </#list>
         Page<${modelName}> resultData = i${modelName}Mapper.selectPage(PageHelper.in(pageBean),queryWrapper);
 
-        return View.list(MpBeanUtils.copyPage(resultData,${modelName}ListVO::new));
+        return View.list(PageHelper.out(resultData,${modelName}ListVO::new));
         //如果是单表查询 可以用如下方法
         //return View.list(PageHelper.out(resultData,${modelName}::new));
     }

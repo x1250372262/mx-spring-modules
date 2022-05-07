@@ -6,6 +6,7 @@ import com.mx.spring.dev.support.page.PageBean;
 import com.mx.spring.dev.support.page.Pages;
 import com.mx.spring.jdbc.mybatis.plus.util.MpBeanUtils;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 /**
@@ -19,7 +20,9 @@ public class PageHelper {
         return new Page<>(pageBean.getPage(), pageBean.getPageSize());
     }
 
-    public static <T> Pages<T> out(Page<T> page, Supplier<T> target) throws MxException {
-        return MpBeanUtils.copyPage(page, target);
+
+    public static <S, T> Pages<T> out(Page<S> sources, Supplier<T> target) throws MxException {
+        return MpBeanUtils.copyPage(sources, target);
     }
+
 }

@@ -1,7 +1,7 @@
 package com.mx.spring.upload.service;
 
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.View;
+import com.mx.spring.dev.result.MxView;
 import com.mx.spring.upload.bean.Upload;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,6 +19,6 @@ public interface IUploadService {
      * @return
      * @throws MxException
      */
-    View<Upload> upload(MultipartFile file) throws MxException;
+    MxView<Upload> upload(MultipartFile file) throws MxException;
 
 }

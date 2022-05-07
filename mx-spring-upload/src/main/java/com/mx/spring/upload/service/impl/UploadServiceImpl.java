@@ -3,7 +3,7 @@ package com.mx.spring.upload.service.impl;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.mx.spring.dev.exception.MxException;
-import com.mx.spring.dev.result.View;
+import com.mx.spring.dev.result.MxView;
 import com.mx.spring.upload.bean.Upload;
 import com.mx.spring.upload.config.BaseUploadConfig;
 import com.mx.spring.upload.handler.IUploadHandler;
@@ -49,15 +49,15 @@ public class UploadServiceImpl implements IUploadService {
 
 
     @Override
-    public View<Upload> upload(MultipartFile file) throws MxException {
+    public MxView<Upload> upload(MultipartFile file) throws MxException {
 
         //检查文件类型是否合适
         if (!checkContentType(file.getContentType())) {
-            return View.fail(UPLOAD_CONTENT_TYPE_NOT_ALLOW.getCode(), UPLOAD_CONTENT_TYPE_NOT_ALLOW.getMsg());
+            return MxView.fail(UPLOAD_CONTENT_TYPE_NOT_ALLOW.getCode(), UPLOAD_CONTENT_TYPE_NOT_ALLOW.getMsg());
         }
         //大小不合适
         if (file.getSize() > uploadConfig.getMaxSize() * B) {
-            return View.fail(UPLOAD_SIZE_ERROR.getCode(), StrUtil.format(UPLOAD_SIZE_ERROR.getMsg(), uploadConfig.getMaxSize()));
+            return MxView.fail(UPLOAD_SIZE_ERROR.getCode(), StrUtil.format(UPLOAD_SIZE_ERROR.getMsg(), uploadConfig.getMaxSize()));
         }
 
         Class<? extends IUploadHandler> handlerClass = uploadConfig.getHandlerClass();
