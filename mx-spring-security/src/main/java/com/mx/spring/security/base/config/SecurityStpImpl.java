@@ -2,7 +2,6 @@ package com.mx.spring.security.base.config;
 
 import cn.dev33.satoken.stp.StpInterface;
 import cn.dev33.satoken.stp.StpUtil;
-import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONArray;
@@ -11,6 +10,7 @@ import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.redis.api.IRedisApi;
 import com.mx.spring.security.SaUtil;
 import com.mx.spring.security.service.ISecurityUserRoleService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -42,8 +42,9 @@ public class SecurityStpImpl implements StpInterface {
         List<String> permissionList = new ArrayList<>();
         try {
             String permissionKey = StrUtil.format(PERMISSION_LIST, mxSecurityConfig.getClient(), saUtils.getToken(), StpUtil.getLoginType(), saUtils.loginId());
-            JSONArray redisPermissionList = JSONObject.parseArray(Convert.toStr(iRedisApi.strGet(permissionKey)));
-            if (CollUtil.isNotEmpty(redisPermissionList)) {
+            String permissionStr = Convert.toStr(iRedisApi.strGet(permissionKey));
+            if (StringUtils.isNotBlank(permissionStr)) {
+                JSONArray redisPermissionList = JSONObject.parseArray(permissionStr);
                 for (Object redisRole : redisPermissionList) {
                     permissionList.add(Convert.toStr(redisRole));
                 }

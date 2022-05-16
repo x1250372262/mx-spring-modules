@@ -17,6 +17,11 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.mx.modules</groupId>
+            <artifactId>mx-spring-dev</artifactId>
+            <version>1.0.0</version>
+        </dependency>
         <!-- 引入jdbc-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

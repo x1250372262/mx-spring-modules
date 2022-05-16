@@ -13,7 +13,10 @@ public class JdbcTypeUtils {
          * jdbc类型
          */
         LONGVARCHAR("TEXT"),
+        LONGVARCHAR1("MEDIUMTEXT"),
         SMALLINT("SMALLINT UNSIGNED"),
+        BIGINT("BIGINT UNSIGNED"),
+        INTEGER1("INTEGER UNSIGNED"),
         INTEGER("INT");
 
         private final String value;
@@ -26,8 +29,14 @@ public class JdbcTypeUtils {
             switch (value) {
                 case "TEXT":
                     return LONGVARCHAR;
+                case "MEDIUMTEXT":
+                    return LONGVARCHAR;
                 case "SMALLINT UNSIGNED":
                     return SMALLINT;
+                case "BIGINT UNSIGNED":
+                    return BIGINT;
+                case "INTEGER UNSIGNED":
+                    return INTEGER;
                 case "INT":
                     return INTEGER;
                 default:

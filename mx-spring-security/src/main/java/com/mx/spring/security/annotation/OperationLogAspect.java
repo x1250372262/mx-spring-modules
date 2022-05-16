@@ -58,7 +58,9 @@ public class OperationLogAspect {
      */
     @AfterReturning(value = "operationLog()", returning = "ret")
     public void doAfter(JoinPoint joinPoint, Object ret) {
-        handlerLog(joinPoint, ret, null);
+        if(config.isOpenLog()){
+            handlerLog(joinPoint, ret, null);
+        }
     }
 
     /**
@@ -66,7 +68,9 @@ public class OperationLogAspect {
      */
     @AfterThrowing(value = "operationLog()", throwing = "e")
     public void doAfterThrowable(JoinPoint joinPoint, Throwable e) {
-        handlerLog(joinPoint, null, e);
+        if(config.isOpenLog()){
+            handlerLog(joinPoint, null, e);
+        }
     }
 
     private void handlerLog(JoinPoint joinPoint, Object ret, Throwable e) {

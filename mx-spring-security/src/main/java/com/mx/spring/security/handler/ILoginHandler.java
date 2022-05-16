@@ -1,5 +1,6 @@
 package com.mx.spring.security.handler;
 
+import cn.dev33.satoken.stp.SaTokenInfo;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.dev.result.MxResult;
 import com.mx.spring.security.base.model.SecurityUser;
@@ -43,6 +44,17 @@ public interface ILoginHandler {
      */
     MxResult loginFail(Map<String, String> params, SecurityUser securityUser) throws MxException;
 
+
+    /**
+     * 登录完成事件
+     * @param params
+     * @param securityUser
+     * @param saTokenInfo
+     * @return
+     * @throws MxException
+     */
+    void loginComplete(Map<String, String> params, SecurityUser securityUser, SaTokenInfo saTokenInfo) throws MxException;
+
     /**
      * 退出之前
      *
@@ -78,6 +90,10 @@ public interface ILoginHandler {
         @Override
         public MxResult loginFail(Map<String, String> params, SecurityUser securityUser) throws MxException {
             return null;
+        }
+
+        @Override
+        public void loginComplete(Map<String, String> params, SecurityUser securityUser, SaTokenInfo saTokenInfo) throws MxException {
         }
 
         @Override

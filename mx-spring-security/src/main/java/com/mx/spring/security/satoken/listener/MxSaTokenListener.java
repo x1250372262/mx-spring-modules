@@ -9,6 +9,7 @@ import cn.hutool.http.useragent.UserAgentUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.dev.util.WebUtil;
+import com.mx.spring.security.base.config.MxSecurityConfig;
 import com.mx.spring.security.base.enums.OperationType;
 import com.mx.spring.security.base.model.SecurityOperationLog;
 import com.mx.spring.security.controller.SecurityLoginController;
@@ -30,6 +31,8 @@ public class MxSaTokenListener implements SaTokenListener {
 
     @Autowired
     private ApplicationContext applicationContext;
+    @Autowired
+    private MxSecurityConfig config;
 
     private SecurityOperationLog createOperationLog(String title, JSONObject jsonObject, String methodName, String loginId) throws MxException {
         HttpServletRequest request = WebUtil.request();
@@ -39,6 +42,7 @@ public class MxSaTokenListener implements SaTokenListener {
         return SecurityOperationLog.builder()
                 .id(IdUtil.fastSimpleUUID())
                 .title(title)
+                .client(config.getClient())
                 .type(OperationType.LOGIN.name())
                 .typeName(OperationType.LOGIN.value())
                 .userId(loginId)
@@ -62,29 +66,33 @@ public class MxSaTokenListener implements SaTokenListener {
 
     @Override
     public void doLogin(String loginType, Object loginId, SaLoginModel loginModel) {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("code", "0");
-        jsonObject.put("msg", "登录成功");
-        try {
-            SecurityOperationLog securityOperationLog = createOperationLog("管理员登录", jsonObject, "login", Convert.toStr(loginId));
-            // 保存数据库
-            applicationContext.publishEvent(new OperationLogEvent(securityOperationLog));
-        } catch (MxException e) {
-            e.printStackTrace();
+        if(config.isOpenLog()){
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("code", "0");
+            jsonObject.put("msg", "登录成功");
+            try {
+                SecurityOperationLog securityOperationLog = createOperationLog("管理员登录", jsonObject, "login", Convert.toStr(loginId));
+                // 保存数据库
+                applicationContext.publishEvent(new OperationLogEvent(securityOperationLog));
+            } catch (MxException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     @Override
     public void doLogout(String loginType, Object loginId, String tokenValue) {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("code", "0");
-        jsonObject.put("msg", "退出成功");
-        try {
-            SecurityOperationLog securityOperationLog = createOperationLog("管理员退出", jsonObject, "logout", Convert.toStr(loginId));
-            // 保存数据库
-            applicationContext.publishEvent(new OperationLogEvent(securityOperationLog));
-        } catch (MxException e) {
-            e.printStackTrace();
+        if(config.isOpenLog()){
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("code", "0");
+            jsonObject.put("msg", "退出成功");
+            try {
+                SecurityOperationLog securityOperationLog = createOperationLog("管理员退出", jsonObject, "logout", Convert.toStr(loginId));
+                // 保存数据库
+                applicationContext.publishEvent(new OperationLogEvent(securityOperationLog));
+            } catch (MxException e) {
+                e.printStackTrace();
+            }
         }
     }
 

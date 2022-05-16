@@ -2,7 +2,6 @@ package com.mx.spring.security.service.impl;
 
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
-import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.servlet.ServletUtil;
@@ -27,6 +26,7 @@ import com.mx.spring.security.handler.ILoginHandler;
 import com.mx.spring.security.mapper.ISecurityUserMapper;
 import com.mx.spring.security.service.ISecurityLoginService;
 import com.mx.spring.security.service.ISecurityUserRoleService;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
@@ -68,10 +68,15 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
         Map<String, String> params = ServletUtil.getParamMap(WebUtil.request());
         ILoginHandler loginHandler = Handler.loginHandler();
         MxResult r = loginHandler.loginBefore(params);
-        if (Handler.check(r)) {
+        if (Handler.error(r)) {
             return Handler.toM(r);
         }
-        SecurityUser securityUser = iSecurityUserMapper.selectOne(Mp.lqw(bean).eq(SecurityUser::getUserName, userName).eq(SecurityUser::getClient, config.getClient()));
+        SecurityUser securityUser = r.attr("securityUser");
+        if(securityUser == null){
+            securityUser = iSecurityUserMapper.selectOne(Mp.lqw(bean)
+                    .eq(SecurityUser::getUserName, userName)
+                    .eq(SecurityUser::getClient, config.getClient()));
+        }
         if (securityUser == null) {
             return MxView.fail(SECURITY_LOGIN_USER_NAME_NOT_EXIST.getCode(), SECURITY_LOGIN_USER_NAME_NOT_EXIST.getMsg());
         }
@@ -92,7 +97,7 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
         password = DigestUtils.md5DigestAsHex(Base64.encodeBase64((password + securityUser.getSalt()).getBytes(StandardCharsets.UTF_8)));
         if (!password.equals(securityUser.getPassword())) {
             r = loginHandler.loginFail(params, securityUser);
-            if (Handler.check(r)) {
+            if (Handler.error(r)) {
                 return Handler.toM(r);
             }
             //次数+1 到数之后直接冻结
@@ -105,19 +110,18 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
             }
             iSecurityUserMapper.updateById(securityUser);
             return MxView.fail(SECURITY_LOGIN_USER_NAME_OR_PASSWORD_ERROR.getCode(), SECURITY_LOGIN_USER_NAME_OR_PASSWORD_ERROR.getMsg());
-        } else {
-            r = loginHandler.loginSuccess(params, securityUser);
-            if (Handler.check(r)) {
-                return Handler.toM(r);
-            }
-
-            //重置时间和次数
-            securityUser.setLoginLockStatus(Constants.BOOL_FALSE);
-            securityUser.setLoginErrorCount(0);
-            securityUser.setLoginLockStartTime(0L);
-            securityUser.setLoginLockEndTime(0L);
-            iSecurityUserMapper.updateById(securityUser);
         }
+        r = loginHandler.loginSuccess(params, securityUser);
+        if (Handler.error(r)) {
+            return Handler.toM(r);
+        }
+
+        //重置时间和次数
+        securityUser.setLoginLockStatus(Constants.BOOL_FALSE);
+        securityUser.setLoginErrorCount(0);
+        securityUser.setLoginLockStartTime(0L);
+        securityUser.setLoginLockEndTime(0L);
+        iSecurityUserMapper.updateById(securityUser);
         StpUtil.login(securityUser.getId());
         SaTokenInfo saTokenInfo = StpUtil.getTokenInfo();
 
@@ -127,6 +131,9 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
         if (r != null) {
             loginResult.setAttrs(r.attrs());
         }
+
+        //登录完成的事件  不处理成功失败
+        loginHandler.loginComplete(params, securityUser, saTokenInfo);
         return MxView.ok(loginResult);
     }
 
@@ -135,12 +142,12 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
         Map<String, String> params = ServletUtil.getParamMap(WebUtil.request());
         ILoginHandler loginHandler = Handler.loginHandler();
         MxResult r = loginHandler.logoutBefore(params);
-        if (Handler.check(r)) {
+        if (Handler.error(r)) {
             return r;
         }
         StpUtil.logout();
         r = loginHandler.logoutAfter(params);
-        if (Handler.check(r)) {
+        if (Handler.error(r)) {
             return r;
         }
         return MxResult.ok();
@@ -154,8 +161,8 @@ public class SecurityLoginServiceImpl implements ISecurityLoginService {
         //设置权限到redis
         //先删除redis的数据
         String permissionKey = StrUtil.format(PERMISSION_LIST, securityUser.getClient(), saUtils.getToken(), StpUtil.getLoginType(), securityUser.getId());
-        List<Object> redisPermissionList = JSONObject.parseArray(Convert.toStr(iRedisApi.strGet(permissionKey)));
-        if (CollUtil.isNotEmpty(redisPermissionList)) {
+        String permissionStr = Convert.toStr(iRedisApi.strGet(permissionKey));
+        if (StringUtils.isNotBlank(permissionStr)) {
             iRedisApi.delete(permissionKey);
         }
         List<String> permissionList = iSecurityUserRoleService.securityUserPermissionList(securityUser.getId(), saTokenInfo.getTokenValue());

@@ -123,7 +123,7 @@ public class MxResult implements Serializable {
     }
 
     public static MxResult sameData(String msg) {
-        return MxResult.create(Code.FIELDS_EXISTS.getCode()).msg(String.format(Code.FIELDS_EXISTS.getMsg(), msg));
+        return MxResult.create(Code.FIELDS_EXISTS.getCode()).msg(StrUtil.format(Code.FIELDS_EXISTS.getMsg(), msg));
     }
 
     public static MxResult noVersion() {
@@ -132,6 +132,10 @@ public class MxResult implements Serializable {
 
     public static MxResult noData() {
         return MxResult.create(Code.NO_DATA.getCode()).msg(Code.NO_DATA.getMsg());
+    }
+
+    public static MxResult noLogin() {
+        return MxResult.create(Code.NOT_LOGIN.getCode()).msg(Code.NOT_LOGIN.getMsg());
     }
 
     public static boolean checkVersion(Object var1, Object var2) {

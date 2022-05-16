@@ -11,7 +11,7 @@
  Target Server Version : 80028
  File Encoding         : 65001
 
- Date: 29/04/2022 09:11:12
+ Date: 12/05/2022 12:58:09
 */
 
 SET NAMES utf8mb4;
@@ -41,6 +41,7 @@ CREATE TABLE `mx_security_menu` (
 DROP TABLE IF EXISTS `mx_security_menu_role`;
 CREATE TABLE `mx_security_menu_role` (
   `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'id',
+  `client` varchar(100) COLLATE utf8mb4_general_ci NOT NULL COMMENT '客户端',
   `menu_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '菜单id',
   `role_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '角色id',
   `create_user` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
@@ -56,6 +57,7 @@ CREATE TABLE `mx_security_menu_role` (
 DROP TABLE IF EXISTS `mx_security_operation_log`;
 CREATE TABLE `mx_security_operation_log` (
   `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'id',
+  `client` varchar(100) COLLATE utf8mb4_general_ci NOT NULL COMMENT '客户端',
   `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '标题',
   `type` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '类型具体看配置',
   `type_name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '类型名称',
@@ -115,6 +117,7 @@ CREATE TABLE `mx_security_role` (
 DROP TABLE IF EXISTS `mx_security_role_permission`;
 CREATE TABLE `mx_security_role_permission` (
   `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'id',
+  `client` varchar(100) COLLATE utf8mb4_general_ci NOT NULL COMMENT '客户端',
   `role_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '角色id',
   `permisson_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '权限id',
   `create_time` bigint NOT NULL DEFAULT '0' COMMENT '创建时间',
@@ -159,6 +162,7 @@ CREATE TABLE `mx_security_user` (
 DROP TABLE IF EXISTS `mx_security_user_role`;
 CREATE TABLE `mx_security_user_role` (
   `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'id',
+  `client` varchar(100) COLLATE utf8mb4_general_ci NOT NULL COMMENT '客户端',
   `user_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '管理员id',
   `role_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '角色id',
   `create_user` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',

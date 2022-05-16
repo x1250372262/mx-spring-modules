@@ -18,7 +18,7 @@ public class Handler {
 
     public static MxSecurityConfig config = SpringUtil.getBean(MxSecurityConfig.class);
 
-    public static boolean check(MxResult result) {
+    public static boolean error(MxResult result) {
         return result != null && SecurityCode.SECURITY_CHECK_ERROR.getCode().equals(result.code());
     }
 

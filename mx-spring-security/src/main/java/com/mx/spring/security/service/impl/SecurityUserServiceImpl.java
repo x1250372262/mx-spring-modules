@@ -74,7 +74,7 @@ public class SecurityUserServiceImpl implements ISecurityUserService {
         Map<String, String> params = ServletUtil.getParamMap(WebUtil.request());
         IUserHandler userHandler = Handler.userHandler();
         MxResult r = userHandler.createBefore(params);
-        if (Handler.check(r)) {
+        if (Handler.error(r)) {
             return r;
         }
         SecurityUser securityUser = iSecurityUserMapper.selectOne(Mp.lqw(bean).eq(SecurityUser::getUserName, userBean.getUserName()).eq(SecurityUser::getClient, config.getClient()));
@@ -88,7 +88,7 @@ public class SecurityUserServiceImpl implements ISecurityUserService {
             t.bind().id(IdUtil.fastSimpleUUID()).client(config.getClient()).password(finalPassword).createUser(saUtils.loginId()).createTime(System.currentTimeMillis()).lastModifyTime(System.currentTimeMillis()).lastModifyUser(saUtils.loginId()).salt(salt).build();
         });
         r = userHandler.createAfter(params);
-        if (Handler.check(r)) {
+        if (Handler.error(r)) {
             return r;
         }
         return MxResult.result(iSecurityUserMapper.insert(securityUser));
