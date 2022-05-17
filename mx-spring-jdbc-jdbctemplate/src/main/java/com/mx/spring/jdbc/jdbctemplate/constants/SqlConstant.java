@@ -1,7 +1,7 @@
 package com.mx.spring.jdbc.jdbctemplate.constants;
 
 /**
- * @Author: 徐建鹏.
+ * @Author: mengxiang.
  * @create: 2022-05-07 14:55
  * @Description:
  */

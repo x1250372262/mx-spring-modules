@@ -3,7 +3,7 @@ package com.mx.spring.jdbc.jdbctemplate.bean;
 import java.util.List;
 
 /**
- * @Author: 徐建鹏.
+ * @Author: mengxiang.
  * @create: 2022-05-09 14:40
  * @Description:
  */

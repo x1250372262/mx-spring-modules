@@ -1,0 +1,21 @@
+#mx:
+#  #文件上传配置
+#  sms:
+#    #SecretID
+#    secret-id:
+#    #SecretKey
+#    secret-key:
+#    #地域
+#    region:
+#    #短信应用ID
+#    app-id:
+#    #模板id
+#    template-id:
+#    #短信签名内容
+#    sign-text:
+#    #短信发送处理类
+#    handler-class:
+#    #短信发送提供者
+#    provider-class:
+#
+#

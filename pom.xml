@@ -18,6 +18,7 @@
         <module>mx-spring-jdbc-clickhouse</module>
         <module>mx-spring-netty</module>
         <module>mx-spring-jdbc-jdbctemplate</module>
+        <module>mx-spring-sms</module>
     </modules>
 
 
@@ -39,6 +40,7 @@
         <clickhouse-jdbc.version>0.3.2</clickhouse-jdbc.version>
         <druid-spring-boot-starter.version>1.2.9</druid-spring-boot-starter.version>
         <netty-all.version>4.1.76.Final</netty-all.version>
+        <tencentcloud-sdk-java>3.1.507</tencentcloud-sdk-java>
 
     </properties>
 
@@ -153,6 +155,12 @@
                 <groupId>io.netty</groupId>
                 <artifactId>netty-all</artifactId>
                 <version>${netty-all.version}</version>
+            </dependency>
+            <!--腾讯云短信-->
+            <dependency>
+                <groupId>com.tencentcloudapi</groupId>
+                <artifactId>tencentcloud-sdk-java</artifactId>
+                <version>${tencentcloud-sdk-java}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
