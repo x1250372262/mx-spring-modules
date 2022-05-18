@@ -1,0 +1,57 @@
+
+<!--    <properties>-->
+<!--        <final.name>mx-huanzhai</final.name>-->
+<!--        <main.class>com.mx.hz.Application</main.class>-->
+<!--    </properties>-->
+
+
+<!--    <build>-->
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-jar-plugin</artifactId>-->
+<!--                <version>3.2.0</version>-->
+<!--                <configuration>-->
+<!--                    <excludes>-->
+<!--                        <exclude>*.yaml</exclude>-->
+<!--                        <exclude>*.properties</exclude>-->
+<!--                        <exclude>*.txt</exclude>-->
+<!--                        <exclude>*.json</exclude>-->
+<!--                        <exclude>*.sh</exclude>-->
+<!--                    </excludes>-->
+<!--                    <archive>-->
+<!--                        <manifest>-->
+<!--                            <mainClass>${main.class}</mainClass>-->
+<!--                            <addClasspath>true</addClasspath>-->
+<!--                            <classpathPrefix>lib/</classpathPrefix>-->
+<!--                        </manifest>-->
+<!--                        <manifestEntries>-->
+<!--                            <Class-Path>conf/</Class-Path>-->
+<!--                        </manifestEntries>-->
+<!--                    </archive>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+<!--            <plugin>-->
+<!--                <artifactId>maven-assembly-plugin</artifactId>-->
+<!--                <version>3.2.0</version>-->
+<!--                <configuration>-->
+<!--                    <filters>-->
+<!--                        <filter>${assembly.filter.properties}</filter>-->
+<!--                    </filters>-->
+<!--                    <descriptors>-->
+<!--                        <descriptor>assembly/everything.xml</descriptor>-->
+<!--                    </descriptors>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>make-assembly</id> &lt;!&ndash; this is used for inheritance merges &ndash;&gt;-->
+<!--                        <phase>package</phase> &lt;!&ndash; bind to the packaging phase &ndash;&gt;-->
+<!--                        <goals>-->
+<!--                            <goal>single</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </build>-->
+<!--</project>-->
