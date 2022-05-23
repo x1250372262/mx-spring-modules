@@ -1,6 +1,6 @@
 package com.mx.spring.security.base.config;
 
-import cn.dev33.satoken.interceptor.SaAnnotationInterceptor;
+import com.mx.spring.security.interceptor.MxSaRouteInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -28,8 +28,9 @@ public class MxSecurityWebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 注册注解拦截器，并排除不需要注解鉴权的接口地址
-        registry.addInterceptor(new SaAnnotationInterceptor())
+        registry.addInterceptor(new MxSaRouteInterceptor())
                 .addPathPatterns("/**")
+                .excludePathPatterns("/mx/security/**")
                 .excludePathPatterns("/doc.html")
                 .excludePathPatterns("/webjars/**");
     }

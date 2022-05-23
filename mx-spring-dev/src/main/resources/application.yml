@@ -12,3 +12,9 @@
 #    org.springframework.web: WARN
 #    druid.sql: ERROR
 #    client.handler: ERROR
+#
+##解决swagger和spring2.6冲突问题
+#spring:
+#  mvc:
+#    pathmatch:
+#      matching-strategy: ant_path_matcher
