@@ -2,6 +2,8 @@ package com.mx.spring.dev.result;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.mx.spring.dev.code.Code;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -159,6 +161,10 @@ public class MxResult implements Serializable {
     public MxResult msg(String msg) {
         this.msg = msg;
         return this;
+    }
+
+    public String toJson(){
+        return JSONObject.toJSONString(this, SerializerFeature.PrettyFormat);
     }
 
     public Map<String, Object> attrs() {

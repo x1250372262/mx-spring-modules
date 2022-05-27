@@ -19,6 +19,7 @@
         <module>mx-spring-netty</module>
         <module>mx-spring-jdbc-jdbctemplate</module>
         <module>mx-spring-sms</module>
+        <module>mx-spring-redisson</module>
     </modules>
 
 

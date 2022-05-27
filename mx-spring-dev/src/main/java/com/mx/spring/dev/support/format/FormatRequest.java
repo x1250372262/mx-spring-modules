@@ -8,7 +8,7 @@ import java.lang.annotation.*;
  * @Description: 格式化request请求
  */
 @Documented
-@Target({ElementType.METHOD})
+@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface FormatRequest {
 

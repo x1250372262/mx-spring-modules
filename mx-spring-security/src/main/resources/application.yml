@@ -13,6 +13,8 @@
 #    error-count:
 #    #是否开启日志记录 默认false
 #    open_log: false
+#    # 登录拦截排除的路径用|分割
+#    exclude_path_patterns:
 #
 #sa-token:
 #  # token名称 (同时也是cookie名称)

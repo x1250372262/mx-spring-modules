@@ -48,6 +48,11 @@ public class MxSecurityConfig {
      */
     private Boolean openLog;
 
+    /**
+     * 登录拦截排除的路径用|分割
+     */
+    private String excludePathPatterns;
+
 
     public String getClient() {
         return StringUtils.defaultIfBlank(client, "default");
@@ -95,5 +100,13 @@ public class MxSecurityConfig {
 
     public void setOpenLog(Boolean openLog) {
         this.openLog = openLog;
+    }
+
+    public String getExcludePathPatterns() {
+        return excludePathPatterns;
+    }
+
+    public void setExcludePathPatterns(String excludePathPatterns) {
+        this.excludePathPatterns = excludePathPatterns;
     }
 }

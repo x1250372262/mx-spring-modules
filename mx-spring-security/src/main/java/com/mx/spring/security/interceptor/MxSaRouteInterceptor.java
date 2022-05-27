@@ -6,6 +6,7 @@ import cn.dev33.satoken.router.SaRouteFunction;
 import cn.dev33.satoken.servlet.model.SaRequestForServlet;
 import cn.dev33.satoken.servlet.model.SaResponseForServlet;
 import cn.dev33.satoken.stp.StpUtil;
+import com.mx.spring.dev.result.MxResult;
 import com.mx.spring.security.annotation.NoLogin;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -54,15 +55,15 @@ public class MxSaRouteInterceptor implements HandlerInterceptor {
 		} catch (StopMatchException e) {
 			// 停止匹配，进入Controller 
 		} catch (BackResultException e) {
-			// 停止匹配，向前端输出结果 
+			// 停止匹配，向前端输出结果
 			if(response.getContentType() == null) {
 				response.setContentType("text/plain; charset=utf-8"); 
 			}
-			response.getWriter().print(e.getMessage());
+			MxResult mxResult = MxResult.fail().msg(e.getMessage());
+			response.getWriter().print(mxResult.toJson());
 			return false;
 		}
-		
-		// 通过验证 
+		// 通过验证
 		return true;
 	}
 
