@@ -43,3 +43,26 @@ mybatis-plus:
 ```
 配置参考mx-spring-jdbc-clickhouse项目
 
+
+## 拼接条件
+### 单独参数
+```java
+        QueryWrapper<Templates> queryWrapper = Query.create(Templates.init())
+                .likeEx(Templates.Fields.NAME, name)
+                .warpper();
+```
+
+### 类参数
+```java
+      QueryWrapper<Templates> queryWrapper = Query.create(Templates.init())
+        .cond(templateDTO)
+        .condWarpper();
+
+```
+
+### 实体类参数
+```java
+      QueryWrapper<Templates> queryWrapper = Query.create(entity)
+        .beanWarpper();
+
+```
