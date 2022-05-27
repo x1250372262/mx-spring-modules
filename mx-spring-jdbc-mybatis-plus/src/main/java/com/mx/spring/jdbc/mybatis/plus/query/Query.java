@@ -151,6 +151,8 @@ public class Query<T> {
 
     private final T entity;
 
+    private Object condObj;
+
     private final List<Param> paramList;
 
     private Query(T entity) {
@@ -158,17 +160,22 @@ public class Query<T> {
         this.entity = entity;
     }
 
+  public Query<T> cond(Object condObj){
+        this.condObj = condObj;
+        return this;
+  }
+
     public static <T> Query<T> create(T entity) {
-        return new Query<>(entity);
+        return new Query<T>(entity);
     }
 
     private boolean checkNotEmpty(Object val) {
         boolean flag = true;
-        if(Objects.isNull(val)){
+        if (Objects.isNull(val)) {
             flag = false;
         } else if (val instanceof String) {
             flag = StringUtils.isNotBlank((String) val);
-        }else if (val.getClass().isArray()) {
+        } else if (val.getClass().isArray()) {
             flag = ((Object[]) val).length > 0;
         }
         return flag;
@@ -301,9 +308,15 @@ public class Query<T> {
         return queryWrapper;
     }
 
+    public QueryWrapper<T> condWarpper() {
+        QueryWrapper<T> queryWrapper = Mp.qw(entity);
+        Warpper.createCond(queryWrapper, condObj);
+        return queryWrapper;
+    }
+
     public QueryWrapper<T> beanWarpper() {
         QueryWrapper<T> queryWrapper = Mp.qw(entity);
-        Warpper.create(queryWrapper, entity);
+        Warpper.createBean(queryWrapper, entity);
         return queryWrapper;
     }
 }

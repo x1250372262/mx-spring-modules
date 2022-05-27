@@ -4,10 +4,12 @@ import cn.hutool.core.util.ClassUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mx.spring.dev.exception.MxException;
 import com.mx.spring.jdbc.mybatis.plus.query.annotation.Cond;
+import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @Author: mengxiang.
@@ -26,7 +28,41 @@ public class Warpper {
         return val;
     }
 
-    public static <T> void create(QueryWrapper<T> queryWrapper, T entity) {
+    private static boolean checkNotEmpty(Object val) {
+        boolean flag = true;
+        if (Objects.isNull(val)) {
+            flag = false;
+        } else if (val instanceof String) {
+            flag = StringUtils.isNotBlank((String) val);
+        } else if (val.getClass().isArray()) {
+            flag = ((Object[]) val).length > 0;
+        }
+        return flag;
+    }
+
+    public static <T> void createCond(QueryWrapper<T> queryWrapper, Object condObj) {
+        Class<?> clazz = condObj.getClass();
+        Field[] fields = ClassUtil.getDeclaredFields(clazz);
+        List<Query.Param> paramList = new ArrayList<>();
+        for (Field field : fields) {
+            Cond cond = field.getAnnotation(Cond.class);
+            if (cond == null) {
+                continue;
+            }
+            field.setAccessible(true);
+            Object val = getVal(field, condObj);
+            Query.Param param = new Query.Param(cond.field(), val, cond.opt());
+            if(cond.notEmpty()){
+                param.setNotEmpty(true);
+            }else{
+                param.setNotEmpty(checkNotEmpty(val));
+            }
+            paramList.add(param);
+        }
+        create(queryWrapper, paramList);
+    }
+
+    public static <T> void createBean(QueryWrapper<T> queryWrapper, T entity) {
         Class<?> clazz = entity.getClass();
         Field[] fields = ClassUtil.getDeclaredFields(clazz);
         List<Query.Param> paramList = new ArrayList<>();
